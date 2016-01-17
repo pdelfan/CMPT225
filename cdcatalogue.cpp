@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <iterator>
+#include <array>
 
 #include "cdcatalogue.h"
 
@@ -13,7 +13,11 @@ void CDCatalogue::CopyArray(const CDCatalogue& cat) {
     maxsize = cat.maxsize;
     cds = new CD [cat.maxsize];
 
-    copy(cat.cds, cat.cds + numcds, cds);
+    //copy(cat.cds, cat.cds + numcds, cds);
+
+    for (int i = 0; i < numcds; i++) {
+        cds[i] = cat.cds[i];
+    }
 
 
 }
@@ -54,6 +58,7 @@ CDCatalogue::~CDCatalogue() {
 //          "insertion" will mean updating all fields of the CD at the appropriate index
 
 bool CDCatalogue::Insert(CD disk) {
+    //Checks if either the input of artist or album does not contain the empty stirng and returns true
     if (!disk.Update(disk.GetArtist(), disk.GetAlbum())) {
         return false;
     }
@@ -70,9 +75,7 @@ bool CDCatalogue::Insert(CD disk) {
         delete[] old_cds;
         cds[numcds++] = disk;
         return true;
-    } else if (std::find (&cds[0], &cds[maxsize-1], disk) != &cds[maxsize-1] ) {
-        return false;
-    } else if (std::find (&cds[0], &cds[maxsize-1], disk) == &cds[maxsize-1] ) {
+    } else if (find (&cds[0], &cds[maxsize-1], disk) == &cds[maxsize-1] ) {
         cds[numcds++] = disk;
         return true;
     } else {
@@ -95,7 +98,7 @@ bool CDCatalogue::Remove(CD disk) {
 
     for (int i = 0; i < numcds; i++) {
         if (cds[i] == disk) {
-            remove(cds, cds + numcds, disk);
+            remove(&cds[0], &cds[numcds-1], disk);
             numcds--;
             return true;
         }
@@ -132,104 +135,32 @@ bool CDCatalogue::Boycott(string dontlikeanymore) {
         return false;
     }
 
-    /*
-    int counter = 0;
+    int *boycotted_cds = new int[numcds];
+    int boycotted = 0, m = 0;
 
+    //Search through the cds array, if there is a boycotted cd, save its cd index in the original array to boycotted_cds array
     for (int i = 0; i < numcds; i++) {
         if (cds[i].GetArtist() == dontlikeanymore) {
-            cds[i].GetArtist() = cds[0].GetArtist();
-            counter++;
+            boycotted_cds[boycotted++] = i;
         }
     }
 
-    CD* arr[numcds];
-
+    //Search through the cds array again, if the cd index is not a boycotted index, shift the cds array with the cd index.
     for (int k = 0; k < numcds; k++) {
-        arr[k] = &cds[k];
+        if (find(&boycotted_cds[0], &boycotted_cds[numcds-1], k) == &boycotted_cds[numcds-1]) {
+            cds[m++] = cds[k];
+        } 
     }
 
-    sort(arr, arr + numcds);
+    delete[] boycotted_cds;
 
-    for (int j = 0; j < numcds; j++) {
-        cout << *arr[j] << endl;
-    }
-    */
-
-    /*
-
-    CD* boycotted = cds;
-    cds = new CD[maxsize];
-
-    int k = 0, counter = 0;
-    int holder = numcds;
-    bool flag = false;
-
-    // Iterate throught the boycotted array;
-    for (int i = 0; i < holder-counter; i++) {
-        //If a boycotted cd is found;
-        if (boycotted[i].GetArtist() == dontlikeanymore) {
-            // Start where the boycotted cd is found and move it to the non-boycotted pile.
-            // Then shift everything down in the boycotted pile.
-            for (int j = i; j < holder-counter; j++) {
-
-                if (!flag) {
-                    if (j == holder-counter) {
-                        counter++;
-                    } else {
-                        cds[k] = boycotted[j-1];
-                        k++;
-                        counter++;
-                        flag = true;
-                    }
-                } 
-
-                if (j == holder-counter) {
-                    boycotted[j] = boycotted[j];
-                } else {
-                    boycotted[j] = boycotted[j+1]; 
-                }
-            }
-            flag = false;
-        }
-
-    }
-
-    cout << "The number of cds removed is: " << counter << endl;
-     */
-
-    //not working
-    int i = 0;
-    int counter = 0;
-    int temp = 0;
-    while (i < numcds-counter) {
-        if (cds[i].GetArtist() == dontlikeanymore) {
-            int j = i;
-            while (cds[j].GetArtist() == dontlikeanymore) {
-                j++;
-                temp++;
-                counter += temp;
-            }
-            j = i;
-            for (;j < numcds-counter; j++) {
-                if (j == numcds-counter) {
-                    cds[j] = cds[j+1];
-                } else {
-                    cds[j] = cds[j+temp];
-                }
-            }
-
-        }
-        temp = 0;
-        i++;
-    }
-
-    if (counter != 0) {
-        numcds -= counter;
+    if (boycotted != 0) {
+        numcds -= boycotted;
         return true;
     } else {
-        return false;
+        return false; 
     }
-    //return false;
+
 }
 
 // Returns the number of CDs in the catalogue
