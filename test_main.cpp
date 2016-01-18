@@ -21,7 +21,7 @@ void insert_find_album() {
 
 	//find index of an album (this case is at index 0)
 	cout << catalogue1.Find(CD("Linkin Park", "Numb")) << endl;
-
+	
 }
 
 
