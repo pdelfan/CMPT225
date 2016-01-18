@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-#include <array>
 
 #include "cdcatalogue.h"
 
@@ -73,7 +72,9 @@ bool CDCatalogue::Insert(CD disk) {
         }
 
         delete[] old_cds;
-        cds[numcds++] = disk;
+        if (find (&cds[0], &cds[maxsize-1], disk) == &cds[maxsize-1]) {
+            cds[numcds++] = disk;
+        }
         return true;
     } else if (find (&cds[0], &cds[maxsize-1], disk) == &cds[maxsize-1] ) {
         cds[numcds++] = disk;
@@ -169,20 +170,57 @@ int CDCatalogue::Count() const {
 }
 
 CDCatalogue CDCatalogue::Join(const CDCatalogue& cat )const { 
-    CDCatalogue result;
-    for (int i = 0; i < maxsize; i++) {
-        result.Insert(cds[i]);
-        result.Insert(cat.cds[i]);
+    CDCatalogue *cat_join = new CDCatalogue;
+
+    for (int i = 0; i < cat.Count(); i++) {
+        cat_join->Insert(CD(cat.cds[i].GetArtist(), cat.cds[i].GetAlbum()));
+    }
+    for (int k = 0; k < numcds; k++) {
+        cat_join->Insert(CD(cds[k].GetArtist(), cds[k].GetAlbum()));
     }
 
-    cout << "Number of cds in cat: " << cat.numcds << endl;
-    cout << "Number of cds: " << result.numcds << endl;
+    cout << numcds << endl;
+    cout << cat.Count() << endl;
+    cout << cat_join->Count() << endl;
 
-    return result;
+    for (int j = 0; j < cat_join->Count(); j++) {
+        cout << "Artist: " << cat_join->cds[j].GetArtist() << "\nAlbum: " << cat_join->cds[j].GetAlbum() << endl;
+        
+    }
+
+    return *cat_join;
 }
 
+
 CDCatalogue CDCatalogue::Common(const CDCatalogue& cat) const {
-    CDCatalogue test; return test;
+
+    /*CDCatalogue test; return test;*/
+
+    CDCatalogue *cat_common = new CDCatalogue; //new catalogue for common
+
+    for (int i = 0; i < numcds; i++) {
+
+        for (int j = 0; j < cat.Count(); j++) {
+
+            //if "this" and "cat" have the same album and arist, insert them to the new "cat_common" catalogue
+            if (cat.cds[j].GetAlbum() == cds[i].GetAlbum() && cat.cds[j].GetArtist() == cds[i].GetArtist()) 
+
+            {
+                cat_common->Insert(CD(cds[i].GetArtist(), cds[i].GetAlbum())); 
+            }
+        }
+    }
+
+    //print the common artist and album between "this" and cat
+    for (int k = 0; k < cat_common->Count(); k++) {
+
+        cout << "\nCommon between this and cat: \n" << "Artist: " << cat_common->cds[k].GetArtist() 
+            << "\nAlbum: " << cat_common->cds[k].GetAlbum() << "\n" << endl;
+
+    }
+
+    return *cat_common;
+
 }
 
 CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
