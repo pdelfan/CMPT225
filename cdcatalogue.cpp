@@ -74,8 +74,10 @@ bool CDCatalogue::Insert(CD disk) {
         delete[] old_cds;
         if (find (&cds[0], &cds[maxsize-1], disk) == &cds[maxsize-1]) {
             cds[numcds++] = disk;
+            return true;
+
         }
-        return true;
+        return false;
     } else if (find (&cds[0], &cds[maxsize-1], disk) == &cds[maxsize-1] ) {
         cds[numcds++] = disk;
         return true;
