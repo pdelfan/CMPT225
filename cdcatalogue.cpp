@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
-
 #include "cdcatalogue.h"
 
 // Helper method for copy constructor
@@ -11,13 +10,9 @@ void CDCatalogue::CopyArray(const CDCatalogue& cat) {
     numcds = cat.numcds;
     maxsize = cat.maxsize;
     cds = new CD [cat.maxsize];
-
-    //copy(cat.cds, cat.cds + numcds, cds);
-
     for (int i = 0; i < numcds; i++) {
         cds[i] = cat.cds[i];
     }
-
 
 }
 
@@ -57,11 +52,12 @@ CDCatalogue::~CDCatalogue() {
 //          "insertion" will mean updating all fields of the CD at the appropriate index
 
 bool CDCatalogue::Insert(CD disk) {
-    //Checks if either the input of artist or album does not contain the empty stirng and returns true
+    //Checks if either the artist or album input does not contain the empty stirng, returns false if not
     if (!disk.Update(disk.GetArtist(), disk.GetAlbum())) {
         return false;
     }
 
+    //if the original array becomes full, create a new array double the size and copoy the original array into the new one
     if (numcds == maxsize) {
         CD* old_cds = cds;
         maxsize = maxsize*2;
@@ -70,14 +66,17 @@ bool CDCatalogue::Insert(CD disk) {
         for (int i = 0; i < numcds; i++ ) {
             cds[i] = old_cds[i];
         }
-
         delete[] old_cds;
+        
+        //when expanded, search the array for disk, if not found return true and add disk to cds
         if (find (&cds[0], &cds[maxsize-1], disk) == &cds[maxsize-1]) {
             cds[numcds++] = disk;
             return true;
-
+        } else {
+            return false;
         }
-        return false;
+        
+    //search the array for disk, if not found return true and add disk to cds
     } else if (find (&cds[0], &cds[maxsize-1], disk) == &cds[maxsize-1] ) {
         cds[numcds++] = disk;
         return true;
@@ -95,10 +94,12 @@ bool CDCatalogue::Insert(CD disk) {
 // CD at the appropriate index using the parameters of the CD in
 // the last valid index of the collection; then decrements count and returns true;
 bool CDCatalogue::Remove(CD disk) {
-    if (!disk.Update(disk.GetArtist(), disk.GetAlbum())) {
+     //Checks if either the artist or album input does not contain the empty stirng, returns false if not
+    if (!disk.Update(disk.GetArtist(), disk.GetAlbum())) { 
         return false;
     }
 
+    //searches the array for the target disk, removes target disk and shifts the remaining cds down by 1 index
     for (int i = 0; i < numcds; i++) {
         if (cds[i] == disk) {
             remove(&cds[0], &cds[numcds-1], disk);
@@ -106,7 +107,6 @@ bool CDCatalogue::Remove(CD disk) {
             return true;
         }
     }
-
     return false;
 }
 
