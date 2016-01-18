@@ -24,6 +24,6 @@ CDCatalogue CDCatalogue::Common(const CDCatalogue& cat) const {
     << "\nAlbum: " << cat_common->cds[k].GetAlbum() << "\n" << endl;
     
     }
-
+    
     return *cat_common;
 }
