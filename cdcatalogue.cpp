@@ -258,9 +258,7 @@ CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
         << "\nAlbum: " << split_cat->cds[k].GetAlbum() << endl;
     }
     
-    return *split_cat;     
-
-}
+    return *split_cat;}
 
 
 
