@@ -240,7 +240,7 @@ CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
 
             //if the 2 arrays have similar album/artist, pass
             if (cds[i].GetAlbum() == cat.cds[j].GetAlbum() && cds[i].GetArtist() == cat.cds[j].GetArtist()) {
-
+                
                 flag = false;
             }
         }
@@ -251,7 +251,7 @@ CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
     flag = true; 
 
     }
-
+    
     for (int k = 0; k < split_cat->Count(); k++) {
 
         cout << "This album was only found in cat: \n" << "Artist: " <<split_cat->cds[k].GetArtist() 
