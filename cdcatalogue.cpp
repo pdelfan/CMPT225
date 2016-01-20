@@ -205,12 +205,13 @@ CDCatalogue CDCatalogue::Common(const CDCatalogue& cat) const {
         cout << "\nCommon between this and cat: \n" << "Artist: " << cat_common->cds[k].GetArtist() 
             << "\nAlbum: " << cat_common->cds[k].GetAlbum() << "\n" << endl;
     }
-    return *cat_common;}
+    return *cat_common;
+}
 
 
-//iterate through two arrays, pass if they are similar. Use flag if they are 
+//iterate through two arrays using flag. False if they are similar, true if cd is only found in one array
 CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
-    //flag
+    
     bool flag = true; 
     CDCatalogue* split_cat = new CDCatalogue;
 
@@ -231,6 +232,5 @@ CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
         cout << "This album was only found in cat: \n" << "Artist: " <<split_cat->cds[k].GetArtist() 
         << "\nAlbum: " << split_cat->cds[k].GetAlbum() << endl;
     }
-
     return *split_cat;
 }
