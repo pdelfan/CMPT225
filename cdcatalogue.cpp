@@ -6,7 +6,6 @@
 // Helper method for copy constructor
 // Performs deep copy of dynamic array
 void CDCatalogue::CopyArray(const CDCatalogue& cat) {
-    
     numcds = cat.numcds;
     maxsize = cat.maxsize;
     cds = new CD [cat.maxsize];
@@ -18,7 +17,6 @@ void CDCatalogue::CopyArray(const CDCatalogue& cat) {
 // Default constructor
 // Creates an empty CDCatalogue with default array size (4)
 CDCatalogue::CDCatalogue() {
-	
     maxsize = 4;
     cds = new CD [maxsize];
     numcds = 0;
@@ -28,14 +26,12 @@ CDCatalogue::CDCatalogue() {
 // Creates a new CDCatalogue object,
 //   performs a deep copy of the cat parameter's fields
 CDCatalogue::CDCatalogue(const CDCatalogue& cat) {
-	
     CopyArray(cat);
 }
 
 // Destructor
 // Releases all memory allocated to private pointer members
 CDCatalogue::~CDCatalogue() { 
-	
     delete[] cds;
 } 
 
@@ -56,13 +52,11 @@ CDCatalogue::~CDCatalogue() {
 bool CDCatalogue::Insert(CD disk) {
     //Checks if either the artist or album input does not contain the empty stirng, returns false if not
     if (!disk.Update(disk.GetArtist(), disk.GetAlbum())) {
-    	
         return false;
     }
 
     //if the original array becomes full, create a new array double the size and copoy the original array into the new one
     if (numcds == maxsize) {
-    	
         CD* old_cds = cds;
         maxsize = maxsize*2;
         cds = new CD[maxsize];
@@ -74,7 +68,6 @@ bool CDCatalogue::Insert(CD disk) {
         
         //when expanded, search the array for disk, if not found return true and add disk to cds
         if (find (&cds[0], &cds[maxsize-1], disk) == &cds[maxsize-1]) {
-        	
             cds[numcds++] = disk;
             return true;
         } else {
@@ -101,15 +94,12 @@ bool CDCatalogue::Insert(CD disk) {
 bool CDCatalogue::Remove(CD disk) {
      //Checks if either the artist or album input does not contain the empty stirng, returns false if not
     if (!disk.Update(disk.GetArtist(), disk.GetAlbum())) { 
-    	
         return false;
     }
 
     //searches the array for the target disk, removes target disk and shifts the remaining cds down by 1 index
     for (int i = 0; i < numcds; i++) {
-    	
         if (cds[i] == disk) {
-        	
             remove(&cds[0], &cds[numcds-1], disk);
             numcds--;
             return true;
@@ -122,15 +112,11 @@ bool CDCatalogue::Remove(CD disk) {
 // Returns -1 if no CD with matching parameters exists in the catalogue
 // PARAM: disc = item to be located, its fields should not be empty string
 int CDCatalogue::Find(CD disk) const {
-	
     if (!disk.Update(disk.GetArtist(), disk.GetAlbum())) {
         return -1;
     }
-
     for (int i = 0; i < numcds; i++) {
-    	
         if (cds[i] == disk) {
-        	
             return i;
         } 
     }
@@ -145,7 +131,6 @@ int CDCatalogue::Find(CD disk) const {
 // POST:  catalogue contains no instances of CDs with the supplied artist name
 // PARAM: dontlikeanymore = name of artist whose CDs should be removed from the catalogue
 bool CDCatalogue::Boycott(string dontlikeanymore) {
-	
     if (dontlikeanymore == "") {
         return false;
     }
@@ -155,16 +140,13 @@ bool CDCatalogue::Boycott(string dontlikeanymore) {
 
     //Search through the cds array, if there is a boycotted cd, save its cd index in the original array to boycotted_cds array
     for (int i = 0; i < numcds; i++) {
-    	
         if (cds[i].GetArtist() == dontlikeanymore) {
-        	
             boycotted_cds[boycotted++] = i;
         }
     }
 
     //Search through the cds array again, if the cd index is not a boycotted index, shift the cds array with the cd index.
     for (int k = 0; k < numcds; k++) {
-    	
         if (find(&boycotted_cds[0], &boycotted_cds[numcds-1], k) == &boycotted_cds[numcds-1]) {
             cds[m++] = cds[k];
         } 
@@ -173,7 +155,6 @@ bool CDCatalogue::Boycott(string dontlikeanymore) {
     delete[] boycotted_cds;
 
     if (boycotted != 0) {
-    	
         numcds -= boycotted;
         return true;
     } else {
@@ -183,20 +164,16 @@ bool CDCatalogue::Boycott(string dontlikeanymore) {
 
 // Returns the number of CDs in the catalogue
 int CDCatalogue::Count() const {
-	
     return numcds;
 }
 
 CDCatalogue CDCatalogue::Join(const CDCatalogue& cat )const {
-	
     CDCatalogue *cat_join = new CDCatalogue;
 
     for (int i = 0; i < cat.Count(); i++) {
-    	
         cat_join->Insert(CD(cat.cds[i].GetArtist(), cat.cds[i].GetAlbum()));
     }
     for (int k = 0; k < numcds; k++) {
-    	
         cat_join->Insert(CD(cds[k].GetArtist(), cds[k].GetAlbum()));
     }
 
@@ -205,7 +182,6 @@ CDCatalogue CDCatalogue::Join(const CDCatalogue& cat )const {
     cout << cat_join->Count() << endl;
 
     for (int j = 0; j < cat_join->Count(); j++) {
-    	
         cout << "Artist: " << cat_join->cds[j].GetArtist() << "\nAlbum: " << cat_join->cds[j].GetAlbum() << endl;
     }
     return *cat_join;
@@ -213,7 +189,6 @@ CDCatalogue CDCatalogue::Join(const CDCatalogue& cat )const {
 
 
 CDCatalogue CDCatalogue::Common(const CDCatalogue& cat) const {
-
     CDCatalogue *cat_common = new CDCatalogue; //new catalogue for common
     for (int i = 0; i < numcds; i++) {
         for (int j = 0; j < cat.Count(); j++) {
@@ -227,7 +202,6 @@ CDCatalogue CDCatalogue::Common(const CDCatalogue& cat) const {
     }
     //print the common artist and album between "this" and cat
     for (int k = 0; k < cat_common->Count(); k++) {
-        
         cout << "\nCommon between this and cat: \n" << "Artist: " << cat_common->cds[k].GetArtist() 
             << "\nAlbum: " << cat_common->cds[k].GetAlbum() << "\n" << endl;
     }
@@ -236,32 +210,27 @@ CDCatalogue CDCatalogue::Common(const CDCatalogue& cat) const {
 
 //iterate through two arrays, pass if they are similar. Use flag if they are 
 CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
-
     //flag
     bool flag = true; 
     CDCatalogue* split_cat = new CDCatalogue;
 
     for (int i = 0; i < cat.Count(); i++) {
-    	
         for (int j = 0; j < numcds; j++) {
-
             //if the 2 arrays have similar album/artist, pass
             if (cds[i].GetAlbum() == cat.cds[j].GetAlbum() && cds[i].GetArtist() == cat.cds[j].GetArtist()) 
             {
                 flag = false;
             }
         }
-
         //if not similar, add it the the new catalogue "split_cat"
         if (flag) { split_cat->Insert(CD(cds[i].GetArtist(), cds[i].GetAlbum())); } 
-
     flag = true; 
     }
     
     for (int k = 0; k < split_cat->Count(); k++) {
-
         cout << "This album was only found in cat: \n" << "Artist: " <<split_cat->cds[k].GetArtist() 
         << "\nAlbum: " << split_cat->cds[k].GetAlbum() << endl;
     }
-    
-    return *split_cat;}
+
+    return *split_cat;
+}
