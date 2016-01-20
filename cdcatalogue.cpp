@@ -215,6 +215,15 @@ CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
     bool flag = true; 
     CDCatalogue* split_cat = new CDCatalogue;
 
+    int bigger, smaller;
+    if (numcds > cat.Count()) {
+        bigger = numcds;
+        smaller = cat.Count()) 
+    } else {
+        bigger = cat.Count()
+        smaller = numcds;
+    }
+
     for (int i = 0; i < cat.Count(); i++) {
         for (int j = 0; j < numcds; j++) {
             //if the 2 arrays have similar album/artist, make flag false and move on
