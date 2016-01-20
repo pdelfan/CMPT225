@@ -209,9 +209,9 @@ CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
     int bigger, smaller;
     if (numcds > cat.Count()) {
         bigger = numcds;
-        smaller = cat.Count()) 
+        smaller = cat.Count();
     } else {
-        bigger = cat.Count()
+        bigger = cat.Count();
         smaller = numcds;
     }
 
