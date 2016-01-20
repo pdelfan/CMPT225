@@ -21,7 +21,7 @@ void insert_find_album() {
 
 	//find index of an album (this case is at index 0)
 	cout << catalogue1.Find(CD("Linkin Park", "Numb")) << endl;
-	
+
 }
 
 
@@ -93,9 +93,15 @@ void test_common() {
 */
 
 
-//Alubms
-	CD album1("Serge Gainsbourg", "Comme Un Boomerang");
-	CD album2("Serge Gainsbourg", "Comme Un Boomerang");
+	//Alubms
+    CD album0("0", "0");
+	CD album1("1", "1");
+	CD album2("2", "2");
+	CD album3("3", "3");
+	CD album5("5", "5");
+	CD album4("4", "4");
+	CD album6("6", "6");
+
 
 	//Declare catalogue
 	CDCatalogue cat1;
@@ -103,16 +109,31 @@ void test_common() {
 
 	//Insert album
 	cat1.Insert(album1);
+	cat1.Insert(album2);
+	cat1.Insert(album3);
+	//cat1.Insert(album4);
+	//cat1.Insert(album5);
+	//cat1.Insert(album6);
+
+
+
+	cat2.Insert(album1);
 	cat2.Insert(album2);
+	cat2.Insert(album3);
+	cat2.Insert(album4);
+	//cat2.Insert(album1);
 
 
-  CDCatalogue catcommon = cat1.Common(cat2);
+  //CDCatalogue catcommon = cat1.Common(cat2);
+
+  CDCatalogue catsplit = cat1.Split(cat2);
+
 }
 
 
 int main(){
 
-	remove_album();
-	insert_find_album();
+	//remove_album();
+	//insert_find_album();
 	test_common();
 }
