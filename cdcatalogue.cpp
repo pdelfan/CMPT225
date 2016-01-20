@@ -229,7 +229,7 @@ CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
     }
     
     for (int k = 0; k < split_cat->Count(); k++) {
-        cout << "This album was only found in cat: \n" << "Artist: " <<split_cat->cds[k].GetArtist() 
+        cout << "Album(s) only found in cat: \n" << "Artist: " <<split_cat->cds[k].GetArtist() 
         << "\nAlbum: " << split_cat->cds[k].GetAlbum() << endl;
     }
     return *split_cat;
