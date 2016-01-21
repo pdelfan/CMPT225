@@ -180,14 +180,6 @@ CDCatalogue CDCatalogue::Join(const CDCatalogue& cat )const {
     for (int k = 0; k < numcds; k++) {
         cat_join->Insert(CD(cds[k].GetArtist(), cds[k].GetAlbum()));
     }
-
-    cout << numcds << endl;
-    cout << cat.Count() << endl;
-    cout << cat_join->Count() << endl;
-
-    for (int j = 0; j < cat_join->Count(); j++) {
-        cout << "Artist: " << cat_join->cds[j].GetArtist() << "\nAlbum: " << cat_join->cds[j].GetAlbum() << endl;
-    }
     return *cat_join;
 }
 
@@ -203,11 +195,6 @@ CDCatalogue CDCatalogue::Common(const CDCatalogue& cat) const {
                 cat_common->Insert(CD(cds[i].GetArtist(), cds[i].GetAlbum())); 
             }
         }
-    }
-    //print the common artist and album between "this" and cat
-    for (int k = 0; k < cat_common->Count(); k++) {
-        cout << "\nCommon between this and cat: \n" << "Artist: " << cat_common->cds[k].GetArtist() 
-            << "\nAlbum: " << cat_common->cds[k].GetAlbum() << "\n" << endl;
     }
     return *cat_common;
 }
@@ -228,8 +215,8 @@ CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
         smaller = numcds;
     }
 
-    for (int i = 0; i < bigger; i++) {
-        for (int j = 0; j < smaller; j++) {
+    for (int i = 0; i < cat.Count(); i++) {
+        for (int j = 0; j < numcds; j++) {
             //if the 2 arrays have similar album/artist, make flag false and move on
             if (cds[i].GetAlbum() == cat.cds[j].GetAlbum() && cds[i].GetArtist() == cat.cds[j].GetArtist()) 
             {
@@ -241,9 +228,5 @@ CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
     flag = true; 
     }
     
-    for (int k = 0; k < split_cat->Count(); k++) {
-        cout << "Album(s) only found in cat: \n" << "Artist: " <<split_cat->cds[k].GetArtist() 
-        << "\nAlbum: " << split_cat->cds[k].GetAlbum() << endl;
-    }
     return *split_cat;
 }

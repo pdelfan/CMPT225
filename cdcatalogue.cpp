@@ -77,8 +77,13 @@ bool CDCatalogue::Insert(CD disk) {
         } else {
             return false;
         }
+<<<<<<< HEAD
 
         //search the array for disk, if not found return true and add disk to cds
+=======
+        
+    //search the array for disk, if not found return true and add disk to cds
+>>>>>>> 2e9982e96bc05c1aa0d84062f1ec8ff508ecaa24
     } else if (Find(CD(disk.GetArtist(), disk.GetAlbum())) == -1) {
         cds[numcds++] = disk;
         return true;
