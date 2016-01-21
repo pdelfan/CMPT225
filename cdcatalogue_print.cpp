@@ -1,3 +1,7 @@
+//File:         cdcatalogue.cpp
+//Authors:      Josh Vocal, Pouria Delfanazari
+//Date:         2016-01-20
+//Description:  Implementation of the CDCatalogue class to be used for CMPT 225 Assignment #1
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -67,7 +71,7 @@ bool CDCatalogue::Insert(CD disk) {
         delete[] old_cds;
         
         //when expanded, search the array for disk, if not found return true and add disk to cds
-        if (find (&cds[0], &cds[maxsize-1], disk) == &cds[maxsize-1]) {
+        if (Find(CD(disk.GetArtist(), disk.GetAlbum())) == -1) {
             cds[numcds++] = disk;
             return true;
         } else {
@@ -75,7 +79,7 @@ bool CDCatalogue::Insert(CD disk) {
         }
         
     //search the array for disk, if not found return true and add disk to cds
-    } else if (find (&cds[0], &cds[maxsize-1], disk) == &cds[maxsize-1] ) {
+    } else if (Find(CD(disk.GetArtist(), disk.GetAlbum())) == -1) {
         cds[numcds++] = disk;
         return true;
     } else {
@@ -224,8 +228,8 @@ CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
         smaller = numcds;
     }
 
-    for (int i = 0; i < cat.Count(); i++) {
-        for (int j = 0; j < numcds; j++) {
+    for (int i = 0; i < bigger; i++) {
+        for (int j = 0; j < smaller; j++) {
             //if the 2 arrays have similar album/artist, make flag false and move on
             if (cds[i].GetAlbum() == cat.cds[j].GetAlbum() && cds[i].GetArtist() == cat.cds[j].GetArtist()) 
             {
