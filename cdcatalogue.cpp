@@ -71,7 +71,7 @@ bool CDCatalogue::Insert(CD disk) {
         delete[] old_cds;
         
         //when expanded, search the array for disk, if not found return true and add disk to cds
-        if (find (&cds[0], &cds[maxsize-1], disk) == &cds[maxsize-1]) {
+        if (Find(CD(disk.GetArtist(), disk.GetAlbum())) == -1) {
             cds[numcds++] = disk;
             return true;
         } else {
@@ -79,7 +79,7 @@ bool CDCatalogue::Insert(CD disk) {
         }
         
     //search the array for disk, if not found return true and add disk to cds
-    } else if (find (&cds[0], &cds[maxsize-1], disk) == &cds[maxsize-1] ) {
+    } else if (Find(CD(disk.GetArtist(), disk.GetAlbum())) == -1) {
         cds[numcds++] = disk;
         return true;
     } else {
@@ -239,11 +239,6 @@ CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
         //if not similar, add it the the new catalogue "split_cat"
         if (flag) { split_cat->Insert(CD(cds[i].GetArtist(), cds[i].GetAlbum())); } 
     flag = true; 
-    }
-    
-    for (int k = 0; k < split_cat->Count(); k++) {
-        cout << "Album(s) only found in cat: \n" << "Artist: " <<split_cat->cds[k].GetArtist() 
-        << "\nAlbum: " << split_cat->cds[k].GetAlbum() << endl;
     }
     return *split_cat;
 }
