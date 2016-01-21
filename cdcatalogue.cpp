@@ -215,8 +215,8 @@ CDCatalogue CDCatalogue::Split(const CDCatalogue& cat) const {
         smaller = numcds;
     }
 
-    for (int i = 0; i < cat.Count(); i++) {
-        for (int j = 0; j < numcds; j++) {
+    for (int i = 0; i < bigger; i++) {
+        for (int j = 0; j < smaller; j++) {
             //if the 2 arrays have similar album/artist, make flag false and move on
             if (cds[i].GetAlbum() == cat.cds[j].GetAlbum() && cds[i].GetArtist() == cat.cds[j].GetArtist()) 
             {
