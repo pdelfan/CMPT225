@@ -180,14 +180,6 @@ CDCatalogue CDCatalogue::Join(const CDCatalogue& cat )const {
     for (int k = 0; k < numcds; k++) {
         cat_join->Insert(CD(cds[k].GetArtist(), cds[k].GetAlbum()));
     }
-
-    cout << numcds << endl;
-    cout << cat.Count() << endl;
-    cout << cat_join->Count() << endl;
-
-    for (int j = 0; j < cat_join->Count(); j++) {
-        cout << "Artist: " << cat_join->cds[j].GetArtist() << "\nAlbum: " << cat_join->cds[j].GetAlbum() << endl;
-    }
     return *cat_join;
 }
 
@@ -203,11 +195,6 @@ CDCatalogue CDCatalogue::Common(const CDCatalogue& cat) const {
                 cat_common->Insert(CD(cds[i].GetArtist(), cds[i].GetAlbum())); 
             }
         }
-    }
-    //print the common artist and album between "this" and cat
-    for (int k = 0; k < cat_common->Count(); k++) {
-        cout << "\nCommon between this and cat: \n" << "Artist: " << cat_common->cds[k].GetArtist() 
-            << "\nAlbum: " << cat_common->cds[k].GetAlbum() << "\n" << endl;
     }
     return *cat_common;
 }
