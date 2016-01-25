@@ -1,4 +1,4 @@
-\// File:        a1simpledriver.cpp
+// File:        a1simpledriver.cpp
 // Author:      (your name here) / Geoffrey Tien
 // Date:        January 19, 2016
 // Description: Basic test driver for CMPT 225 assignment #2
