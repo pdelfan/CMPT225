@@ -23,8 +23,7 @@ class Node
     Node<T>* next;
 
     // default constructor
-    template <class L>
-    Node(L value)
+    Node(T value)
     {
       data = value;
       prev = NULL;

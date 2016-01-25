@@ -38,7 +38,8 @@ int main()
   CCQTest();
   cout << "... CCQueue test function complete!\n" << endl;
 
-  system("pause");
+  //Commented out while not using Visual Studio
+  //system("pause");
   return 0;
 }
 
