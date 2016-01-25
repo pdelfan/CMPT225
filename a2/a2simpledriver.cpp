@@ -1,4 +1,4 @@
-// File:        a1simpledriver.cpp
+\// File:        a1simpledriver.cpp
 // Author:      (your name here) / Geoffrey Tien
 // Date:        January 19, 2016
 // Description: Basic test driver for CMPT 225 assignment #2
@@ -31,18 +31,18 @@ void CCQTest();
 int main()
 {
   cout << "Entering DLinkedList test function... " << endl;
-  //LLTest();
+ // LLTest();
   cout << "... DLinkedList test function complete!\n" << endl;
 
   cout << "Entering CCQueue test function... " << endl;
-  //CCQTest();
+  CCQTest();
   cout << "... CCQueue test function complete!\n" << endl;
 
-  //system("pause");
+  system("pause");
   return 0;
 }
 
-void LLTest()
+/*void LLTest()
 {
   // default constructor, InsertFront, InsertBack, ElementAt
   DLinkedList<int> lla;
@@ -82,7 +82,7 @@ void LLTest()
     cout << "13 found in llc." << endl;
   else
     cout << "13 not found in llc." << endl;
-}
+}*/
 
 void CCQTest()
 {
