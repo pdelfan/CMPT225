@@ -66,7 +66,17 @@ template <class T>
 // POST:  List contains item at back
 // PARAM: item = item to be inserted
 void DLinkedList<T>::InsertBack(T item) {
-
+  size++;
+  Node<T>* nnode = new Node<T>(item);
+  nnode->data = T(item);
+  nnode->next = NULL;
+  nnode->prev = back;
+  if (IsEmpty()) {
+  	front = back = nnode;
+  }else {
+    back->next = nnode;
+    back = nnode;	
+   }
 }
 
 template <class T>
