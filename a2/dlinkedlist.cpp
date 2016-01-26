@@ -107,7 +107,7 @@ int DLinkedList<T>::Size() const {
 template <class T>
 // Returns whether the list is empty
 bool DLinkedList<T>::IsEmpty() const {
-    return true;
+  return (front == NULL && back == NULL);
 }
 
 template <class T>
