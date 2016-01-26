@@ -159,7 +159,7 @@ T DLinkedList<T>::RemoveAt(int p) {
 	/*Node<T>* current = front;
 
 	for (int i = 0; i < p; i++) {
-		current = current->next;
+		current = current->next; 
 	}
 	    Node<T>* previous = current->prev;
         Node<T>* nextNode = current->next;
