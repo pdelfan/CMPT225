@@ -69,7 +69,7 @@ void DLinkedList<T>::InsertFront(T item) {
 
 	//for showing 
 
-	cout<< "Added an element.\n";
+	cout<< "Added an element in front.\n";
 
 	for(Node<T>* current = front;
 		current != NULL; 
