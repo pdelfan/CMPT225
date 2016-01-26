@@ -16,9 +16,9 @@ void LLTest();
 
 int main()
 {
-  cout << "Entering DLinkedList test function... " << endl;
+  cout << "\nEntering DLinkedList test function..." << endl;
   LLTest();
-  cout << "... DLinkedList test function complete!\n" << endl;
+  cout << "...DLinkedList test function complete!\n" << endl;
   return 0;
 }
 
@@ -30,4 +30,7 @@ void LLTest()
   cout << "-------------------------------------------------\n";
   lla.InsertBack(10);
  //cout << "lla contains " << lla.ElementAt(0) << " at index 0." << endl;
+  cout << "-------------------------------------------------\n";
+  lla.Contains(9);
+  lla.Contains(10);
 }
