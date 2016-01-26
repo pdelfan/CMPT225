@@ -162,7 +162,15 @@ bool DLinkedList<T>::IsEmpty() const {
 template <class T>
 // Returns existence of item
 bool DLinkedList<T>::Contains(T item) const {
-    return true;
+  for(Node<T>* current = front; current != NULL; current = current->next){
+		if (current->data == item) 
+		{
+			cout << "Found item!" << endl;
+			return true;
+		}
+	}
+	cout << "Item not found." << endl;
+	return false;
 }
 
 template <class T>
