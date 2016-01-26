@@ -1,5 +1,5 @@
 // File:        a1simpledriver.cpp
-// Author:      (your name here) / Geoffrey Tien
+// Author:      Pouria / Geoffrey Tien
 // Date:        January 19, 2016
 // Description: Basic test driver for CMPT 225 assignment #2
 //              This file tests some functions of the CCQueue and DLinkedList classes of assignment #2.
