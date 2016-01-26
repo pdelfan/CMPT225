@@ -26,14 +26,8 @@ void DLinkedList<T>::DeleteList() {
 template <class T>
 // default constructor
 DLinkedList<T>::DLinkedList() {
-/*
-	DLinkedList* new_linkedlist;
-	new_linkedlist->front = NULL;
-	new_linkedlist->back = NULL;
-*/
-
-front = nullptr;
-back = nullptr;
+front = NULL;
+back = NULL;
 size = 0;
 }
 
@@ -121,6 +115,34 @@ template <class T>
 // POST:  List contains item at position p
 // PARAM: item = item to be inserted, p = position where item will be inserted
 void DLinkedList<T>::InsertAt(T item, int p) {
+	size++;
+	Node<T>* behind = front;
+	for (int i = 0; i < p-1; i++) {
+		behind = behind->next;
+	}
+
+	Node<T>* fro = front;
+	for (int i = 0; i < p; i++) {
+		fro = fro->next;
+	}
+
+	Node<T>* nnode = new Node<T>(item);
+
+	/*nnode->next = behind;
+	behind->prev = nnode;
+	fro->next = nnode;
+	nnode->prev = fro;*/
+
+	nnode->next = fro;
+	fro->prev = nnode;
+	nnode->prev = behind;
+	behind->next = nnode;
+	
+	for(Node<T>* current = front; current != NULL; 
+		current = current->next){
+
+		cout<< current->data << " ";
+	}
 
 
 }
@@ -133,7 +155,32 @@ template <class T>
 // PARAM: p = position from where item will be removed
 
 T DLinkedList<T>::RemoveAt(int p) {
-    return -1;
+
+	/*Node<T>* current = front;
+
+	for (int i = 0; i < p; i++) {
+		current = current->next;
+	}
+	    Node<T>* previous = current->prev;
+        Node<T>* nextNode = current->next;
+
+        previous->next = nextNode;
+        nextNode->prev = previous;
+
+        delete current;
+        ///
+        for(Node<T>* aa = front;
+		aa != NULL; 
+		aa = aa->next){
+
+		cout<< aa->data << " ";
+
+	}*/
+
+	        T a;
+        return a;
+
+
 }
 
 template <class T>
@@ -179,17 +226,13 @@ template <class T>
 // Returns item at index (0-indexed)
 // Throws exception for invalid index
 T DLinkedList<T>::ElementAt(int p) const {
-/*
-	  Node<T> *head = front;
-  while (head) {
-    cout << head->data << " ";
-    head = head->next;
-  }
+	Node<T>* current = front;
 
-  return*/
-  	T a;
-  	return a;
-
+	for (int i = 0; i < p; i++) {
+		current = current->next;
+	}
+	//cout << "Item at int p is: " << current->data;
+	return current->data;
 }
 
 #endif
