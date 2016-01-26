@@ -128,7 +128,13 @@ bool DLinkedList<T>::IsEmpty() const {
 template <class T>
 // Returns existence of item
 bool DLinkedList<T>::Contains(T item) const {
-    return true;
+  for(Node<T>* current = front; current != NULL; current = current->next){
+		if (current->data == item) 
+		{
+			return true;
+		}
+	}
+	return false;
 }
 
 template <class T>
