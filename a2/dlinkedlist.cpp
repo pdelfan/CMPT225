@@ -48,12 +48,17 @@ template <class T>
 // POST:  List contains item at position 0
 // PARAM: item = item to be inserted
 void DLinkedList<T>::InsertFront(T item) {
-    size++;
+	size++;
 	Node<T> * nnode = new Node<T>(item);
 	nnode->data = T(item);
 	nnode->next = front;
 	nnode->prev = NULL;
-	front = back = nnode;
+	if (IsEmpty()) {
+		front = back = nnode;
+	}else {
+		front->prev = nnode;
+		front = nnode;
+	}
 }
 
 template <class T>
