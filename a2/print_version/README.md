@@ -1,7 +1,7 @@
 Here we put the files that show us the result, mainly for testing (NOT FOR SUBMISSION).
 Some of the functions won't work unless we implement the queue functions. If you want to test them, comment out the last printing section of queue—talking about this:
 
-'''
+```
  string PrintStatus() const
     {
       string complainttext;
@@ -16,4 +16,4 @@ Some of the functions won't work unless we implement the queue functions. If you
                << tickets.ElementAt(i).GetCustomer() << "\t" << complainttext.substr(0, std::min((int)20, (int)complainttext.length())) << "...\n";
       }
       return output.str();
-'''
+```
