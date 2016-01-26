@@ -141,8 +141,10 @@ template <class T>
 // Returns item at index (0-indexed)
 // Throws exception for invalid index
 T DLinkedList<T>::ElementAt(int p) const {
-    T a;
-    return a;
+   	Node<T>* current = front;
+	for (int i = 0; i < p; i++) {
+	  current = current->next;
+	}
+	return current->data;
 }
-
 #endif
