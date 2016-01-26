@@ -29,7 +29,6 @@ void LLTest()
   lla.InsertFront(5);
   cout << "-------------------------------------------------\n";
   lla.InsertBack(10);
- //cout << "lla contains " << lla.ElementAt(0) << " at index 0." << endl;
   cout << "-------------------------------------------------\n";
   lla.Contains(9);
   lla.Contains(10);
