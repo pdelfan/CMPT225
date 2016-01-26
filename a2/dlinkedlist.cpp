@@ -25,6 +25,9 @@ void DLinkedList<T>::DeleteList() {
 template <class T>
 // default constructor
 DLinkedList<T>::DLinkedList() {
+    front = nullptr;
+    back = nullptr;
+    size = 0;
 
 }
 
@@ -45,7 +48,12 @@ template <class T>
 // POST:  List contains item at position 0
 // PARAM: item = item to be inserted
 void DLinkedList<T>::InsertFront(T item) {
-
+    size++;
+	Node<T> * nnode = new Node<T>(item);
+	nnode->data = T(item);
+	nnode->next = front;
+	nnode->prev = NULL;
+	front = back = nnode;
 }
 
 template <class T>
