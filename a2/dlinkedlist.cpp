@@ -12,14 +12,64 @@ template <class T>
 // helper function for deep copy
 // Used by copy constructor and operator=
 void DLinkedList<T>::CopyList(const DLinkedList& ll) {
+	/*
+	if (ll.IsEmpty()) {
+		front = NULL;
+		back = NULL;
+		size = 0;
 
+	}
+
+	else {
+		Node<T>* current = ll.front;
+
+		size = 0;
+		front = NULL;
+		back = NULL;
+
+		while (current != NULL) {
+			//create a new Node to enter into the new List
+			Node<T>* newNode = new Node<T>;
+			newNode->InsertBack(NULL);
+			newNode->InsertFront(NULL);
+			newNode->data = current->data;
+
+			//add newNode to new List
+			if (size == 0) {
+				//new list is empty
+				front = newNode;
+				back = newNode;
+			} else {
+				//add newNode to end of new List
+				back->InsertFront(newNode);
+				newNode->InsertBack(back);
+				back = back->next;	
+
+			}
+
+			++size;
+			current = current->next;
+			
+				
+		}
+	}
+	*/
 }
 
 template <class T>
 // helper function for deep delete
 // Used by destructor and copy/assignment
 void DLinkedList<T>::DeleteList() {
+	Node<T>* temp = front;
 
+	//iterate through list deleting nodes
+	while (temp != NULL) {
+		temp = front->next;
+		delete front;
+		front = temp;
+	}
+
+	front = back = NULL;
 }
 
 template <class T>
@@ -34,13 +84,13 @@ DLinkedList<T>::DLinkedList() {
 template <class T>
 // copy constructor, performs deep copy of list elements
 DLinkedList<T>::DLinkedList(const DLinkedList& ll) {
-
+	CopyList(ll);
 }
 
 template <class T>
 // destructor
 DLinkedList<T>::~DLinkedList() {
-
+	DeleteList();
 }
 
 template <class T>
