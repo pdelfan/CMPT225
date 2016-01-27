@@ -185,10 +185,13 @@ T DLinkedList<T>::RemoveAt(int p) {
 if (p == 0) //deleting front
 
 {
-  front = temp->next;
+
+  front = front->next;
   front->prev = nullptr;
   delete temp;
   size--;
+  
+
 }
 
 if (p == 1 && size == 3) {
@@ -199,10 +202,10 @@ if (p == 1 && size == 3) {
 
 else if (p == size-1) { //deleting back
 
-	Node<T>* memory = back;
+	Node<T>* end = back;
 	back = back->prev;
 	back->next = nullptr;
-	delete memory;
+	delete end;
 	size--;
 }
 
