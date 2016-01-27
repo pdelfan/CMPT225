@@ -173,7 +173,7 @@ T DLinkedList<T>::RemoveAt(int p) {
 	Node<T>* last = back; //for the third case
 	Node<T>* memory = back; // for the third case
 
-
+//not complete
 
 if (p == 0) //deleting front
 
