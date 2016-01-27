@@ -86,6 +86,36 @@ template <class T>
 // POST:  List contains item at position p
 // PARAM: item = item to be inserted, p = position where item will be inserted
 void DLinkedList<T>::InsertAt(T item, int p) {
+	//inesrt front
+	if (p == 0) {
+		InsertFront(item);
+	}
+	//insert back
+	else if (p == size) {
+		InsertBack(item);
+	}
+
+//insert between front and back
+else 
+     {
+	size++;
+	Node<T>* behind = front;
+	for (int i = 0; i < p-1; i++) {
+		behind = behind->next;
+	}
+
+	Node<T>* fro = front;
+	for (int i = 0; i < p; i++) {
+		fro = fro->next;
+	}
+
+	Node<T>* nnode = new Node<T>(item);
+
+	nnode->next = fro;
+	fro->prev = nnode;
+	nnode->prev = behind;
+	behind->next = nnode;
+     }	
 
 }
 
