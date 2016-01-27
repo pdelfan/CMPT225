@@ -41,13 +41,13 @@ size = 0;
 template <class T>
 // copy constructor, performs deep copy of list elements
 DLinkedList<T>::DLinkedList(const DLinkedList& ll) {
-	CopyList(ll);
+
 }
 
 template <class T>
 // destructor
 DLinkedList<T>::~DLinkedList() {
-	DeleteList();
+
 }
 
 template <class T>
@@ -182,10 +182,11 @@ T DLinkedList<T>::RemoveAt(int p) {
 
 
 
-if (p == 0) //deleting front-DOESN't WORK
+if (p == 0) //deleting front
 
 {
   front = temp->next;
+  front->prev = nullptr;
   delete temp;
   size--;
 }
