@@ -193,7 +193,9 @@ else if (p == size) { //deleting back—DOESN'T WORK
 }
 
 
-//RemoveAt (with 3 nodes, removing the middle one) doesn't work. It works with other cases.
+/*RemoveAt (with 3 nodes, removing the middle one) doesn't work. It works with other cases. The only time it doesn't work is
+when we have (for example) [0,1,2] and want to remove 1. Other than this it works.*/
+
 else 
 { 
 
