@@ -182,7 +182,7 @@ T DLinkedList<T>::RemoveAt(int p) {
 
 
 
-if (p == 0) //deleting front
+if (p == 0) //deleting front-DOESN't WORK
 
 {
   front = temp->next;
@@ -196,7 +196,7 @@ if (p == 1 && size == 3) {
 	size--;
 }
 
-else if (p == size) { //deleting back—DOESN'T WORK
+else if (p == size-1) { //deleting back
 
 	Node<T>* memory = back;
 	back = back->prev;
