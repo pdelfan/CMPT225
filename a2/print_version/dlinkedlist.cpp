@@ -21,6 +21,13 @@ template <class T>
 // Used by destructor and copy/assignment
 void DLinkedList<T>::DeleteList() {
 
+	for (Node<T>* current = front; current != NULL; current = current->next)
+	{
+		delete current;
+	}
+
+
+
 }
 
 template <class T>
@@ -145,8 +152,8 @@ else
 	fro->prev = nnode;
 	nnode->prev = behind;
 	behind->next = nnode;
-}	
-	
+
+	//to show
 	cout << "Added item. \nList: ";
 
 	for(Node<T>* current = front; current != NULL; 
@@ -154,8 +161,9 @@ else
 
 		cout<< current->data << " ";
 	}
-
-
+}	
+	
+	
 }
 
 template <class T>
@@ -169,14 +177,32 @@ T DLinkedList<T>::RemoveAt(int p) {
 
 	Node<T>* temp = front; //for the first case
 	Node<T>* current = front; //for the second case
+	Node<T>* last = back; //for the third case
+	Node<T>* memory = back; // for the third case
 
 
-if (p == 0) //deleting front
+
+if (p == 0) //deleting front-DOESN't WORK
 
 {
   front = temp->next;
   delete temp;
   size--;
+}
+
+if (p == 1 && size == 3) {
+	front->next = back;
+	back->prev = front;
+	size--;
+}
+
+else if (p == size-1) { //deleting back
+
+	Node<T>* memory = back;
+	back = back->prev;
+	back->next = nullptr;
+	delete memory;
+	size--;
 }
 
 
@@ -196,6 +222,7 @@ else
         nextNode->prev = previous;
 
         delete current;
+        size--;
 }
 
 
@@ -225,6 +252,7 @@ void DLinkedList<T>::RemoveDuplicates() {
 template <class T>
 // Returns size of list
 int DLinkedList<T>::Size() const {
+	cout << size;
     return size;
 }
 
