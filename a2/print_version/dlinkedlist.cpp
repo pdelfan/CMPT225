@@ -21,6 +21,13 @@ template <class T>
 // Used by destructor and copy/assignment
 void DLinkedList<T>::DeleteList() {
 
+	for (Node<T>* current = front; current != NULL; current = current->next)
+	{
+		delete current;
+	}
+
+
+
 }
 
 template <class T>
@@ -173,7 +180,7 @@ T DLinkedList<T>::RemoveAt(int p) {
 	Node<T>* last = back; //for the third case
 	Node<T>* memory = back; // for the third case
 
-//not complete
+
 
 if (p == 0) //deleting front
 
@@ -183,7 +190,7 @@ if (p == 0) //deleting front
   size--;
 }
 
-if (p == 2 && size == 3) {
+if (p == 1 && size == 3) {
 	front->next = back;
 	back->prev = front;
 	size--;
