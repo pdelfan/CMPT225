@@ -183,6 +183,12 @@ if (p == 0) //deleting front
   size--;
 }
 
+if (p == 2 && size == 3) {
+	front->next = back;
+	back->prev = front;
+	size--;
+}
+
 else if (p == size) { //deleting back—DOESN'T WORK
 
 	Node<T>* memory = back;
@@ -193,10 +199,8 @@ else if (p == size) { //deleting back—DOESN'T WORK
 }
 
 
-/*RemoveAt (with 3 nodes, removing the middle one) doesn't work. It works with other cases. The only time it doesn't work is
-when we have (for example) [0,1,2] and want to remove 1. Other than this it works.*/
-
 else 
+
 { 
 
 	for (int i = 0; i < p; i++) {
