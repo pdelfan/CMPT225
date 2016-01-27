@@ -41,13 +41,13 @@ size = 0;
 template <class T>
 // copy constructor, performs deep copy of list elements
 DLinkedList<T>::DLinkedList(const DLinkedList& ll) {
-
+	CopyList(ll);
 }
 
 template <class T>
 // destructor
 DLinkedList<T>::~DLinkedList() {
-
+	DeleteList();
 }
 
 template <class T>
