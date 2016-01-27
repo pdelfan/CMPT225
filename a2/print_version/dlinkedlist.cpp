@@ -145,8 +145,8 @@ else
 	fro->prev = nnode;
 	nnode->prev = behind;
 	behind->next = nnode;
-}	
-	
+
+	//to show
 	cout << "Added item. \nList: ";
 
 	for(Node<T>* current = front; current != NULL; 
@@ -154,8 +154,9 @@ else
 
 		cout<< current->data << " ";
 	}
-
-
+}	
+	
+	
 }
 
 template <class T>
@@ -169,6 +170,9 @@ T DLinkedList<T>::RemoveAt(int p) {
 
 	Node<T>* temp = front; //for the first case
 	Node<T>* current = front; //for the second case
+	Node<T>* last = back; //for the third case
+	Node<T>* memory = back; // for the third case
+
 
 
 if (p == 0) //deleting front
@@ -179,9 +183,18 @@ if (p == 0) //deleting front
   size--;
 }
 
+else if (p == size) { //deleting back—DOESN'T WORK
 
+	Node<T>* memory = back;
+	back = back->prev;
+	back->next = nullptr;
+	delete memory;
+	size--;
+}
+
+
+//RemoveAt (with 3 nodes, removing the middle one) doesn't work. It works with other cases.
 else 
-
 { 
 
 	for (int i = 0; i < p; i++) {
@@ -196,6 +209,7 @@ else
         nextNode->prev = previous;
 
         delete current;
+        size--;
 }
 
 
@@ -225,6 +239,7 @@ void DLinkedList<T>::RemoveDuplicates() {
 template <class T>
 // Returns size of list
 int DLinkedList<T>::Size() const {
+	cout << size;
     return size;
 }
 
