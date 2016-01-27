@@ -115,6 +115,19 @@ template <class T>
 // POST:  List contains item at position p
 // PARAM: item = item to be inserted, p = position where item will be inserted
 void DLinkedList<T>::InsertAt(T item, int p) {
+
+	if (p == 0) {
+		InsertFront(item);
+	}
+
+	else if (p == size) {
+		InsertBack(item);
+	}
+
+
+else 
+
+{
 	size++;
 	Node<T>* behind = front;
 	for (int i = 0; i < p-1; i++) {
@@ -128,16 +141,14 @@ void DLinkedList<T>::InsertAt(T item, int p) {
 
 	Node<T>* nnode = new Node<T>(item);
 
-	/*nnode->next = behind;
-	behind->prev = nnode;
-	fro->next = nnode;
-	nnode->prev = fro;*/
-
 	nnode->next = fro;
 	fro->prev = nnode;
 	nnode->prev = behind;
 	behind->next = nnode;
+}	
 	
+	cout << "Added item. \nList: ";
+
 	for(Node<T>* current = front; current != NULL; 
 		current = current->next){
 
@@ -156,11 +167,27 @@ template <class T>
 
 T DLinkedList<T>::RemoveAt(int p) {
 
-	/*Node<T>* current = front;
+	Node<T>* temp = front;
+	Node<T>* current;
+
+if (p == 0) //deleting front
+
+{
+  front = temp->next;
+  delete temp;
+  size--;
+}
+
+
+else 
+
+{ 
 
 	for (int i = 0; i < p; i++) {
-		current = current->next; 
+		current = current->next;
 	}
+
+	 
 	    Node<T>* previous = current->prev;
         Node<T>* nextNode = current->next;
 
@@ -168,19 +195,17 @@ T DLinkedList<T>::RemoveAt(int p) {
         nextNode->prev = previous;
 
         delete current;
-        ///
-        for(Node<T>* aa = front;
-		aa != NULL; 
-		aa = aa->next){
+}
 
+
+        cout << "\nDeleted List: ";
+        for(Node<T>* aa = front; aa != NULL; aa = aa->next)
+        {
 		cout<< aa->data << " ";
-
-	}*/
+	    }
 
 	        T a;
         return a;
-
-
 }
 
 template <class T>
