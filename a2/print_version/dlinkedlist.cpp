@@ -167,8 +167,9 @@ template <class T>
 
 T DLinkedList<T>::RemoveAt(int p) {
 
-	Node<T>* temp = front;
-	Node<T>* current;
+	Node<T>* temp = front; //for the first case
+	Node<T>* current = front; //for the second case
+
 
 if (p == 0) //deleting front
 
