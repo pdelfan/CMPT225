@@ -25,6 +25,7 @@ CCQueue::CCQueue() {
         return false;
 
     tickets.InsertBack(Ticket(1+maxticketid, customer, complaint)); //insert
+    maxticketid++;
     return true;
     }
 
