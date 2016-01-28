@@ -43,15 +43,9 @@ CCQueue::CCQueue() {
     // returns false if supplied index is 0 (first item) or outside the list boundaries
     // POST:  DLinkedList items at position and position-1 swap spots in the list
     // PARAM: initial index of item to move up
-    bool CCQueue::MoveUp(int index){
-        {
-    if (index <= 0 || index >= int(maxticketid))
-        return false;
+    bool CCQueue::MoveUp(int index) {
     
-    Ticket p = this->tickets.RemoveAt(index);
-    this->tickets.InsertAt(p, index - 1);
-    return true;
-}
+    return false;
     }
 
     // moves an item towards the back of the queue by 1 position and returns true
