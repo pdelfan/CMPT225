@@ -12,8 +12,6 @@ template <class T>
 // helper function for deep copy
 // Used by copy constructor and operator=
 void DLinkedList<T>::CopyList(const DLinkedList& ll) {
-
-
 }
 
 template <class T>
@@ -100,10 +98,7 @@ void DLinkedList<T>::InsertAt(T item, int p) {
 	else if (p == size) {
 		InsertBack(item);
 	}
-
-
 else 
-
 {
 	size++;
 	Node<T>* behind = front;
@@ -124,7 +119,7 @@ else
 	behind->next = nnode;
 
 	//to show
-}	
+     }	
 
 }
 
@@ -139,13 +134,8 @@ T DLinkedList<T>::RemoveAt(int p) {
 
 	Node<T>* temp = front; //for the first case
 	Node<T>* current = front; //for the second case
-	Node<T>* last = back; //for the third case
-	Node<T>* memory = back; // for the third case
-
-
-
+	
 if (p == 0) //deleting front
-
 {
 
   front = front->next;
@@ -154,7 +144,6 @@ if (p == 0) //deleting front
   size--;  
   T bb; 
   return bb;
-
 }
 
 if (p == 1 && size == 3) {
@@ -171,12 +160,8 @@ else if (p == size-1) { //deleting back
 	delete end;
 	size--;
 }
-
-
 else 
-
 { 
-
 	for (int i = 0; i < p; i++) {
 		current = current->next;
 	}
@@ -192,7 +177,7 @@ else
         size--;
 }
 
-	        T a;
+	T a;
         return a;
 }
 
