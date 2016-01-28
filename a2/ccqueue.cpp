@@ -56,5 +56,5 @@ CCQueue::CCQueue() {
     
     // returns the number of tickets
     int CCQueue::Size() const {
-        return maxticketid;
+      return tickets.Size();
     }
