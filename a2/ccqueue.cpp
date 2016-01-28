@@ -7,7 +7,8 @@
 using namespace std;
 
 CCQueue::CCQueue() {
-    maxticketid = 0;
+   this->maxticketid = 0;
+   DLinkedList<Ticket> tickets;
 }
 
     // MUTATORS
@@ -19,7 +20,12 @@ CCQueue::CCQueue() {
     //        maxticketid is incremented
     // PARAM: customer and complaint fields to pass to Ticket constructor
     bool CCQueue::Add(string customer, string complaint) {
+     
+      if (customer == "" || complaint == "") //if input id empty
         return false;
+
+    tickets.InsertBack(Ticket(1+maxticketid, customer, complaint)); //insert
+    return true;
     }
 
     // removes and returns an item from the front of the ticket queue
