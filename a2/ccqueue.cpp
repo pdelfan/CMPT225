@@ -43,9 +43,15 @@ CCQueue::CCQueue() {
     // returns false if supplied index is 0 (first item) or outside the list boundaries
     // POST:  DLinkedList items at position and position-1 swap spots in the list
     // PARAM: initial index of item to move up
-    bool CCQueue::MoveUp(int index) {
+    bool CCQueue::MoveUp(int index){
+        
+    if (index <= 0 || index >= int(maxticketid))
+        return false;
     
-    return false;
+    Ticket replace = tickets.RemoveAt(index);
+    tickets.InsertAt(replace, index - 1);
+    return true;
+
     }
 
     // moves an item towards the back of the queue by 1 position and returns true
@@ -53,7 +59,13 @@ CCQueue::CCQueue() {
     // POST:  DLinkedList items at position and position+1 swap spots in the list
     // PARAM: initial index of item to move down
     bool CCQueue::MoveDown(int index) {
+    if (index >= int(maxticketid) || index <= 0)
         return false;
+
+    Ticket replace = tickets.RemoveAt(index);
+    tickets.InsertAt(replace, index+1);
+
+    return true;
     }
 
     // ACCESSORS
