@@ -2,9 +2,9 @@
 
 #include <cstdlib>
 #include <stdexcept>
-//#include "dlinkedlist.h"
+#include "dlinkedlist.h"
 #include <string>
-
+#include <iostream>
 
 using namespace std;
 
@@ -12,85 +12,39 @@ template <class T>
 // helper function for deep copy
 // Used by copy constructor and operator=
 void DLinkedList<T>::CopyList(const DLinkedList& ll) {
-	/*
-	if (ll.IsEmpty()) {
-		front = NULL;
-		back = NULL;
-		size = 0;
 
-	}
 
-	else {
-		Node<T>* current = ll.front;
-
-		size = 0;
-		front = NULL;
-		back = NULL;
-
-		while (current != NULL) {
-			//create a new Node to enter into the new List
-			Node<T>* newNode = new Node<T>;
-			newNode->InsertBack(NULL);
-			newNode->InsertFront(NULL);
-			newNode->data = current->data;
-
-			//add newNode to new List
-			if (size == 0) {
-				//new list is empty
-				front = newNode;
-				back = newNode;
-			} else {
-				//add newNode to end of new List
-				back->InsertFront(newNode);
-				newNode->InsertBack(back);
-				back = back->next;	
-
-			}
-
-			++size;
-			current = current->next;
-			
-				
-		}
-	}
-	*/
 }
 
 template <class T>
 // helper function for deep delete
 // Used by destructor and copy/assignment
 void DLinkedList<T>::DeleteList() {
-	Node<T>* temp = front;
 
-	//iterate through list deleting nodes
-	while (temp != NULL) {
-		temp = front->next;
-		delete front;
-		front = temp;
+	for (Node<T>* current = front; current != NULL; current = current->next)
+	{
+		delete current;
 	}
-
-	front = back = NULL;
 }
 
 template <class T>
 // default constructor
 DLinkedList<T>::DLinkedList() {
-    front = nullptr;
-    back = nullptr;
-    size = 0;
-
+front = NULL;
+back = NULL;
+size = 0;
 }
 
 template <class T>
 // copy constructor, performs deep copy of list elements
 DLinkedList<T>::DLinkedList(const DLinkedList& ll) {
-	CopyList(ll);
+
 }
 
 template <class T>
 // destructor
 DLinkedList<T>::~DLinkedList() {
-	DeleteList();
+
 }
 
 template <class T>
@@ -98,8 +52,9 @@ template <class T>
 // POST:  List contains item at position 0
 // PARAM: item = item to be inserted
 void DLinkedList<T>::InsertFront(T item) {
+	
 	size++;
-	Node<T> * nnode = new Node<T>(item);
+	Node<T>* nnode = new Node<T>(item);
 	nnode->data = T(item);
 	nnode->next = front;
 	nnode->prev = NULL;
@@ -108,7 +63,7 @@ void DLinkedList<T>::InsertFront(T item) {
 	}else {
 		front->prev = nnode;
 		front = nnode;
-	}
+	}	
 }
 
 template <class T>
@@ -116,6 +71,7 @@ template <class T>
 // POST:  List contains item at back
 // PARAM: item = item to be inserted
 void DLinkedList<T>::InsertBack(T item) {
+	
   size++;
   Node<T>* nnode = new Node<T>(item);
   nnode->data = T(item);
@@ -126,7 +82,7 @@ void DLinkedList<T>::InsertBack(T item) {
   }else {
     back->next = nnode;
     back = nnode;	
-   }
+   }   
 }
 
 template <class T>
@@ -136,18 +92,19 @@ template <class T>
 // POST:  List contains item at position p
 // PARAM: item = item to be inserted, p = position where item will be inserted
 void DLinkedList<T>::InsertAt(T item, int p) {
-	//inesrt front
+
 	if (p == 0) {
 		InsertFront(item);
 	}
-	//insert back
+
 	else if (p == size) {
 		InsertBack(item);
 	}
 
-//insert between front and back
+
 else 
-     {
+
+{
 	size++;
 	Node<T>* behind = front;
 	for (int i = 0; i < p-1; i++) {
@@ -165,7 +122,9 @@ else
 	fro->prev = nnode;
 	nnode->prev = behind;
 	behind->next = nnode;
-     }	
+
+	//to show
+}	
 
 }
 
@@ -177,7 +136,64 @@ template <class T>
 // PARAM: p = position from where item will be removed
 
 T DLinkedList<T>::RemoveAt(int p) {
-    
+
+	Node<T>* temp = front; //for the first case
+	Node<T>* current = front; //for the second case
+	Node<T>* last = back; //for the third case
+	Node<T>* memory = back; // for the third case
+
+
+
+if (p == 0) //deleting front
+
+{
+
+  front = front->next;
+  front->prev = nullptr;
+  delete temp;
+  size--;  
+  T bb; 
+  return bb;
+
+}
+
+if (p == 1 && size == 3) {
+	front->next = back;
+	back->prev = front;
+	size--;
+}
+
+else if (p == size-1) { //deleting back
+
+	Node<T>* end = back;
+	back = back->prev;
+	back->next = nullptr;
+	delete end;
+	size--;
+}
+
+
+else 
+
+{ 
+
+	for (int i = 0; i < p; i++) {
+		current = current->next;
+	}
+
+	 
+	    Node<T>* previous = current->prev;
+        Node<T>* nextNode = current->next;
+
+        previous->next = nextNode;
+        nextNode->prev = previous;
+
+        delete current;
+        size--;
+}
+
+	        T a;
+        return a;
 }
 
 template <class T>
@@ -202,13 +218,13 @@ int DLinkedList<T>::Size() const {
 template <class T>
 // Returns whether the list is empty
 bool DLinkedList<T>::IsEmpty() const {
-  return (front == NULL && back == NULL);
+    return (front == NULL && back == NULL);
 }
 
 template <class T>
 // Returns existence of item
 bool DLinkedList<T>::Contains(T item) const {
-  for(Node<T>* current = front; current != NULL; current = current->next){
+    for(Node<T>* current = front; current != NULL; current = current->next){
 		if (current->data == item) 
 		{
 			return true;
@@ -221,10 +237,13 @@ template <class T>
 // Returns item at index (0-indexed)
 // Throws exception for invalid index
 T DLinkedList<T>::ElementAt(int p) const {
-   	Node<T>* current = front;
+	Node<T>* current = front;
+
 	for (int i = 0; i < p; i++) {
-	  current = current->next;
+		current = current->next;
 	}
+
 	return current->data;
-}
+}	
+
 #endif
