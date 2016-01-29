@@ -66,7 +66,7 @@ void DLinkedList<T>::InsertFront(T item) {
 	nnode->data = T(item);
 	nnode->next = front;
 	nnode->prev = NULL;
-	if (IsEmpty()) {
+	if (IsEmpty()) {               //linkedlist is empty
 		front = back = nnode;
 	}else {
 		front->prev = nnode;
@@ -149,7 +149,7 @@ if (p == 1 && size == 3) {    //deleting middle node when len is 3
 	return middle->data;
     }
 
-else if (p == size-1) { //deleting back
+else if (p == size-1) {       //deleting back
 	Node<T>* end = back;
 	back = back->prev;
 	back->next = nullptr;
@@ -172,7 +172,7 @@ else {
 Node<T>* re = front;
 for (int i = 0; i < p; i++) {
 	re = re->next;
-      }
+    }
 	return re->data;
 }
 
