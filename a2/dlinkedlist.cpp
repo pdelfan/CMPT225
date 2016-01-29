@@ -12,6 +12,20 @@ template <class T>
 // helper function for deep copy
 // Used by copy constructor and operator=
 void DLinkedList<T>::CopyList(const DLinkedList& ll) {
+	//Currently gets seg fault
+	/*
+	Node<T>* current = ll.front;
+    if (current == NULL) {
+        front = NULL;
+        back = NULL;
+    }
+    else {
+        while (current != NULL) {
+            InsertBack(current->data);
+            current = current->next;
+        }
+    }
+    */
 }
 
 template <class T>
@@ -36,7 +50,7 @@ size = 0;
 template <class T>
 // copy constructor, performs deep copy of list elements
 DLinkedList<T>::DLinkedList(const DLinkedList& ll) {
-
+	CopyList(ll);
 }
 
 template <class T>
@@ -230,5 +244,21 @@ T DLinkedList<T>::ElementAt(int p) const {
 
 	return current->data;
 }	
+
+template <class T>
+void DLinkedList<T>::printForward() {
+	if (IsEmpty()) {
+		cout << "List is empty" << endl;
+
+	} else {
+		Node<T>* head = front;
+		cout << "There are the elements contained in the linked list: ";
+		while (head) {
+			cout << head->data << " ";
+			head = head->next;
+		}
+		cout << endl;
+	}
+}
 
 #endif

@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <stdexcept>
 #include <string>
+#include <iostream> //required for the printForward() function. temporary. remove for submit
 
 using namespace std;
 
@@ -109,6 +110,8 @@ class DLinkedList
     // Returns item at index (0-indexed)
     // Throws exception for invalid index
     T ElementAt(int p) const;
+
+    void printForward(); //helper function to print out the linked list. temporary. remove before submit.
 
     // OVERLOADED OPERATORS
 
