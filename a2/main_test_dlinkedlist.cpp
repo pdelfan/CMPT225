@@ -39,4 +39,5 @@ void LLTest()
   lla.printBack();
   lla.RemoveDuplicates();
   lla.printForward();
+  //lla.printBack(); // dosen't work when duplicates are removed
 }

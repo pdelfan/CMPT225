@@ -189,7 +189,7 @@ template <class T>
 // PRE:   
 // POST:  List contains no duplicates, front and back point to the appropriate nodes
 // PARAM: 
-void DLinkedList<T>::RemoveDuplicates() { //Not working properly when printing backwards
+void DLinkedList<T>::RemoveDuplicates() { //Not working for printing backwards, connecting prev
 	Node<T> *ptr1, *ptr2, *dup;
 	ptr1 = front;
 
@@ -200,6 +200,7 @@ void DLinkedList<T>::RemoveDuplicates() { //Not working properly when printing b
 			if(ptr1->data == ptr2->next->data) {
 				dup = ptr2->next;
 				ptr2->next = ptr2->next->next;
+				//ptr2->next->prev = ptr2; //trying to connect to previous node
 				delete dup;
 			}
 			else {
