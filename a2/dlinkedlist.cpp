@@ -193,6 +193,8 @@ void DLinkedList<T>::RemoveDuplicates() { //Not working for printing backwards, 
 	Node<T> *ptr1, *ptr2, *dup;
 	ptr1 = front;
 
+	cout << "Removing the duplicates..." << endl;
+
 	while (ptr1 != NULL && ptr1->next != NULL) {
 		ptr2 = ptr1;
 
@@ -273,7 +275,7 @@ void DLinkedList<T>::printForward() {
 
 	} else {
 		Node<T>* head = front;
-		cout << "There are the elements contained in the linked list: ";
+		cout << "These are the elements contained in the linked list: ";
 		while (head) {
 			cout << head->data << " ";
 			head = head->next;

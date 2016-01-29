@@ -31,6 +31,7 @@ void LLTest()
   lla.InsertBack(10);
   lla.InsertBack(2);
   lla.InsertBack(5);
+  lla.InsertBack(10);
   lla.InsertBack(2);
   cout << "-------------------------------------------------\n";
   lla.Contains(9);
