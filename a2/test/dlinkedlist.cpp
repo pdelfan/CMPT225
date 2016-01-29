@@ -266,7 +266,7 @@ DLinkedList<T>& DLinkedList<T>::operator = (const DLinkedList& ll) {
 }
 
 template <class T>
-void DLinkedList<T>::print() {
+void DLinkedList<T>::printForward() {
 	if (IsEmpty()) {
 		cout << "List is empty" << endl;
 
@@ -279,6 +279,24 @@ void DLinkedList<T>::print() {
 		}
 		cout << endl;
 	}
+}
+
+template <class T>
+void DLinkedList<T>::printBack(){
+    Node<T>* tail = back;
+    if (!tail) {
+        cout << "The DLList is empty!" << endl;
+        return;
+    }
+    else {
+    	Node<T>* tail = back;
+    	cout << "These are the elements printed in reverse: ";
+        while (tail) {
+            cout << tail->data << " ";
+            tail = tail->prev;
+        }
+        cout << endl;
+    }
 }
 
 #endif
