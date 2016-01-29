@@ -244,9 +244,12 @@ T DLinkedList<T>::ElementAt(int p) const {
 	return current->data;
 }	
 
+// overloaded assignment operator
+// must work in the following cases:
+// list2 = list1 -> general case
+// list2 = list2 -> should do nothing
 template <class T>
-DLinkedList<T>& DLinkedList<T>::operator = (const DLinkedList& ll)
-{
+DLinkedList<T>& DLinkedList<T>::operator = (const DLinkedList& ll) {
 	if (this->size != 0) {
 		this->DeleteList();
 	}
