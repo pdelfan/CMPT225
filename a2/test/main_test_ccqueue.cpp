@@ -29,34 +29,42 @@ void LLTest()
 {
   // default constructor, InsertFront, InsertBack, ElementAt
   DLinkedList<int> lla;
-  lla.InsertFront(1);
+  //lla.InsertFront(0);
  // cout << "-------------------------------------------------\n";
-  lla.InsertBack(2);
+  lla.InsertBack(5);
  // cout << "-------------------------------------------------\n";
   //lla.Contains(9);
   //lla.Contains(10);
  // cout << "-------------------------------------------------\n";
   //lla.ElementAt(0);
   lla.InsertAt(0, 0);
+  lla.InsertAt(1, 1);
+  lla.InsertAt(2, 2);
   lla.InsertAt(3, 3);
   lla.InsertAt(4, 4);
-  lla.InsertAt(5, 5);
-  lla.ElementAt(2);  
+  lla.RemoveAt(0);
+  lla.ElementAt(0); 
+  lla.RemoveAt(0);
+  lla.ElementAt(0); 
+
 
 }
 
 void CCQTest()
 {
     CCQueue ccq;
-    ccq.Add("Alrikr", "Video card smoked"); //1
-    ccq.Add("Bjornstjerne", "Received wrong colour cable"); //2
-    ccq.Add("Cyprianus", "Motherboard DOA"); //3
-    ccq.Add("Dietrich", "Order not received"); //4
-    ccq.Add("Elisaeus", "Only 931GB on 1TB hard drive"); //5
     cout << "Size of ticket queue: " << ccq.Size() << endl;
+    ccq.Add("one", "Video card smoked"); //1
+    ccq.Add("two", "Received wrong colour cable"); //2
+    ccq.Add("three", "Motherboard DOA"); //3
+    ccq.Add("four", "Order not received"); //4
+    ccq.Add("five", "Only 931GB on 1TB hard drive"); //5
+    cout << "Size of ticket queue: " << ccq.Size() << endl;
+    cout << ccq.PrintStatus() << endl;
+
     //ccq.Service();
-    //ccq.MoveUp(3);
-    //ccq.MoveUp(2);
-    //ccq.MoveDown(2);
+    //ccq.MoveUp(1);
+    //ccq.MoveUp(1);
+    ccq.MoveDown(1);
     cout << ccq.PrintStatus() << endl;
 }
