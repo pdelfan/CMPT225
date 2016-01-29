@@ -50,7 +50,7 @@ size = 0;
 template <class T>
 // copy constructor, performs deep copy of list elements
 DLinkedList<T>::DLinkedList(const DLinkedList& ll) {
-	CopyList(ll);
+		CopyList(ll);
 }
 
 template <class T>
@@ -112,7 +112,10 @@ void DLinkedList<T>::InsertAt(T item, int p) {
 	else if (p == size) {
 		InsertBack(item);
 	}
+
+
 else 
+
 {
 	size++;
 	Node<T>* behind = front;
@@ -133,7 +136,7 @@ else
 	behind->next = nnode;
 
 	//to show
-     }	
+}	
 
 }
 
@@ -148,22 +151,24 @@ T DLinkedList<T>::RemoveAt(int p) {
 
 	Node<T>* temp = front; //for the first case
 	Node<T>* current = front; //for the second case
-	
+
 if (p == 0) //deleting front
+
 {
 
   front = front->next;
   front->prev = nullptr;
-  delete temp;
   size--;  
-  T bb; 
-  return bb;
+  return temp->data;
+
 }
 
 if (p == 1 && size == 3) {
+	Node<T>* middle = front->next;
 	front->next = back;
 	back->prev = front;
 	size--;
+	return middle->data;
 }
 
 else if (p == size-1) { //deleting back
@@ -171,11 +176,25 @@ else if (p == size-1) { //deleting back
 	Node<T>* end = back;
 	back = back->prev;
 	back->next = nullptr;
-	delete end;
+	//delete end;
+	//size--;
+	
+	/*Node<T>* remove_back= front;
+	for (int i = 0; i < p; i++) {
+		remove_back = remove_back->next;
+	}
+
+	return remove_back->data;*/
 	size--;
+	return end->data;
+
 }
+
+
 else 
+
 { 
+
 	for (int i = 0; i < p; i++) {
 		current = current->next;
 	}
@@ -186,13 +205,16 @@ else
 
         previous->next = nextNode;
         nextNode->prev = previous;
-
-        delete current;
         size--;
+        return current->data;
 }
 
-	T a;
-        return a;
+Node<T>* re = front;
+for (int i = 0; i < p; i++) {
+		re = re->next;
+	}
+
+	return re->data;
 }
 
 template <class T>
@@ -244,21 +266,5 @@ T DLinkedList<T>::ElementAt(int p) const {
 
 	return current->data;
 }	
-
-template <class T>
-void DLinkedList<T>::printForward() {
-	if (IsEmpty()) {
-		cout << "List is empty" << endl;
-
-	} else {
-		Node<T>* head = front;
-		cout << "There are the elements contained in the linked list: ";
-		while (head) {
-			cout << head->data << " ";
-			head = head->next;
-		}
-		cout << endl;
-	}
-}
 
 #endif
