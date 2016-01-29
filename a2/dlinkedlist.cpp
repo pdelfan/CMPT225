@@ -244,4 +244,20 @@ T DLinkedList<T>::ElementAt(int p) const {
 	return current->data;
 }	
 
+template <class T>
+void DLinkedList<T>::print() {
+	if (IsEmpty()) {
+		cout << "List is empty" << endl;
+
+	} else {
+		Node<T>* head = front;
+		cout << "There are the elements contained in the linked list: ";
+		while (head) {
+			cout << head->data << " ";
+			head = head->next;
+		}
+		cout << endl;
+	}
+}
+
 #endif

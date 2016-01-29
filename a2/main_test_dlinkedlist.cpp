@@ -35,7 +35,7 @@ void LLTest()
   cout << "-------------------------------------------------\n";
   lla.Contains(9);
   lla.Contains(10);
-  lla.printForward();
+  lla.print();
   lla.RemoveDuplicates();
-  lla.printForward();
+  lla.print();
 }
