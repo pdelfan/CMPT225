@@ -214,7 +214,7 @@ void DLinkedList<T>::RemoveDuplicates() { //Not working for printing backwards, 
 			if(ptr1->data == ptr2->next->data) {
 				dup = ptr2->next;
 				ptr2->next = ptr2->next->next;
-				ptr1->next = ptr2->next; //trying to connect to previous node
+				//ptr1->next = ptr2->next; //trying to connect to previous node
 				delete dup;
 			}
 			else {
