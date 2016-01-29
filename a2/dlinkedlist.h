@@ -112,6 +112,7 @@ class DLinkedList
     T ElementAt(int p) const;
 
     void printForward(); //helper function to print out the linked list. temporary. remove before submit.
+    void printBack();
 
     // OVERLOADED OPERATORS
 
