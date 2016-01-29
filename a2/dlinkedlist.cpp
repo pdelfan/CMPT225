@@ -12,7 +12,9 @@ template <class T>
 // Used by copy constructor and operator=
 void DLinkedList<T>::CopyList(const DLinkedList& ll) {
 	//Currently gets seg fault
-	int i = 0;
+	int new_size = 0;
+
+	DLinkedList<T> llb;
 	
 	Node<T>* current = ll.front;
     if (current == NULL) {
@@ -21,13 +23,22 @@ void DLinkedList<T>::CopyList(const DLinkedList& ll) {
     }
     else {
         while (current != NULL) {
-            InsertBack(current->data);
+            llb.InsertBack(current->data);
             current = current->next;
+            new_size++;
 
             //Test: How many items are there in the original linked list
             //i++;
         }
+        Node<T>* fro = llb.front;
         //cout << "There are " << i << " elements in the original linked linked list." << endl;
+
+cout << "The copied linked list: ";
+        for (int i = 0; i < new_size; i++) {
+        	cout << fro->data << " ";
+        	fro = fro->next;
+        }
+        cout << endl;
     }
     
 }
@@ -196,13 +207,14 @@ void DLinkedList<T>::RemoveDuplicates() { //Not working for printing backwards, 
 	cout << "Removing the duplicates..." << endl;
 
 	while (ptr1 != NULL && ptr1->next != NULL) {
+
 		ptr2 = ptr1;
 
 		while (ptr2->next != NULL) {
 			if(ptr1->data == ptr2->next->data) {
 				dup = ptr2->next;
 				ptr2->next = ptr2->next->next;
-				//ptr2->next->prev = ptr2; //trying to connect to previous node
+				ptr1->next = ptr2->next; //trying to connect to previous node
 				delete dup;
 			}
 			else {
