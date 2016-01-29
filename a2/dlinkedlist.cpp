@@ -245,6 +245,24 @@ T DLinkedList<T>::ElementAt(int p) const {
 }	
 
 template <class T>
+DLinkedList<T>& DLinkedList<T>::operator = (const DLinkedList& ll)
+{
+	if (this->size != 0) {
+		this->DeleteList();
+	}
+
+	if (&ll == this) {
+		return *this;
+	}else if (ll.size == 0) {
+		this->~DLinkedList();
+		return *this;
+	}
+	this->CopyList(ll);
+	this->size = ll.Size;
+	return *this;
+}
+
+template <class T>
 void DLinkedList<T>::print() {
 	if (IsEmpty()) {
 		cout << "List is empty" << endl;
