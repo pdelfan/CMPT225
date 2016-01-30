@@ -237,7 +237,9 @@ void DLinkedList<T>::RemoveDuplicates() { //Not working for printing backwards, 
 				runner->next = runner->next->next;
 				if (runner->next != NULL) {
 					runner->next->prev = runner;
-				} 
+				} else {
+					back = runner;
+				}
 				delete dup;
 			}
 			else {
