@@ -1,53 +1,65 @@
+// File:        dlinkedlist.cpp
+// Authors:     Josh Vocal, Pouria Delfanazari
+// Date:        January 29, 2016
+// Description: implementation of doubly-linked-list functions for CMPT 225 assignment 2
+
 #ifdef _DLINKEDLIST_H_
 
 #include <cstdlib>
 #include <stdexcept>
-//#include "dlinkedlist.h"
+#include "dlinkedlist.h"
 #include <string>
 #include <iostream>
-
 using namespace std;
 
 template <class T>
 // helper function for deep copy
 // Used by copy constructor and operator=
 void DLinkedList<T>::CopyList(const DLinkedList& ll) {
-
-
+   //Creates a pointer called current to the head of the linked list.	
+    Node<T>* current = ll.front;
+    if (current == NULL) {
+        front = NULL;
+        back = NULL;
+    }
+    else {
+    	front = NULL;
+    	back = NULL;
+    	//While there are still nodes in the linked list we are copying from
+    	//insert a node with the same data to the copied linked list.
+        while (current != NULL) {
+            InsertBack(current->data);
+            current = current->next;
+        }
+    }  
 }
 
 template <class T>
 // helper function for deep delete
 // Used by destructor and copy/assignment
 void DLinkedList<T>::DeleteList() {
-
-	for (Node<T>* current = front; current != NULL; current = current->next)
-	{
+	for (Node<T>* current = front; current != NULL; current = current->next) {
 		delete current;
 	}
-
-
-
 }
 
 template <class T>
 // default constructor
 DLinkedList<T>::DLinkedList() {
-front = NULL;
-back = NULL;
-size = 0;
+	front = NULL;
+	back = NULL;
+	size = 0;
 }
 
 template <class T>
 // copy constructor, performs deep copy of list elements
 DLinkedList<T>::DLinkedList(const DLinkedList& ll) {
-
+	CopyList(ll);
 }
 
 template <class T>
 // destructor
 DLinkedList<T>::~DLinkedList() {
-
 }
 
 template <class T>
@@ -55,21 +67,17 @@ template <class T>
 // POST:  List contains item at position 0
 // PARAM: item = item to be inserted
 void DLinkedList<T>::InsertFront(T item) {
-
 	size++;
 	Node<T>* nnode = new Node<T>(item);
 	nnode->data = T(item);
 	nnode->next = front;
 	nnode->prev = NULL;
-	if (IsEmpty()) {
+	if (IsEmpty()) {               //linkedlist is empty
 		front = back = nnode;
 	}else {
 		front->prev = nnode;
 		front = nnode;
-	}
-
-	//for showing 
-
+	}	
 	cout<< "Added " << nnode->data <<  " in front.\n";
 
 	cout << "List: ";
@@ -79,8 +87,7 @@ void DLinkedList<T>::InsertFront(T item) {
 
 		cout<< current->data << " ";
 	}
-cout << endl;
-
+	cout << endl;
 }
 
 template <class T>
@@ -88,21 +95,17 @@ template <class T>
 // POST:  List contains item at back
 // PARAM: item = item to be inserted
 void DLinkedList<T>::InsertBack(T item) {
-	
   size++;
   Node<T>* nnode = new Node<T>(item);
   nnode->data = T(item);
   nnode->next = NULL;
   nnode->prev = back;
-  if (IsEmpty()) {
+  if (IsEmpty()) {              //linkedlist is empty
   	front = back = nnode;
   }else {
     back->next = nnode;
     back = nnode;	
-   }
-
-    //for showing
-
+   }   
    cout << "Added " << nnode->data << " one to back. Should Have it at the back: \n";
    cout << "List: ";
 	for(Node<T>* current = front;
@@ -111,8 +114,7 @@ void DLinkedList<T>::InsertBack(T item) {
 
 		cout<< current->data << " ";
 	}
-cout << endl;
-
+	cout << endl;
 }
 
 template <class T>
@@ -122,38 +124,32 @@ template <class T>
 // POST:  List contains item at position p
 // PARAM: item = item to be inserted, p = position where item will be inserted
 void DLinkedList<T>::InsertAt(T item, int p) {
-
-	if (p == 0) {
+	if (p < 0 || p >= size) {
+		throw std::out_of_range("\nInvalid index\n");
+	}
+		
+	if (p == 0) {                  //insert front
 		InsertFront(item);
-	}
-
-	else if (p == size) {
+	}else if (p == size) {         //inesrt back
 		InsertBack(item);
-	}
+	}else {                        //other cases (between front and back)
+		size++;
+		Node<T>* behind = front;
+		for (int i = 0; i < p-1; i++) {
+			behind = behind->next;
+	      }
 
-
-else 
-
-{
-	size++;
-	Node<T>* behind = front;
-	for (int i = 0; i < p-1; i++) {
-		behind = behind->next;
-	}
-
-	Node<T>* fro = front;
-	for (int i = 0; i < p; i++) {
-		fro = fro->next;
-	}
+		Node<T>* fro = front;
+		for (int i = 0; i < p; i++) {
+			fro = fro->next;
+          	}
 
 	Node<T>* nnode = new Node<T>(item);
-
 	nnode->next = fro;
 	fro->prev = nnode;
 	nnode->prev = behind;
 	behind->next = nnode;
-
-	//to show
+	
 	cout << "Added item. \nList: ";
 
 	for(Node<T>* current = front; current != NULL; 
@@ -161,9 +157,7 @@ else
 
 		cout<< current->data << " ";
 	}
-}	
-	
-	
+    }	
 }
 
 template <class T>
@@ -174,70 +168,58 @@ template <class T>
 // PARAM: p = position from where item will be removed
 
 T DLinkedList<T>::RemoveAt(int p) {
-
+	if (size == 0 || (p < 0 || p >= size)) {
+		throw std::out_of_range("\nInvalid index\n");
+	}
+		
 	Node<T>* temp = front; //for the first case
 	Node<T>* current = front; //for the second case
-	Node<T>* last = back; //for the third case
-	Node<T>* memory = back; // for the third case
 
-
-
-if (p == 0) //deleting front
-
-{
-
+if (p == 0) {                  //deleting front
   front = front->next;
   front->prev = nullptr;
-  delete temp;
-  size--;
-  
-
+  size--;  
+  return temp->data;
 }
 
-if (p == 1 && size == 3) {
+if (p == 1 && size == 3) {    //deleting middle node when len is 3
+	Node<T>* middle = front->next;
 	front->next = back;
 	back->prev = front;
 	size--;
-}
+	return middle->data;
+    }
 
-else if (p == size-1) { //deleting back
-
+else if (p == size-1) {       //deleting back
 	Node<T>* end = back;
 	back = back->prev;
 	back->next = nullptr;
-	delete end;
 	size--;
-}
+	return end->data;
+    }
 
-
-else 
-
-{ 
-
+else { 
 	for (int i = 0; i < p; i++) {
 		current = current->next;
 	}
-
-	 
-	    Node<T>* previous = current->prev;
+	Node<T>* previous = current->prev;
         Node<T>* nextNode = current->next;
-
         previous->next = nextNode;
         nextNode->prev = previous;
-
-        delete current;
         size--;
+        return current->data;
 }
-
-
-        cout << "\nDeleted List: ";
-        for(Node<T>* aa = front; aa != NULL; aa = aa->next)
+ 	cout << "\nDeleted List: ";
+		for(Node<T>* aa = front; aa != NULL; aa = aa->next)
         {
 		cout<< aa->data << " ";
-	    }
+	}
 
-	        T a;
-        return a;
+Node<T>* re = front;
+for (int i = 0; i < p; i++) {
+	re = re->next;
+    }
+	return re->data;
 }
 
 template <class T>
@@ -250,13 +232,35 @@ template <class T>
 // POST:  List contains no duplicates, front and back point to the appropriate nodes
 // PARAM: 
 void DLinkedList<T>::RemoveDuplicates() {
-
+	Node<T> *current, *runner, *dup;
+	current = front;
+	
+	while (current != NULL && current->next != NULL) {
+		runner = current;
+		while (runner->next != NULL) {
+			if(current->data == runner->next->data) {
+				dup = runner->next;
+				//Changes the runners next ptr to the next node after the duplicate
+				runner->next = runner->next->next;
+				//Connect the node after the duplicate back to the current ptr.
+				if (runner->next != NULL) {
+					runner->next->prev = runner;
+				} else {
+					back = runner;
+				}
+				delete dup;
+			}
+			else {
+				runner = runner->next;
+			}
+		}
+		current = current->next;
+	}
 }
 
 template <class T>
 // Returns size of list
 int DLinkedList<T>::Size() const {
-	cout << size;
     return size;
 }
 
@@ -270,13 +274,12 @@ template <class T>
 // Returns existence of item
 bool DLinkedList<T>::Contains(T item) const {
     for(Node<T>* current = front; current != NULL; current = current->next){
-		if (current->data == item) 
-		{
+		if (current->data == item) {
 			cout << "Found item!" << endl;
 			return true;
 		}
-	}
-	cout << "Item not found." << endl;
+        }
+        cout << "Item not found." << endl;
 	return false;
 }
 
@@ -284,13 +287,36 @@ template <class T>
 // Returns item at index (0-indexed)
 // Throws exception for invalid index
 T DLinkedList<T>::ElementAt(int p) const {
-	Node<T>* current = front;
+	if (size == 0 || (p < 0 || p >= size)) {
+		throw std::out_of_range("\nInvalid index\n");
+	}
 
+	Node<T>* current = front;
 	for (int i = 0; i < p; i++) {
 		current = current->next;
 	}
-	//cout << "Item at int p is: " << current->data;
+	cout << "Item at int p is: " << current->data;
 	return current->data;
-}
+}	
 
+// overloaded assignment operator
+// must work in the following cases:
+// list2 = list1 -> general case
+// list2 = list2 -> should do nothing
+template <class T>
+DLinkedList<T>& DLinkedList<T>::operator = (const DLinkedList& ll) {
+	if (this->size != 0) {
+		this->DeleteList();
+	}
+
+	if (&ll == this) {
+		return *this;
+	}else if (ll.size == 0) {
+		this->~DLinkedList();
+		return *this;
+	}
+	this->CopyList(ll);
+	this->size = ll.Size;
+	return *this;
+}
 #endif
