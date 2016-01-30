@@ -1,3 +1,8 @@
+// File:        ccqueue.cpp
+// Author:      Josh Vocal, Pouria Delfanazari
+// Date:        January 29, 2016
+// Description: Implementation of customer complaint queue functions for CMPT 225 assignment 2
+
 #include <sstream>
 #include <string>
 #include "ccqueue.h"
