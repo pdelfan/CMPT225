@@ -221,32 +221,7 @@ template <class T>
 // POST:  List contains no duplicates, front and back point to the appropriate nodes
 // PARAM: 
 void DLinkedList<T>::RemoveDuplicates() { //Not working for printing backwards, connecting prev
-//Trying to remove duplicates using remove at function. seg fault
-/*
-	Node<T> *current, *runner;
-	current = front;
 
-	int i = 0;
-
-	cout << "Removing the duplicates..." << endl;
-
-	while (current != NULL && current->next != NULL) {
-		runner = current;
-		while (runner->next != NULL) {
-			i++;
-			if (current->data == runner->next->data) {
-				RemoveAt(i);
-				i--;
-			} else {
-				runner = runner->next;
-			}
-		}
-		current = current->next;
-	}
-*/
-
-	
-//Still gets seg fault
 	Node<T> *current, *runner, *dup;
 	current = front;
 
@@ -260,7 +235,9 @@ void DLinkedList<T>::RemoveDuplicates() { //Not working for printing backwards, 
 			if(current->data == runner->next->data) {
 				dup = runner->next;
 				runner->next = runner->next->next;
-				//runner->next->prev = runner->next->prev->prev; //trying to connect to previous node
+				if (dup->next != NULL) {
+					dup->next->prev = runner;
+				} 
 				delete dup;
 			}
 			else {
