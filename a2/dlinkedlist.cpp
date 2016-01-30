@@ -11,17 +11,17 @@ template <class T>
 // helper function for deep copy
 // Used by copy constructor and operator=
 void DLinkedList<T>::CopyList(const DLinkedList& ll) {
+    //Creates a pointer called current to the head of the linked list.	
     Node<T>* current = ll.front;
-
     if (current == NULL) {
         front = NULL;
         back = NULL;
     }
     else {
-
     	front = NULL;
     	back = NULL;
-
+    	//While there are still nodes in the linked list we are copying from
+    	//insert a node with the same data to the copied linked list.
         while (current != NULL) {
             InsertBack(current->data);
             current = current->next;
@@ -191,8 +191,6 @@ void DLinkedList<T>::RemoveDuplicates() { //Not working for printing backwards, 
 	Node<T> *current, *runner, *dup;
 	current = front;
 
-	cout << "Removing the duplicates..." << endl;
-
 	while (current != NULL && current->next != NULL) {
 
 		runner = current;
@@ -200,7 +198,9 @@ void DLinkedList<T>::RemoveDuplicates() { //Not working for printing backwards, 
 		while (runner->next != NULL) {
 			if(current->data == runner->next->data) {
 				dup = runner->next;
+				//Changes the runners next ptr to the next node after the duplicate
 				runner->next = runner->next->next;
+				//Connect the node after the duplicate back to the current ptr.
 				if (runner->next != NULL) {
 					runner->next->prev = runner;
 				} else {
