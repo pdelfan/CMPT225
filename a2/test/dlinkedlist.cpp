@@ -106,7 +106,7 @@ template <class T>
 // PARAM: item = item to be inserted, p = position where item will be inserted
 void DLinkedList<T>::InsertAt(T item, int p) {
 	if (p < 0 || p >= size) {
-		throw exception("\nInvalid index\n");
+		throw std::out_of_range("\nInvalid index\n");
 	}
 		
 	if (p == 0) {                  //insert front
@@ -142,7 +142,7 @@ template <class T>
 
 T DLinkedList<T>::RemoveAt(int p) {
 	if (size == 0 || (p < 0 || p >= size)) {
-		throw exception("\nInvalid index\n");
+		throw std::out_of_range("\nInvalid index\n");
 	}
 		
 	Node<T>* temp = front; //for the first case
@@ -254,7 +254,7 @@ template <class T>
 // Throws exception for invalid index
 T DLinkedList<T>::ElementAt(int p) const {
 	if (size == 0 || (p < 0 || p >= size)) {
-		throw exception("\nInvalid index\n");
+		throw std::out_of_range("\nInvalid index\n");
 	}
 
 	Node<T>* current = front;
