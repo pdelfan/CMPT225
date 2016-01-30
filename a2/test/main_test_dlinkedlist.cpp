@@ -26,17 +26,17 @@ void LLTest()
 {
   // default constructor, InsertFront, InsertBack, ElementAt
   DLinkedList<int> lla;
-  lla.InsertFront(2);
-  cout << "-------------------------------------------------\n";
-  lla.InsertBack(10);
-  lla.InsertBack(2);
   lla.InsertBack(5);
-  lla.InsertBack(2);
-  cout << "-------------------------------------------------\n";
-  lla.Contains(9);
-  lla.Contains(10);
-  lla.printForward();
-  lla.printBack();
-  lla.RemoveDuplicates();
-  lla.printForward();
+  lla.InsertAt(0, 0);
+  lla.InsertAt(1, 1);
+  lla.InsertAt(2, 2);
+  lla.InsertAt(3, 3);
+  lla.InsertAt(4, 4);
+  
+  try {
+    lla.InsertAt(0, -1);
+  }
+  catch (exception& e) {
+    cout << "Exception: " << e.what() << endl;
+  }
 }
