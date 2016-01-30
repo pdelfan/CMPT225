@@ -28,17 +28,19 @@ void LLTest()
   DLinkedList<int> lla;
   lla.InsertFront(2);
   cout << "-------------------------------------------------\n";
-  lla.InsertBack(10);
-  lla.InsertBack(2);
   lla.InsertBack(5);
   lla.InsertBack(10);
   lla.InsertBack(2);
-  cout << "-------------------------------------------------\n";
-  lla.Contains(9);
-  lla.Contains(10);
+  lla.InsertBack(6);
+  lla.InsertBack(2);
+  lla.InsertBack(3);
+  lla.InsertBack(3);
+  lla.InsertBack(2);
+  lla.InsertBack(8);
   lla.printForward();
   lla.printBack();
+  cout << "-------------------------------------------------\n";
   lla.RemoveDuplicates();
   lla.printForward();
-  //lla.printBack(); // dosen't work when duplicates are removed
+  lla.printBack();
 }
