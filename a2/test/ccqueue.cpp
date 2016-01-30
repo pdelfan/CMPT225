@@ -8,7 +8,6 @@
 #include "ccqueue.h"
 #include "dlinkedlist.h"
 #include "ticket.h"
-
 using namespace std;
 
 CCQueue::CCQueue() {
@@ -46,7 +45,7 @@ CCQueue::CCQueue() {
         maxticketid--;
         tickets.RemoveAt(0);
         return ticket_remove;
-    }
+   }
 
     // moves an item towards the front of the queue by 1 position and returns true
     // returns false if supplied index is 0 (first item) or outside the list boundaries
@@ -60,8 +59,7 @@ CCQueue::CCQueue() {
     Ticket replace = tickets.RemoveAt(index);
     tickets.InsertAt(replace, index - 1);
     return true;
-
-    }
+   }
 
     // moves an item towards the back of the queue by 1 position and returns true
     // returns false if supplied index is the last item or outside the list boundaries
@@ -82,4 +80,4 @@ CCQueue::CCQueue() {
     // returns the number of tickets
     int CCQueue::Size() const {
       return tickets.Size();
-    }
+   }
