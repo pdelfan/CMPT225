@@ -11,13 +11,7 @@ template <class T>
 // helper function for deep copy
 // Used by copy constructor and operator=
 void DLinkedList<T>::CopyList(const DLinkedList& ll) {
-
-	
-	//Currently gets seg fault
-	int new_size = 0;
-
-	DLinkedList<T> llb;
-	Node<T>* current = ll.front;
+    Node<T>* current = ll.front;
 
     if (current == NULL) {
         front = NULL;
@@ -29,38 +23,10 @@ void DLinkedList<T>::CopyList(const DLinkedList& ll) {
     	back = NULL;
 
         while (current != NULL) {
-            llb.InsertBack(current->data);
+            InsertBack(current->data);
             current = current->next;
-            new_size++;
         }
-        
-
-        //Text print function to check that the linked lists are properly connected.
-        cout << "There are " << new_size << " elements in the original linked linked list." << endl;
-
-        Node<T>* fro = llb.front;
-		cout << "The copied linked list printed forward: ";
-        while (fro != NULL) {
-        	cout << fro->data << " ";
-        	fro = fro->next;
-
-        }
-        cout << endl;
-
-        fro = llb.back;
-        cout << "The copied linked list printed backwards: ";
-        while (fro != NULL) {
-        	cout << fro->data << " ";
-        	fro = fro->prev;
-
-        }
-        cout << endl;
-        //It seems that everything is connected properly
-        // 
-
-        
     }   
-    
 }
 
 template <class T>
