@@ -11,25 +11,22 @@ template <class T>
 // helper function for deep copy
 // Used by copy constructor and operator=
 void DLinkedList<T>::CopyList(const DLinkedList& ll) {
-	//Currently gets seg fault
-	int i = 0;
-	
-	Node<T>* current = ll.front;
+   //Creates a pointer called current to the head of the linked list.	
+    Node<T>* current = ll.front;
     if (current == NULL) {
         front = NULL;
         back = NULL;
     }
     else {
+    	front = NULL;
+    	back = NULL;
+    	//While there are still nodes in the linked list we are copying from
+    	//insert a node with the same data to the copied linked list.
         while (current != NULL) {
             InsertBack(current->data);
             current = current->next;
-
-            //Test: How many items are there in the original linked list
-            //i++;
         }
-        //cout << "There are " << i << " elements in the original linked linked list." << endl;
-    }
-    
+    }  
 }
 
 template <class T>
@@ -103,6 +100,10 @@ template <class T>
 // POST:  List contains item at position p
 // PARAM: item = item to be inserted, p = position where item will be inserted
 void DLinkedList<T>::InsertAt(T item, int p) {
+	if (p < 0 || p >= size) {
+		throw exception("\nInvalid index\n");
+	}
+		
 	if (p == 0) {                  //insert front
 		InsertFront(item);
 	}else if (p == size) {         //inesrt back
@@ -135,6 +136,10 @@ template <class T>
 // PARAM: p = position from where item will be removed
 
 T DLinkedList<T>::RemoveAt(int p) {
+	if (size == 0 || (p < 0 || p >= size)) {
+		throw exception("\nInvalid index\n");
+	}
+		
 	Node<T>* temp = front; //for the first case
 	Node<T>* current = front; //for the second case
 
@@ -190,23 +195,29 @@ template <class T>
 // POST:  List contains no duplicates, front and back point to the appropriate nodes
 // PARAM: 
 void DLinkedList<T>::RemoveDuplicates() {
-	Node<T> *ptr1, *ptr2, *dup;
-	ptr1 = front;
-
-	while (ptr1 != NULL && ptr1->next != NULL) {
-		ptr2 = ptr1;
-
-		while (ptr2->next != NULL) {
-			if(ptr1->data == ptr2->next->data) {
-				dup = ptr2->next;
-				ptr2->next = ptr2->next->next;
+	Node<T> *current, *runner, *dup;
+	current = front;
+	
+	while (current != NULL && current->next != NULL) {
+		runner = current;
+		while (runner->next != NULL) {
+			if(current->data == runner->next->data) {
+				dup = runner->next;
+				//Changes the runners next ptr to the next node after the duplicate
+				runner->next = runner->next->next;
+				//Connect the node after the duplicate back to the current ptr.
+				if (runner->next != NULL) {
+					runner->next->prev = runner;
+				} else {
+					back = runner;
+				}
 				delete dup;
 			}
 			else {
-				ptr2 = ptr2->next;
+				runner = runner->next;
 			}
 		}
-		ptr1 = ptr1->next;
+		current = current->next;
 	}
 }
 
@@ -237,6 +248,10 @@ template <class T>
 // Returns item at index (0-indexed)
 // Throws exception for invalid index
 T DLinkedList<T>::ElementAt(int p) const {
+	if (size == 0 || (p < 0 || p >= size)) {
+		throw exception("\nInvalid index\n");
+	}
+
 	Node<T>* current = front;
 	for (int i = 0; i < p; i++) {
 		current = current->next;
@@ -264,39 +279,4 @@ DLinkedList<T>& DLinkedList<T>::operator = (const DLinkedList& ll) {
 	this->size = ll.Size;
 	return *this;
 }
-
-template <class T>
-void DLinkedList<T>::printForward() {
-	if (IsEmpty()) {
-		cout << "List is empty" << endl;
-
-	} else {
-		Node<T>* head = front;
-		cout << "There are the elements contained in the linked list: ";
-		while (head) {
-			cout << head->data << " ";
-			head = head->next;
-		}
-		cout << endl;
-	}
-}
-
-template <class T>
-void DLinkedList<T>::printBack(){
-    Node<T>* tail = back;
-    if (!tail) {
-        cout << "The DLList is empty!" << endl;
-        return;
-    }
-    else {
-    	Node<T>* tail = back;
-    	cout << "These are the elements printed in reverse: ";
-        while (tail) {
-            cout << tail->data << " ";
-            tail = tail->prev;
-        }
-        cout << endl;
-    }
-}
-
 #endif
