@@ -74,7 +74,7 @@ void DLinkedList<T>::InsertFront(T item) {
 	nnode->prev = NULL;
 	if (IsEmpty()) {               //linkedlist is empty
 		front = back = nnode;
-	}else {
+	}else {                        //linkedlist is not empty
 		front->prev = nnode;
 		front = nnode;
 	}	
@@ -85,17 +85,17 @@ template <class T>
 // POST:  List contains item at back
 // PARAM: item = item to be inserted
 void DLinkedList<T>::InsertBack(T item) {
-  size++;
-  Node<T>* nnode = new Node<T>(item);
-  nnode->data = T(item);
-  nnode->next = NULL;
-  nnode->prev = back;
-  if (IsEmpty()) {              //linkedlist is empty
-  	front = back = nnode;
-  }else {
-    back->next = nnode;
-    back = nnode;	
-   }   
+	size++;
+	Node<T>* nnode = new Node<T>(item);
+  	nnode->data = T(item);
+  	nnode->next = NULL;
+  	nnode->prev = back;
+  	if (IsEmpty()) {              //linkedlist is empty
+  		front = back = nnode;
+  	}else {			      //linkedlist is not empty
+    	back->next = nnode;
+    	back = nnode;	
+    }   
 }
 
 template <class T>
@@ -115,12 +115,12 @@ void DLinkedList<T>::InsertAt(T item, int p) {
 		InsertBack(item);
 	}else {                        //other cases (between front and back)
 		size++;
-		Node<T>* behind = front;
+		Node<T>* behind = front;        //element behind p
 		for (int i = 0; i < p-1; i++) {
 			behind = behind->next;
-	      }
+	        }
 
-		Node<T>* fro = front;
+		Node<T>* fro = front;           //element in front of p
 		for (int i = 0; i < p; i++) {
 			fro = fro->next;
           	}
@@ -143,16 +143,16 @@ template <class T>
 T DLinkedList<T>::RemoveAt(int p) {
 	if (size == 0 || (p < 0 || p >= size)) {
 		throw std::out_of_range("Invalid index\n");
-	}
+        }
 		
 	Node<T>* temp = front; //for the first case
 	Node<T>* current = front; //for the second case
 
-if (p == 0) {                  //deleting front
-  front = front->next;
-  front->prev = nullptr;
-  size--;  
-  return temp->data;
+	if (p == 0) {                  //deleting front
+  	front = front->next;
+  	front->prev = nullptr;
+  	size--;  
+  	return temp->data;
 }
 
 if (p == 1 && size == 3) {    //deleting middle node when len is 3
@@ -169,9 +169,7 @@ else if (p == size-1) {       //deleting back
 	back->next = nullptr;
 	size--;
 	return end->data;
-    }
-
-else { 
+    }else {                   		//other cases
 	for (int i = 0; i < p; i++) {
 		current = current->next;
 	}
@@ -181,7 +179,7 @@ else {
         nextNode->prev = previous;
         size--;
         return current->data;
-}
+     }
 
 Node<T>* re = front;
 for (int i = 0; i < p; i++) {
@@ -257,7 +255,7 @@ T DLinkedList<T>::ElementAt(int p) const {
 		throw std::out_of_range("Invalid index\n");
 	}
 
-	Node<T>* current = front;
+	Node<T>* current = front;          //for going through the dlinkedlist
 	for (int i = 0; i < p; i++) {
 		current = current->next;
 	}
@@ -270,7 +268,7 @@ T DLinkedList<T>::ElementAt(int p) const {
 // list2 = list2 -> should do nothing
 template <class T>
 DLinkedList<T>& DLinkedList<T>::operator = (const DLinkedList& ll) {
-	if (this->size != 0) {
+	if (this->size != 0) {       //size not zero, delete
 		this->DeleteList();
 	}
 
@@ -280,7 +278,7 @@ DLinkedList<T>& DLinkedList<T>::operator = (const DLinkedList& ll) {
 		this->~DLinkedList();
 		return *this;
 	}
-	this->CopyList(ll);
+	this->CopyList(ll);         //copying size
 	this->size = ll.Size;
 	return *this;
 }
