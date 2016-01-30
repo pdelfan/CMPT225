@@ -155,38 +155,38 @@ T DLinkedList<T>::RemoveAt(int p) {
   	return temp->data;
 }
 
-if (p == 1 && size == 3) {    //deleting middle node when len is 3
-	Node<T>* middle = front->next;
-	front->next = back;
-	back->prev = front;
-	size--;
-	return middle->data;
-    }
+	if (p == 1 && size == 3) {    //deleting middle node when len is 3
+		Node<T>* middle = front->next;
+		front->next = back;
+		back->prev = front;
+		size--;
+		return middle->data;
+        }
 
-else if (p == size-1) {       //deleting back
-	Node<T>* end = back;
-	back = back->prev;
-	back->next = nullptr;
-	size--;
-	return end->data;
-    }else {                   		//other cases
+	else if (p == size-1) {       //deleting back
+		Node<T>* end = back;
+		back = back->prev;
+		back->next = nullptr;
+		size--;
+		return end->data;
+	}else {                   		//other cases
+		for (int i = 0; i < p; i++) {
+			current = current->next;
+		}
+		Node<T>* previous = current->prev;
+		Node<T>* nextNode = current->next;
+        	previous->next = nextNode;
+        	nextNode->prev = previous;
+        	size--;
+        	return current->data;
+        }
+
+	Node<T>* re = front;
 	for (int i = 0; i < p; i++) {
-		current = current->next;
+		re = re->next;
+    	}
+		return re->data;
 	}
-	Node<T>* previous = current->prev;
-        Node<T>* nextNode = current->next;
-        previous->next = nextNode;
-        nextNode->prev = previous;
-        size--;
-        return current->data;
-     }
-
-Node<T>* re = front;
-for (int i = 0; i < p; i++) {
-	re = re->next;
-    }
-	return re->data;
-}
 
 template <class T>
 // Removes duplicates from the list, preserving existing order of remaining items.
