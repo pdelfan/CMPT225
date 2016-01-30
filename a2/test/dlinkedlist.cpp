@@ -1,3 +1,8 @@
+// File:        dlinkedlist.cpp
+// Authors:     Josh Vocal, Pouria Delfanazari
+// Date:        January 29, 2016
+// Description: implementation of doubly-linked-list functions for CMPT 225 assignment 2
+
 #ifdef _DLINKEDLIST_H_
 
 #include <cstdlib>
