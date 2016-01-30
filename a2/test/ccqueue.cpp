@@ -33,6 +33,10 @@ CCQueue::CCQueue() {
     // throws a logic_error if the ticket queue is empty
     // POST:  first item of the ticket queue is removed
     Ticket CCQueue::Service(){
+       if (tickets.IsEmpty()) {
+          throw std::logic_error("Queue is empty");
+       }
+       
         Ticket ticket_remove = tickets.ElementAt(0);
         maxticketid--;
         tickets.RemoveAt(0);
