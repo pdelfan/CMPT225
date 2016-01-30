@@ -11,35 +11,55 @@ template <class T>
 // helper function for deep copy
 // Used by copy constructor and operator=
 void DLinkedList<T>::CopyList(const DLinkedList& ll) {
+
+	
 	//Currently gets seg fault
 	int new_size = 0;
 
 	DLinkedList<T> llb;
-	
 	Node<T>* current = ll.front;
+
     if (current == NULL) {
         front = NULL;
         back = NULL;
     }
     else {
+
+    	front = NULL;
+    	back = NULL;
+
         while (current != NULL) {
             llb.InsertBack(current->data);
             current = current->next;
             new_size++;
-
-            //Test: How many items are there in the original linked list
-            //i++;
         }
-        Node<T>* fro = llb.front;
-        //cout << "There are " << i << " elements in the original linked linked list." << endl;
+        
 
-cout << "The copied linked list: ";
-        for (int i = 0; i < new_size; i++) {
+        //Text print function to check that the linked lists are properly connected.
+        cout << "There are " << new_size << " elements in the original linked linked list." << endl;
+
+        Node<T>* fro = llb.front;
+		cout << "The copied linked list printed forward: ";
+        while (fro != NULL) {
         	cout << fro->data << " ";
         	fro = fro->next;
+
         }
         cout << endl;
-    }
+
+        fro = llb.back;
+        cout << "The copied linked list printed backwards: ";
+        while (fro != NULL) {
+        	cout << fro->data << " ";
+        	fro = fro->prev;
+
+        }
+        cout << endl;
+        //It seems that everything is connected properly
+        // 
+
+        
+    }   
     
 }
 
@@ -201,28 +221,55 @@ template <class T>
 // POST:  List contains no duplicates, front and back point to the appropriate nodes
 // PARAM: 
 void DLinkedList<T>::RemoveDuplicates() { //Not working for printing backwards, connecting prev
-	Node<T> *ptr1, *ptr2, *dup;
-	ptr1 = front;
+//Trying to remove duplicates using remove at function. seg fault
+/*
+	Node<T> *current, *runner;
+	current = front;
+
+	int i = 0;
 
 	cout << "Removing the duplicates..." << endl;
 
-	while (ptr1 != NULL && ptr1->next != NULL) {
+	while (current != NULL && current->next != NULL) {
+		runner = current;
+		while (runner->next != NULL) {
+			i++;
+			if (current->data == runner->next->data) {
+				RemoveAt(i);
+				i--;
+			} else {
+				runner = runner->next;
+			}
+		}
+		current = current->next;
+	}
+*/
 
-		ptr2 = ptr1;
+	
+//Still gets seg fault
+	Node<T> *current, *runner, *dup;
+	current = front;
 
-		while (ptr2->next != NULL) {
-			if(ptr1->data == ptr2->next->data) {
-				dup = ptr2->next;
-				ptr2->next = ptr2->next->next;
-				//ptr1->next = ptr2->next; //trying to connect to previous node
+	cout << "Removing the duplicates..." << endl;
+
+	while (current != NULL && current->next != NULL) {
+
+		runner = current;
+
+		while (runner->next != NULL) {
+			if(current->data == runner->next->data) {
+				dup = runner->next;
+				runner->next = runner->next->next;
+				//runner->next->prev = runner->next->prev->prev; //trying to connect to previous node
 				delete dup;
 			}
 			else {
-				ptr2 = ptr2->next;
+				runner = runner->next;
 			}
 		}
-		ptr1 = ptr1->next;
+		current = current->next;
 	}
+	
 }
 
 template <class T>
@@ -288,7 +335,7 @@ void DLinkedList<T>::printForward() {
 	} else {
 		Node<T>* head = front;
 		cout << "These are the elements contained in the linked list: ";
-		while (head) {
+		while (head != NULL) {
 			cout << head->data << " ";
 			head = head->next;
 		}
@@ -306,7 +353,7 @@ void DLinkedList<T>::printBack(){
     else {
     	Node<T>* tail = back;
     	cout << "These are the elements printed in reverse: ";
-        while (tail) {
+        while (tail != NULL) {
             cout << tail->data << " ";
             tail = tail->prev;
         }
