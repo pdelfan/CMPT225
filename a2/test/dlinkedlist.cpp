@@ -60,6 +60,13 @@ DLinkedList<T>::DLinkedList(const DLinkedList& ll) {
 template <class T>
 // destructor
 DLinkedList<T>::~DLinkedList() {
+	if (this->size != 0) {          //dlinkedlist is not empty
+		this->DeleteList();
+	}
+
+	this->size = 0;
+	this->front = NULL;
+	this->back = this->front;
 }
 
 template <class T>
