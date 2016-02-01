@@ -155,12 +155,17 @@ T DLinkedList<T>::RemoveAt(int p) {
 	Node<T>* temp = front; //for the first case
 	Node<T>* current = front; //for the second case
 
+	if (size == 1) {               //deleting the only node
+		return current->data;
+		DeleteList();
+	}
+
 	if (p == 0) {                  //deleting front
-  	front = front->next;
-  	front->prev = nullptr;
-  	size--;  
-  	return temp->data;
-}
+  		front = front->next;
+  		front->prev = nullptr;
+  		size--;  
+  		return temp->data;
+	}
 
 	if (p == 1 && size == 3) {    //deleting middle node when len is 3
 		Node<T>* middle = front->next;
