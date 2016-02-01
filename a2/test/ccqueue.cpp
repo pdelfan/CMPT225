@@ -12,7 +12,6 @@ using namespace std;
 
 CCQueue::CCQueue() {
    this->maxticketid = 0;
-   DLinkedList<Ticket> tickets;
 }
 
     // MUTATORS
