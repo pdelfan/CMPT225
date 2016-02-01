@@ -23,14 +23,15 @@ As you can see, we don't see the "Invalid Index" message. But, if we reference t
 ```
 catch (exception &e) {
         cout << "Exception: "" << e.what() << endl;
+}
 ```
 
 Then we get this:
 
-'''
+```
 Exception:
 Invalid index
-'''
+```
 
 Which is what we want. 
 
