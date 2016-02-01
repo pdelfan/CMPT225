@@ -1,29 +1,29 @@
 IF we have an exception like this:
-'''
+```
 	if (p < 0 || p > size)
 		throw std::out_of_range("\nInvalid index\n");
-'''
+```
 		
 And a catch like this in our test file:
 
-'''
+```
 catch (exception e) {
         cout << "Exception: " << e.what() << endl;
   }
-'''
+```
 
 And try an exception, this is what we get in the terminal: 
 
-'''
+```
 Exception: std::exception
-'''
+```
 
 As you can see, we don't see the "Invalid Index" message. But, if we reference the exception, like this:
 
-'''
+```
 catch (exception &e) {
         cout << "Exception: "" << e.what() << endl;
-'''
+```
 
 Then we get this:
 
