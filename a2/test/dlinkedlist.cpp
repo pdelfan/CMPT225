@@ -21,10 +21,12 @@ void DLinkedList<T>::CopyList(const DLinkedList& ll) {
     if (current == NULL) {
         front = NULL;
         back = NULL;
+        size = 0;
     }
     else {
     	front = NULL;
     	back = NULL;
+    	size = 0;
     	//While there are still nodes in the linked list we are copying from
     	//insert a node with the same data to the copied linked list.
         while (current != NULL) {
@@ -112,7 +114,7 @@ template <class T>
 // POST:  List contains item at position p
 // PARAM: item = item to be inserted, p = position where item will be inserted
 void DLinkedList<T>::InsertAt(T item, int p) {
-	if (p < 0 || p >= size) {
+	if (p < 0 || p > size) {
 		throw std::out_of_range("Invalid index\n");
 	}
 		
