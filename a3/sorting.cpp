@@ -10,11 +10,9 @@
 // from wiki
 template <class T>
 int SelectionSort(T arr[], int n) {
-  /*int count = 0; // counter for barometer operations
-  return count;*/
 
   int min = 0;
-  int barometer = 0;
+  int count = 0; //counter for barometer operations
 
   for (int i = 0; i < n-1; i++) {
     min = i;
@@ -23,7 +21,7 @@ int SelectionSort(T arr[], int n) {
       if (arr[min] > arr[j]) {
         min = j;
       }
-      barometer += 1;
+      count += 1;
     }
 
     if (min != i) {
@@ -32,7 +30,7 @@ int SelectionSort(T arr[], int n) {
       arr[min] = temp;
     }
   }
-  return barometer;
+  return count;
 }
 
 // Quicksort
