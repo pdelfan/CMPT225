@@ -160,8 +160,6 @@ int ShellSort(T arr[], int n)
           int j;
           //Switch the element with the gap element if it is greater
           for (j = i; j >= gap && arr[j - gap] > temp; j -= gap) {
-              //Increase count when array is not in sorted order
-              count++;
               arr[j] = arr[j - gap];
           }
           arr[j] = temp;
