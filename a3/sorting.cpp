@@ -82,7 +82,7 @@ int RQSPartition(T arr[], int low, int high, int& counter)
 }
 
 // Mergesort
-// (your comments here)
+// from the texbook
 template <class T>
 int Mergesort(T arr[], int n)
 {
