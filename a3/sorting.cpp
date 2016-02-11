@@ -87,20 +87,59 @@ template <class T>
 int Mergesort(T arr[], int n)
 {
   int count = 0;
-  
+  MergesortHelper(arr, 0, n - 1, n, count);
   return count;
 }
 
 template <class T>
 void MergesortHelper(T arr[], int low, int high, int n, int& counter)
 {
-  
+   if (low < high) {
+    int mid = low + (high - low) / 2;
+    MergesortHelper(arr, low, mid, n, counter);
+    MergesortHelper(arr, mid + 1, high, n, counter);
+    Merge(arr, low, mid, high, n, counter);
+  }
 }
 
 template <class T>
 void Merge(T arr[], int low, int mid, int high, int n, int& counter)
 {
-  
+  T* tempArray = new T[n];
+  int first1 = low;
+  int last1 = mid;
+  int first2 = mid + 1;
+  int last2 = high;
+
+  int index = first1;
+  while ((first1 <= last1) && (first2 <= last2)) {
+    if (arr[first1] <= arr[first2]) {
+      tempArray[index] = arr[first1];
+      first1++;
+    }
+    else {
+      tempArray[index] = arr[first2];
+      first2++;
+    }
+    index++;
+    counter++;
+  }
+
+  while (first1 <= last1) {
+    tempArray[index] = arr[first1];
+    first1++;
+    index++;
+  }
+
+  while (first2 <= last2) {
+    tempArray[index] = arr[first2];
+    first2++;
+    index++;
+  }
+
+  for (index = low; index <= high; index++) {
+    arr[index] = tempArray[index];
+  }
 }
 
 // Shell Sort
