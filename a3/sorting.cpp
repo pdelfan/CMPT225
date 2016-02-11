@@ -142,6 +142,7 @@ void Merge(T arr[], int low, int mid, int high, int n, int& counter)
   for (index = low; index <= high; index++) {
     arr[index] = tempArray[index];
   }
+  delete[] tempArray;
 }
 
 // Shell Sort
