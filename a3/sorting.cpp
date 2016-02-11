@@ -129,12 +129,14 @@ void Merge(T arr[], int low, int mid, int high, int n, int& counter)
     tempArray[index] = arr[first1];
     first1++;
     index++;
+    counter++;
   }
 
   while (first2 <= last2) {
     tempArray[index] = arr[first2];
     first2++;
     index++;
+    counter++;
   }
 
   for (index = low; index <= high; index++) {
