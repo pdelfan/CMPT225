@@ -9,8 +9,8 @@
 // Selection Sort
 // from wiki
 template <class T>
-int SelectionSort(T arr[], int n) {
-
+int SelectionSort(T arr[], int n) 
+{
   int min = 0;
   int count = 0; //counter for barometer operations
 
