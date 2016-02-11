@@ -151,6 +151,7 @@ template <class T>
 int ShellSort(T arr[], int n)
 {
   int count = 0;
+  
   //Create the largest gap which is floor (arrLength/2) and work down
   for (int gap = n/2; gap > 0; gap /=2) {
     //Move up one element and compare with the gap element
