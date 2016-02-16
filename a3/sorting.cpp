@@ -46,7 +46,12 @@ int Quicksort(T arr[], int n)
 template <class T>
 void QuicksortHelper(T arr[], int low, int high, int& counter)
 {
-  
+	if (low < high)
+	{
+		int pivot = QSPartition(arr, low, high, counter); //partition the items of arr[] 
+		QuicksortHelper(arr, low, pivot-1, counter); //sort the first half			
+		QuicksortHelper(arr, pivot+1, high, counter);	//sort the second half			
+	}
 }
 
 template <class T>
