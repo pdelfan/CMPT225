@@ -7,7 +7,7 @@
 
 // Complete your sorting algorithm function implementations here
 // Selection Sort
-// from wiki
+// from wikipedia
 template <class T>
 int SelectionSort(T arr[], int n) 
 {
@@ -34,32 +34,61 @@ int SelectionSort(T arr[], int n)
 }
 
 // Quicksort
-// (your comments here)
+// from textbook
 template <class T>
 int Quicksort(T arr[], int n)
 {
   int count = 0;
-  
+  QuicksortHelper(arr, 0, n - 1, count);
   return count;
 }
 
 template <class T>
 void QuicksortHelper(T arr[], int low, int high, int& counter)
 {
-	if (low < high)
-	{
-		int pivot = QSPartition(arr, low, high, counter); //partition the items of arr[] 
-		QuicksortHelper(arr, low, pivot-1, counter); //sort the first half			
-		QuicksortHelper(arr, pivot+1, high, counter);	//sort the second half			
-	}
+  if (low < high) {
+  	int pivot = QSPartition(arr, low, high, counter); //partition the items of arr[] 
+	QuicksortHelper(arr, low, pivot-1, counter); //sort the first half			
+  	QuicksortHelper(arr, pivot+1, high, counter);	//sort the second half			
+  }
 }
 
 template <class T>
 int QSPartition(T arr[], int low, int high, int& counter)
 {
-  int pivotindex = 0;
+  bool done = false;
+  int index = high;
+  int left = low;
+  int right = high - 1;
   
-  return pivotindex;
+  while (!done) {
+    while (arr[left] < arr[index]) {
+      left++;
+      counter++;
+    }
+    
+    while (((arr[right] > arr[index]) && (left < right))) {
+      right--;
+    }
+
+    if ((left < right)) {
+      T temp = arr[right];
+      arr[right] = arr[left];
+      arr[left] = temp;
+      left++;
+      right--;
+    }
+
+    else {
+      done = true;
+    }
+  }
+
+  T temp = arr[index];
+  arr[index] = arr[left];
+  arr[left] = temp;
+  index = left;
+  return index;
 }
 
 // Randomized Quicksort
