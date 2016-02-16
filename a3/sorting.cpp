@@ -110,6 +110,7 @@ void MergesortHelper(T arr[], int low, int high, int n, int& counter)
 template <class T>
 void Merge(T arr[], int low, int mid, int high, int n, int& counter)
 {
+
   T* tempArray = new T[n];
   int first1 = low;
   int last1 = mid;
@@ -134,14 +135,12 @@ void Merge(T arr[], int low, int mid, int high, int n, int& counter)
     tempArray[index] = arr[first1];
     first1++;
     index++;
-    counter++;
   }
 
   while (first2 <= last2) {
     tempArray[index] = arr[first2];
     first2++;
     index++;
-    counter++;
   }
 
   for (index = low; index <= high; index++) {
