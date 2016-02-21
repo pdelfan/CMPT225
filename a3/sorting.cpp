@@ -119,7 +119,6 @@ template <class T>
 int RQSPartition(T arr[], int low, int high, int& counter)
 {
     int pivot_index = low + rand() % (high - low + 1);
-    //Swap(arr, high, pivot_index);
     T temp = arr[high];
     arr[high] = arr[pivot_index];
     arr[pivot_index] = temp;
