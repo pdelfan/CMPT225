@@ -8,6 +8,7 @@
 // Complete your sorting algorithm function implementations here
 // Selection Sort
 // from wikipedia
+#include <stdlib.h>
 template <class T>
 int SelectionSort(T arr[], int n) 
 {
@@ -47,9 +48,9 @@ template <class T>
 void QuicksortHelper(T arr[], int low, int high, int& counter)
 {
   if (low < high) {
-  	int pivot = QSPartition(arr, low, high, counter); //partition the items of arr[] 
-	QuicksortHelper(arr, low, pivot-1, counter); //sort the first half			
-  	QuicksortHelper(arr, pivot+1, high, counter);	//sort the second half			
+    int pivot = QSPartition(arr, low, high, counter); //partition the items of arr[] 
+    QuicksortHelper(arr, low, pivot - 1, counter); //sort the first half      
+    QuicksortHelper(arr, pivot + 1, high, counter); //sort the second half      
   }
 }
 
@@ -96,23 +97,33 @@ int QSPartition(T arr[], int low, int high, int& counter)
 template <class T>
 int RQuicksort(T arr[], int n)
 {
-  int count = 0;
-  
-  return count;
+   int counter = 0;
+   int high = n-1;
+   int low = 0;
+   RQuicksortHelper(arr, low, high, counter);
+   return counter;
+
 }
 
 template <class T>
 void RQuicksortHelper(T arr[], int low, int high, int& counter)
 {
-  
+    if (low < high) {
+        int pivot = RQSPartition(arr, low, high, counter);
+        RQuicksortHelper(arr, low, pivot - 1, counter);
+        RQuicksortHelper(arr, pivot + 1, high, counter);
+    }
 }
 
 template <class T>
 int RQSPartition(T arr[], int low, int high, int& counter)
 {
-  int pivotindex = 0;
-  
-  return pivotindex;
+    int pivot_index = low + rand() % (high - low + 1);
+    //Swap(arr, high, pivot_index);
+    T temp = arr[high];
+    arr[high] = arr[pivot_index];
+    arr[pivot_index] = temp;
+    return QSPartition(arr, low, high, counter);
 }
 
 // Mergesort
