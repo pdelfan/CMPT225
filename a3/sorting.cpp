@@ -6,11 +6,10 @@
 //              Function bodies to be completed by you!
 
 // Complete your sorting algorithm function implementations here
-// Selection Sort
-// from wikipedia
 #include <stdlib.h>
 
 /*
+Selection sort (from Wikipedia)
 sorting by finding the smallest item,
 dividing arr[] into two sorted and unsorted sections.
 PRE: arr[] is unsorted (none)
@@ -256,7 +255,7 @@ void Merge(T arr[], int low, int mid, int high, int n, int& counter)
   delete[] tempArray;
 }
 
-/*Shell Sort
+/*Shell Sort (from Wikipedia)
 (Start with the largest gap and work down to a gap of 1)
 PRE: arr[] is unsorted (none)
 POST: arr[] is sorted into ascending order
