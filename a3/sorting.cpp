@@ -7,7 +7,7 @@
 
 // Complete your sorting algorithm function implementations here
 #include <stdlib.h>
-
+#include <stdexcept>
 /*
 Selection sort (from Wikipedia)
 sorting by finding the smallest item,
@@ -19,8 +19,13 @@ PARAM: arr[] = the array, n = size of arr[]
 template <class T>
 int SelectionSort(T arr[], int n) 
 {
-  int min = 0;
   int count = 0; //counter for barometer operations
+  if (n < 0) {
+    throw std::out_of_range("Invalid index");
+  }
+
+  else {
+  int min = 0;
 
   for (int i = 0; i < n-1; i++) {
     min = i; /*finding the index of the smallest element in the array by comparing the first 
@@ -38,7 +43,8 @@ int SelectionSort(T arr[], int n)
       arr[i] = arr[min];
       arr[min] = temp;
     }
-  }
+  } 
+ }
   return count;
 }
 
@@ -53,7 +59,13 @@ template <class T>
 int Quicksort(T arr[], int n)
 {
   int count = 0;
+  if (n < 0) {
+    throw std::out_of_range("Invalid index");
+  } 
+
+  else {
   QuicksortHelper(arr, 0, n - 1, count);
+  }
   return count;
 }
 
@@ -131,9 +143,15 @@ template <class T>
 int RQuicksort(T arr[], int n)
 {
    int counter = 0;
+   if (n < 0) {
+    throw std::out_of_range("Invalid index");
+  }
+  else {
+
    int high = n-1;
    int low = 0;
    RQuicksortHelper(arr, low, high, counter);
+ }
    return counter;
 
 }
@@ -184,7 +202,13 @@ template <class T>
 int Mergesort(T arr[], int n)
 {
   int count = 0;
+  if (n < 0) {
+    throw std::out_of_range("Invalid index");
+  }
+  
+  else {
   MergesortHelper(arr, 0, n - 1, n, count);
+}
   return count;
 }
 
@@ -265,7 +289,11 @@ template <class T>
 int ShellSort(T arr[], int n)
 {
   int count = 0;
-  
+  if (n < 0) {
+      throw std::out_of_range("Invalid index\n");
+  }
+
+  else {
   //Create the largest gap which is floor (arrLength/2) and work down
   for (int gap = n/2; gap > 0; gap /=2) {
     //Move up one element and compare with the gap element
@@ -280,5 +308,6 @@ int ShellSort(T arr[], int n)
           arr[j] = temp;
       }
   }
+ }
   return count;
 }
