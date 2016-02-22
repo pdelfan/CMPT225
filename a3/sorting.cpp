@@ -9,6 +9,14 @@
 // Selection Sort
 // from wikipedia
 #include <stdlib.h>
+
+/*
+sorting by finding the smallest item,
+dividing arr[] into two sorted and unsorted sections.
+PRE: arr[] is unsorted (none)
+POST: arr[] is sorted into ascending order, n is unchanged
+PARAM: arr[] = the array, n = size of arr[]
+*/
 template <class T>
 int SelectionSort(T arr[], int n) 
 {
@@ -16,8 +24,9 @@ int SelectionSort(T arr[], int n)
   int count = 0; //counter for barometer operations
 
   for (int i = 0; i < n-1; i++) {
-    min = i;
-    
+    min = i; /*finding the index of the smallest element in the array by comparing the first 
+             element with the rest of the elements
+             */
     for (int j = i + 1; j < n; j++) {
       if (arr[min] > arr[j]) {
         min = j;
@@ -25,7 +34,7 @@ int SelectionSort(T arr[], int n)
       count += 1;
     }
 
-    if (min != i) {
+    if (min != i) {     //for swapping the smallest item with the current one
       T temp = arr[i];
       arr[i] = arr[min];
       arr[min] = temp;
@@ -34,8 +43,13 @@ int SelectionSort(T arr[], int n)
   return count;
 }
 
-// Quicksort
-// from textbook
+/* 
+Quicksort (from textbook); sorts the array by partitioning,
+dividing it parts by small and large elements until the array is sorted.
+PRE: arr[] is unsorted (none)
+POST: arr[] is sorted into ascending order, n is unchanged and return the number of operations
+PARAM: arr[] = the array, n = size of arr[]
+*/
 template <class T>
 int Quicksort(T arr[], int n)
 {
@@ -44,6 +58,13 @@ int Quicksort(T arr[], int n)
   return count;
 }
 
+/*
+Helper function for quicksort. Partitions the array, sorts the sections
+and returns the index of the pivot.
+PRE: arr[] is unsorted (none)
+POST: the number of barometer operations is returned
+PARAM: arr[] = the array, n = size of arr[]
+*/
 template <class T>
 void QuicksortHelper(T arr[], int low, int high, int& counter)
 {
@@ -54,6 +75,14 @@ void QuicksortHelper(T arr[], int low, int high, int& counter)
   }
 }
 
+/*
+Quicksort partition function (from textbook)
+chooses the pivots in the two small and large sections—used by QuicksortHelper
+PRE: arr[] is unsorted (none)
+POST: arr[] is sorted into ascending order, the number of barometer operations is returned
+PARAM: arr[] = the array, n = size of arr[], low = index of the first chosen element in the array, 
+high = index of the last chosen element in the array
+*/
 template <class T>
 int QSPartition(T arr[], int low, int high, int& counter)
 {
@@ -63,16 +92,16 @@ int QSPartition(T arr[], int low, int high, int& counter)
   int right = high - 1;
   
   while (!done) {
-    while (arr[left] < arr[index]) {
+    while (arr[left] < arr[index]) { //comparing the elements from left to index 
       left++;
       counter++;
     }
     
-    while (((arr[right] > arr[index]) && (left < right))) {
+    while (((arr[right] > arr[index]) && (left < right))) { //comparing the elements from right to index
       right--;
     }
 
-    if ((left < right)) {
+    if ((left < right)) { //swapping left and right when left is smaller than big
       T temp = arr[right];
       arr[right] = arr[left];
       arr[left] = temp;
@@ -85,15 +114,20 @@ int QSPartition(T arr[], int low, int high, int& counter)
     }
   }
 
-  T temp = arr[index];
+  T temp = arr[index];    //swapping elements of index and left
   arr[index] = arr[left];
   arr[left] = temp;
   index = left;
   return index;
 }
 
-// Randomized Quicksort
-// (your comments here)
+/* 
+Randomized quicksort; sorts the array by partitioning, choosing the pivot randomly,
+dividing it parts by small and large elements until the array is sorted.
+PRE: arr[] is unsorted (none)
+POST: arr[] is sorted into ascending order, n is unchanged and return the number of operations
+PARAM: arr[] = the array, n = size of arr[]
+*/
 template <class T>
 int RQuicksort(T arr[], int n)
 {
@@ -105,6 +139,13 @@ int RQuicksort(T arr[], int n)
 
 }
 
+/*
+Helper function for RQuicksort. Partitions the array, sorts the sections
+and returns the index of the pivot.
+PRE: arr[] is unsorted (none)
+POST: the number of barometer operations is returned
+PARAM: arr[] = the array, n = size of arr[]
+*/
 template <class T>
 void RQuicksortHelper(T arr[], int low, int high, int& counter)
 {
@@ -115,6 +156,14 @@ void RQuicksortHelper(T arr[], int low, int high, int& counter)
     }
 }
 
+/*
+Randomized quicksort partition function 
+chooses the pivots (randomly) in the two small and large sections—used by QuicksortHelper
+PRE: arr[] is unsorted (none)
+POST: arr[] is sorted into ascending order, the number of barometer operations is returned
+PARAM: arr[] = the array, n = size of arr[], low = index of the first chosen element in the array, 
+high = index of the last chosen element in the array
+*/
 template <class T>
 int RQSPartition(T arr[], int low, int high, int& counter)
 {
@@ -125,8 +174,13 @@ int RQSPartition(T arr[], int low, int high, int& counter)
     return QSPartition(arr, low, high, counter);
 }
 
-// Mergesort
-// from the texbook
+/*
+Mergesort (from texbook)
+Sorts the array by using the function MergesortHelper
+PRE: arr[] is unsorted (none)
+POST: return the number of barometer operations counted
+PARAM: arr[] = the array, n = size of arr[]
+*/
 template <class T>
 int Mergesort(T arr[], int n)
 {
@@ -135,30 +189,44 @@ int Mergesort(T arr[], int n)
   return count;
 }
 
+/*
+Helper function for mergesort, sorts by dividing the array into left and right sections
+PRE: arr[] is unsorted (none)
+POST: arr[] is sorted into ascending order
+PARAM: arr[] = the array, n = size of arr[], low = index of the first chosen element,
+high = index of the last chosen element, mid = for choosing the middle element
+*/
 template <class T>
 void MergesortHelper(T arr[], int low, int high, int n, int& counter)
 {
-   if (low < high) {
-    int mid = low + (high - low) / 2;
-    MergesortHelper(arr, low, mid, n, counter);
-    MergesortHelper(arr, mid + 1, high, n, counter);
-    Merge(arr, low, mid, high, n, counter);
+   if (low < high) { //size of the array is more than 1
+    int mid = low + (high - low) / 2; //determining the middle element
+    MergesortHelper(arr, low, mid, n, counter); //sorting the first half
+    MergesortHelper(arr, mid + 1, high, n, counter); //sorting the second half
+    Merge(arr, low, mid, high, n, counter); //merge the sections
   }
 }
 
+/*
+Mergesort function (from textbook)
+PRE: none
+POST: two sections are merged
+PARAM: arr[] = the array, n = size of arr[], low = index of the first element of the first section,
+high = index of the last element of the second section, mid = index of the last element of the first section
+*/
 template <class T>
 void Merge(T arr[], int low, int mid, int high, int n, int& counter)
 {
 
   T* tempArray = new T[n];
-  int first1 = low;
-  int last1 = mid;
-  int first2 = mid + 1;
-  int last2 = high;
+  int first1 = low;       //beginning of the first section
+  int last1 = mid;        //end of the first section
+  int first2 = mid + 1;   //beginning of the second section
+  int last2 = high;       //end of the second section
 
-  int index = first1;
+  int index = first1;     //next location in the temporary array that is available
   while ((first1 <= last1) && (first2 <= last2)) {
-    if (arr[first1] <= arr[first2]) {
+    if (arr[first1] <= arr[first2]) {  //tempArray[low..n-1] is in order
       tempArray[index] = arr[first1];
       first1++;
     }
@@ -170,26 +238,30 @@ void Merge(T arr[], int low, int mid, int high, int n, int& counter)
     counter++;
   }
 
-  while (first1 <= last1) {
-    tempArray[index] = arr[first1];
+  while (first1 <= last1) {         //finish the first section 
+    tempArray[index] = arr[first1]; //tempArray[low..n-1] is in order
     first1++;
     index++;
   }
 
-  while (first2 <= last2) {
-    tempArray[index] = arr[first2];
+  while (first2 <= last2) {         //finish the second section
+    tempArray[index] = arr[first2]; //tempArray[low..n-1] is in order
     first2++;
     index++;
   }
 
-  for (index = low; index <= high; index++) {
+  for (index = low; index <= high; index++) { //copy tempArray into the original array
     arr[index] = tempArray[index];
   }
   delete[] tempArray;
 }
 
-// Shell Sort
-// (Start with the largest gap and work down to a gap of 1)
+/*Shell Sort
+(Start with the largest gap and work down to a gap of 1)
+PRE: arr[] is unsorted (none)
+POST: arr[] is sorted into ascending order
+PARAM: arr[] = the array, n = size of arr[]
+*/
 template <class T>
 int ShellSort(T arr[], int n)
 {
