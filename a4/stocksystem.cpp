@@ -1,55 +1,127 @@
-// File:        stocksystem.cpp
-// Author:      Pouria Delfanazari, Josh Vocal
+// File:        stockitem.cpp
+// Author:      Geoffrey Tien
 // Date:        2016-02-27
-// Description: Implementation and partial implementation of a StockSystem class for use with CMPT 225 assignment #4
-
-#include <sstream>
+// Description: Implementation of a StockItem class for use with CMPT 225 assignment #4
 
 #include "stockitem.h"
-#include "redblacktree.h"
-#include "stocksystem.h"
 
-// default constructor;
-// begin with a balance of $100,000.00
-StockSystem::StockSystem() {
-	
+// Default constructor
+StockItem::StockItem()
+{
+  sku = 0;
+  description = "";
+  price = 0;
+  stock = 0;
 }
 
-// returns the balance member
-double StockSystem::GetBalance() {
-	return balance;
+// Parameterized constructor
+// Need to specify SKU, description, and price.
+// Stock is defaulted to 0;
+// Assume parameters are valid
+StockItem::StockItem(int skuid, string desc, double p)
+{
+  sku = skuid;
+  if (sku > 99999) sku = sku % 100000;
+  if (sku < 10000) sku += 10000;       // force sku to 5 digits
+  
+  if (desc.length() > 30)
+    description = desc.substr(0, 29);
+  else
+    description = desc;
+  price = p;
+  stock = 0;
 }
 
-// Add a new SKU to the system. Do not allow insertion of duplicate sku
-bool StockSystem::StockNewItem(StockItem item) {
-	return false;
+// Accessors
+int StockItem::GetSKU() const
+{
+  return sku;
 }
 
-// Locate the item with key itemsku and update its description field.
-// Return false if itemsku is not found.
-bool StockSystem::EditStockItemDescription(int itemsku, string desc) {
-	return false;
+string StockItem::GetDescription() const
+{
+  return description;
 }
 
-// Locate the item with key itemsku and update its description field.
-// Return false if itemsku is not found or retailprice is negative.
-bool StockSystem::EditStockItemPrice(int itemsku, double retailprice) {
-	return false;
+double StockItem::GetPrice() const
+{
+  return price;
 }
 
-// Purchase quantity of item at unitprice each, to reach a maximum (post-purchase) on-hand stock quantity of 1000.
-// Return false if balance is not sufficient to make the purchase,
-//   or if SKU does not exist, or if quantity or unitprice are negative.
-// Otherwise, return true and increase the item's on-hand stock by quantity,
-//   and reduce balance by quantity*unitprice.
-bool StockSystem::Restock(int itemsku, int quantity, double unitprice) {
-	return false;
+int StockItem::GetStock() const
+{
+  return stock;
 }
 
-// Sell an item to a customer, if quantity of stock is available and SKU exists.
-// Reduce stock by quantity, increase balance by quantity*price, and return true if stock available.
-// If partial stock (less than quantity) available, sell the available stock and return true.
-// If no stock, sku does not exist, or quantity is negative, return false.
-bool StockSystem::Sell(int itemsku, int quantity) {
-	return false;
+// Mutators
+// boolean return values - return true for successful update, false if argument is invalid (i.e. negative price/stock/SKU)
+bool StockItem::SetDescription(string newdesc)
+{
+  if (newdesc.length() > 30)
+    description = newdesc.substr(0, 29);
+  else
+    description = newdesc;
+  return true;
+}
+
+bool StockItem::SetPrice(double newprice)
+{
+  if (newprice >= 0)
+  {
+    price = newprice;
+    return true;
+  }
+  else return false;
+}
+
+bool StockItem::SetStock(int amount)
+{
+  if (amount >= 0)
+  {
+    stock = amount;
+    return true;
+  }
+  else return false;
+}
+
+bool StockItem::operator==(const StockItem& item) const
+{
+  return (sku == item.GetSKU());
+}
+
+bool StockItem::operator!=(const StockItem& item) const
+{
+  return !(*this == item);
+}
+
+bool StockItem::operator>(const StockItem& item) const
+{
+  return (sku > item.GetSKU());
+}
+
+bool StockItem::operator<(const StockItem& item) const
+{
+  return (sku < item.GetSKU());
+}
+
+bool StockItem::operator>=(const StockItem& item) const
+{
+  return !(*this < item);
+}
+
+bool StockItem::operator<=(const StockItem& item) const
+{
+  return !(*this > item);
+}
+
+StockItem& StockItem::operator=(const StockItem& item)
+{
+  if (this != &item)
+  {
+    this->sku = item.sku;
+    this->description = item.description;
+    this->price = item.price;
+    this->stock = item.stock;
+  }
+  return *this;
 }
