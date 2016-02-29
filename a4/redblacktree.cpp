@@ -137,7 +137,7 @@ T* RedBlackTree::Dump(int& arrsize) const {
 
 // returns the number of items in the tree
 int RedBlackTree::Size() const {
-
+	return size; 
 }
 
 // returns the height of the tree, from root to deepest null child. Calls recursive helper function.
