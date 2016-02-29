@@ -12,7 +12,7 @@
 // default constructor;
 // begin with a balance of $100,000.00
 StockSystem::StockSystem() {
-	
+	balance = 100000.00;
 }
 
 // returns the balance member
