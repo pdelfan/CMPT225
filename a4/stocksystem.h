@@ -4,6 +4,7 @@
 // Description: Declaration and partial implementation of a StockSystem class for use with CMPT 225 assignment #4
 #pragma once
 
+#include <math.h>
 #include <sstream>
 
 #include "stockitem.h"
