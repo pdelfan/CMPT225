@@ -7,37 +7,34 @@
 
 #include "stockitem.h"
 #include "redblacktree.h"
-
-
-RedBlackTree<StockItem> records;
-double balance; // how much money you have in the bank
+#include "stocksystem.h"
 
 // default constructor;
 // begin with a balance of $100,000.00
-StockSystem() {
+StockSystem::StockSystem() {
 	
 }
 
 // returns the balance member
-double GetBalance() {
-
+double StockSystem::GetBalance() {
+	return balance;
 }
 
 // Add a new SKU to the system. Do not allow insertion of duplicate sku
-bool StockNewItem(StockItem item) {
-
+bool StockSystem::StockNewItem(StockItem item) {
+	return false;
 }
 
 // Locate the item with key itemsku and update its description field.
 // Return false if itemsku is not found.
-bool EditStockItemDescription(int itemsku, string desc) {
-
+bool StockSystem::EditStockItemDescription(int itemsku, string desc) {
+	return false;
 }
 
 // Locate the item with key itemsku and update its description field.
 // Return false if itemsku is not found or retailprice is negative.
-bool EditStockItemPrice(int itemsku, double retailprice) {
-
+bool StockSystem::EditStockItemPrice(int itemsku, double retailprice) {
+	return false;
 }
 
 // Purchase quantity of item at unitprice each, to reach a maximum (post-purchase) on-hand stock quantity of 1000.
@@ -45,14 +42,14 @@ bool EditStockItemPrice(int itemsku, double retailprice) {
 //   or if SKU does not exist, or if quantity or unitprice are negative.
 // Otherwise, return true and increase the item's on-hand stock by quantity,
 //   and reduce balance by quantity*unitprice.
-bool Restock(int itemsku, int quantity, double unitprice) {
-
+bool StockSystem::Restock(int itemsku, int quantity, double unitprice) {
+	return false;
 }
 
 // Sell an item to a customer, if quantity of stock is available and SKU exists.
 // Reduce stock by quantity, increase balance by quantity*price, and return true if stock available.
 // If partial stock (less than quantity) available, sell the available stock and return true.
 // If no stock, sku does not exist, or quantity is negative, return false.
-bool Sell(int itemsku, int quantity) {
-
+bool StockSystem::Sell(int itemsku, int quantity) {
+	return false;
 }
