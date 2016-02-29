@@ -1,6 +1,6 @@
 // File:        stocksystem.h
 // Author:      Geoffrey Tien
-// Date:        2016-02-27
+// Date:        2016-02-28
 // Description: Declaration and partial implementation of a StockSystem class for use with CMPT 225 assignment #4
 #pragma once
 
@@ -63,7 +63,7 @@ class StockSystem
         strcatalogue << catalogue[i].GetSKU() << "\t" << catalogue[i].GetDescription();
         // pad description to fill to next column. Tab width is up to 8 characters
         desclengthdiff = 32 - catalogue[i].GetDescription().length();
-        for (int j = 0; j < std::ceil((double) desclengthdiff / 8); j++)
+        for (int j = 0; j < ceil((double) desclengthdiff / 8); j++)
           strcatalogue << "\t";
         strcatalogue << catalogue[i].GetStock() << "\t$" << catalogue[i].GetPrice() << "\n";
       }
