@@ -1,4 +1,4 @@
- // File:        redblacktree.cpp
+ // File:       redblacktree.cpp
 // Author:      Pouria Delfanazari, Josh Vocal
 // Date:        2016-02-27
 // Description: Implementation of a RedBlackTree class and template Node class for use with CMPT 225 assignment #4
@@ -43,7 +43,17 @@ int RedBlackTree<T>::CalculateHeight(Node<T>* node) const {
 // default constructor
 template <class T>
 RedBlackTree<T>::RedBlackTree() {
+	//errors
 
+	/*
+	Node<T> leaf = new Node<T>;
+	leaf->left = leaf->right = NULL;
+	leaf->is_black = true;
+
+	Node<T> root = new Node<T>;
+	root->left = root->right = leaf;
+	root->is_black = true;
+	*/
 }
 
 // copy constructor, performs deep copy of parameter
