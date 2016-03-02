@@ -70,6 +70,7 @@ int RedBlackTree<T>::CalculateHeight(Node<T>* node) const {
 // default constructor
 template <class T>
 RedBlackTree<T>::RedBlackTree() {
+	size = 0;
 	root = nullptr;		
 }
 
