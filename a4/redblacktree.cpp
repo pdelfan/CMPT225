@@ -75,7 +75,7 @@ RedBlackTree<T>::RedBlackTree() {
 // copy constructor, performs deep copy of parameter
 template <class T>
 RedBlackTree<T>::RedBlackTree(const RedBlackTree<T>& rbtree) {
-	//root = CopyTree(rbtree.root, NULL, NULL);
+	root = CopyTree(rbtree.root, NULL);
 }
 
 // destructor
