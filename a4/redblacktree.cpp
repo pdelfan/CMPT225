@@ -17,19 +17,20 @@ using namespace std;
 // creates a new node "thisnode" based on sourcenode's contents, links back to parentnode,
 //   and recurses to create left and right children
 template <class T>
-Node<T>* RedBlackTree<T>::CopyTree(Node<T>* thisnode, Node<T>* sourcenode, Node<T>* parentnode) {
-	Node<T>* cNode = new Node<T>(sourcenode->data);
+Node<T>* RedBlackTree<T>::CopyTree(Node<T>* sourcenode, Node<T>* parentnode) {
 	
 	//Base Case
 	if (sourcenode == nullptr) {
 		return NULL;
 	} else {
 		//Recursive Case
+		//Create a new node cNode and copy sourcenode's contents in preorder
+		Node<T>* cNode = new Node<T>(sourcenode->data);
 		cNode->p = parentnode;
 		cNode->is_black = sourcenode->is_black;
-
-		cNode->left = CopyTree(cNode->left, sourcenode->left, cNode->p);
-		cNode->right = CopyTree(cNode->right, sourcenode->right, cNode->p);
+		//Recursively copy the left and right subtrees
+		cNode->left = CopyTree(sourcenode->left, cNode->p);
+		cNode->right = CopyTree(sourcenode->right, cNode->p);
 
 		return cNode;
 	} 
