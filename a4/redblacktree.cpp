@@ -18,14 +18,18 @@ using namespace std;
 //   and recurses to create left and right children
 template <class T>
 Node<T>* RedBlackTree<T>::CopyTree(Node<T>* thisnode, Node<T>* sourcenode, Node<T>* parentnode) {
-	
+
 }
 
 // recursive helper function for tree deletion
 // deallocates nodes in post-order
 template <class T>
 void RedBlackTree<T>::RemoveAll(Node<T>* node) {
-
+	if (node != nullptr) {
+		RemoveAll(node->left);
+		RemoveAll(node->right);
+		delete node;
+	}
 }
 
 // Tree fix, performed after removal of a black node
@@ -62,7 +66,7 @@ RedBlackTree<T>::RedBlackTree(const RedBlackTree<T>& rbtree) {
 // Must deallocate memory associated with all nodes in tree
 template <class T>
 RedBlackTree<T>::~RedBlackTree() {
-
+	RemoveAll(root);
 }
 
 // overloaded assignment operator
