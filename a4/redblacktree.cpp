@@ -8,7 +8,9 @@
 #include <cstdlib>
 #include <stdexcept>
 #include <string>
+
 #include "redblacktree.h"
+
 using namespace std;
 
 // recursive helper function for deep copy
@@ -16,7 +18,7 @@ using namespace std;
 //   and recurses to create left and right children
 template <class T>
 Node<T>* RedBlackTree<T>::CopyTree(Node<T>* thisnode, Node<T>* sourcenode, Node<T>* parentnode) {
-
+	
 }
 
 // recursive helper function for tree deletion
@@ -47,16 +49,7 @@ int RedBlackTree<T>::CalculateHeight(Node<T>* node) const {
 // default constructor
 template <class T>
 RedBlackTree<T>::RedBlackTree() {
-	/*
-	Node<T> nil = new Node<T>;
-	nil->left = nil->right = NULL;
-	nil->is_black = true;
-
-	Node<T> root = new Node<T>;
-	root->left = root->right = nil;
-	root->is_black = true;
-	*/
-	
+	root = nullptr;		
 }
 
 // copy constructor, performs deep copy of parameter
@@ -85,7 +78,6 @@ RedBlackTree<T>& RedBlackTree<T>::operator=(const RedBlackTree<T>& rbtree) {
 // Otherwise, insert, increment size, and return true.
 template <class T>
 bool RedBlackTree<T>::Insert(T item) {
-
 	return false;
 }
 
@@ -112,7 +104,7 @@ int RedBlackTree<T>::Size() const {
 // Note that an empty tree should have a height of 0, and a tree with only one node will have a height of 1.
 template <class T>
 int RedBlackTree<T>::Height() const {
-	return 1; //CalculateHeight(root);
+	return CalculateHeight(root);
 }
 
 #endif
