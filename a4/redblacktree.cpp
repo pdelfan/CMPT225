@@ -1,4 +1,4 @@
- // File:       redblacktree.cpp
+ // File:        redblacktree.cpp
 // Author:      Pouria Delfanazari, Josh Vocal
 // Date:        2016-02-27
 // Description: Implementation of a RedBlackTree class and template Node class for use with CMPT 225 assignment #4
@@ -37,23 +37,26 @@ void RedBlackTree<T>::RBDeleteFixUp(Node<T>* x, Node<T>* xparent, bool xisleftch
 // Requires a traversal of the tree, O(n)
 template <class T>
 int RedBlackTree<T>::CalculateHeight(Node<T>* node) const {
-
+	if (node == nullptr) {
+		return 0;
+	} else {
+		return 1 + max(CalculateHeight(node->left), CalculateHeight(node->right));
+	}
 }
 
 // default constructor
 template <class T>
 RedBlackTree<T>::RedBlackTree() {
-	//errors
-
 	/*
-	Node<T> leaf = new Node<T>;
-	leaf->left = leaf->right = NULL;
-	leaf->is_black = true;
+	Node<T> nil = new Node<T>;
+	nil->left = nil->right = NULL;
+	nil->is_black = true;
 
 	Node<T> root = new Node<T>;
-	root->left = root->right = leaf;
+	root->left = root->right = nil;
 	root->is_black = true;
 	*/
+	
 }
 
 // copy constructor, performs deep copy of parameter
@@ -82,6 +85,7 @@ RedBlackTree<T>& RedBlackTree<T>::operator=(const RedBlackTree<T>& rbtree) {
 // Otherwise, insert, increment size, and return true.
 template <class T>
 bool RedBlackTree<T>::Insert(T item) {
+
 	return false;
 }
 
@@ -108,7 +112,7 @@ int RedBlackTree<T>::Size() const {
 // Note that an empty tree should have a height of 0, and a tree with only one node will have a height of 1.
 template <class T>
 int RedBlackTree<T>::Height() const {
-	return this->size;	
+	return 1; //CalculateHeight(root);
 }
 
 #endif
