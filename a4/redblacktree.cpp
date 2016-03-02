@@ -18,7 +18,24 @@ using namespace std;
 //   and recurses to create left and right children
 template <class T>
 Node<T>* RedBlackTree<T>::CopyTree(Node<T>* thisnode, Node<T>* sourcenode, Node<T>* parentnode) {
+	//Compiles. Have not tested it. Not sure what "sourcenode's contents" are and what goes in
+	//for sourcenode recursive call.
+	
+	/*
+	//Base Case
+	if (thisnode == nullptr) {
+		return NULL;
+	} else {
+		//Recursive Case
+		Node<T>* newThisNode = thisnode;
+		newThisNode->data = sourcenode->data;
+		newThisNode->p = parentnode;
 
+		newThisNode->left = CopyTree(thisnode->left, NULL, newThisNode);
+		newThisNode->right = CopyTree(thisnode->right, NULL, newThisNode);
+
+		return newThisNode;
+	} */
 }
 
 // recursive helper function for tree deletion
@@ -59,7 +76,7 @@ RedBlackTree<T>::RedBlackTree() {
 // copy constructor, performs deep copy of parameter
 template <class T>
 RedBlackTree<T>::RedBlackTree(const RedBlackTree<T>& rbtree) {
-
+	//root = CopyTree(rbtree.root, NULL, NULL);
 }
 
 // destructor
