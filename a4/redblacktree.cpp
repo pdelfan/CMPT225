@@ -20,6 +20,7 @@ template <class T>
 Node<T>* RedBlackTree<T>::CopyTree(Node<T>* thisnode, Node<T>* sourcenode, Node<T>* parentnode) {
 	//Compiles. Have not tested it. Not sure what "sourcenode's contents" are and what goes in
 	//for sourcenode recursive call.
+	//Pouria: When you call CopyTree, it creates a new tree with thisnode being the root. 
 	
 	/*
 	//Base Case
