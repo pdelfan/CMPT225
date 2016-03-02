@@ -18,7 +18,6 @@ using namespace std;
 //   and recurses to create left and right children
 template <class T>
 Node<T>* RedBlackTree<T>::CopyTree(Node<T>* sourcenode, Node<T>* parentnode) {
-	
 	//Base Case
 	if (sourcenode == nullptr) {
 		return NULL;
@@ -88,6 +87,17 @@ RedBlackTree<T>::~RedBlackTree() {
 // overloaded assignment operator
 template <class T>
 RedBlackTree<T>& RedBlackTree<T>::operator=(const RedBlackTree<T>& rbtree) {
+	//Case 1
+	if (this != &rbtree) {
+		//Case 2
+		if (root != NULL)
+			RemoveAll(root);
+		//Case 3
+		if (rbtree.root == NULL)
+			root = NULL;
+		else
+			CopyTree(rbtree.root, NULL);
+	}
 	return *this;
 }
 
@@ -117,7 +127,7 @@ void RedBlackTree<T>::RemoveAll() {
 // returns the number of items in the tree
 template <class T>
 int RedBlackTree<T>::Size() const {
-	return this->size; 
+	return size; 
 }
 
 // returns the height of the tree, from root to deepest null child. Calls recursive helper function.
