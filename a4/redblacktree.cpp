@@ -122,7 +122,8 @@ bool RedBlackTree<T>::Remove(T item) {
 // deletes all nodes in the tree. Calls recursive helper function.
 template <class T>
 void RedBlackTree<T>::RemoveAll() {
-
+	RemoveAll(root);
+	size = 0;
 }
 
 // returns the number of items in the tree
