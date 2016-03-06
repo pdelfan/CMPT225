@@ -22,7 +22,13 @@ double StockSystem::GetBalance() {
 
 // Add a new SKU to the system. Do not allow insertion of duplicate sku
 bool StockSystem::StockNewItem(StockItem item) {
-	return false;
+	if (records.Search(item) == false) {  	 //search for duplicates, if not found add the item
+		records.Insert(item); 
+	}
+	else {
+		return false; 
+	}
+	return true;				//for the first case (insertion was successful)
 }
 
 // Locate the item with key itemsku and update its description field.
