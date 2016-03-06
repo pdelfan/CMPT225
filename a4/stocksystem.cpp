@@ -34,7 +34,13 @@ bool StockSystem::StockNewItem(StockItem item) {
 // Locate the item with key itemsku and update its description field.
 // Return false if itemsku is not found.
 bool StockSystem::EditStockItemDescription(int itemsku, string desc) {
-	return false;
+	StockItem* item_edit = records.Retrieve(StockItem(itemsku, "", 0));	//find the stock item with the default settings
+	if (item_edit == NULL) {						//not found
+		return false;
+	}
+	item_edit->SetDescription(desc); 					//found; set the describtion
+	
+	return true;
 }
 
 // Locate the item with key itemsku and update its description field.
