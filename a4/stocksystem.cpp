@@ -28,17 +28,17 @@ bool StockSystem::StockNewItem(StockItem item) {
 	else {
 		return false; 
 	}
-	return true;							//for the first case (insertion was successful)
+	return true;				//for the first case (insertion was successful)
 }
 
 // Locate the item with key itemsku and update its description field.
 // Return false if itemsku is not found.
 bool StockSystem::EditStockItemDescription(int itemsku, string desc) {
-	StockItem *item_edit = records.Retrieve(StockItem(itemsku, "", 0));		//find the stock item with the default settings
-	if (item_edit == NULL) {												//not found
+	StockItem *item_edit = records.Retrieve(StockItem(itemsku, "", 0));	//find the stock item with the default settings
+	if (item_edit == NULL) {						//not found
 		return false;
 	}
-	item_edit->SetDescription(desc); 										//found; set the describtion
+	item_edit->SetDescription(desc); 					//found; set the describtion
 	
 	return true;
 }
@@ -47,10 +47,10 @@ bool StockSystem::EditStockItemDescription(int itemsku, string desc) {
 // Return false if itemsku is not found or retailprice is negative.
 bool StockSystem::EditStockItemPrice(int itemsku, double retailprice) {
 	StockItem *item_price = records.Retrieve(StockItem(itemsku, "", 0));	//find the stock item
-	if (item_price == NULL) {							//not found
+	if (item_price == NULL) {						//not found
 		return false;
 	}
-	item_price->SetPrice(retailprice);		//found; set the price
+	item_price->SetPrice(retailprice);					//found; set the price
 
 	return true;
 }
