@@ -107,10 +107,66 @@ RedBlackTree<T>& RedBlackTree<T>::operator=(const RedBlackTree<T>& rbtree) {
 // Calls BSTInsert and then performs any necessary tree fixing.
 // If item already exists, do not insert and return false.
 // Otherwise, insert, increment size, and return true.
+/*Pouria: it's a combination of https://www.cs.auckland.ac.nz/software/AlgAnim/red_black.html and Geoffrey's algorithm,
+well, mostly from the first one. There's an example on that website that you can go through*/
 template <class T>
-bool RedBlackTree<T>::Insert(T item) {
-	return false;
+bool RedBlackTree<T>::Insert(T item) { 
+    if (Search(item) == false) { 			//checking for duplicates, carry on if not found 
+    Node<T> *x = BSTInsert(item); 			//insert the node like a BST
+    Node<T> *y;
+    x->is_black = false; 				//colour the node to make it a RBT 
+    while (x->p != NULL and x->p->is_black == false) {
+      if (x->p == x->p->p->left) {			//x's parent is on the left --> y is x's uncle
+        y = x->p->p->right;
+        if (y->is_black == false || y == NULL) {
+          x->p->is_black = true;
+          if (y != NULL) {				//case 1
+            y->is_black = true;
+          }
+          x->p->p->is_black = false;
+          x = x->p->p; 					//move x up one level
+        }
+        else {
+          if (x == x->p->right) {			//case 2
+            x = x->p; 					//y is black, move x up a level and rotate from x
+            LeftRotate(x);
+          }
+          x->p->is_black = true; 			//case 3
+          x->p->p->is_black = false;
+          RightRotate(x->p->p);
+        }
+      }
+      else {
+        y = x->p->p->left; 				//same as the first comment, left and right exchanged
+        if (y == NULL || y->is_black == false) {
+          x->p->is_black = true;
+          if (y != NULL) {
+            y->is_black = true;
+          }
+          x->p->p->is_black = false;
+          x = x->p->p;
+        }
+        else {
+          if (x == x->p->left) {			//same as case 2, left and right exchanged 
+            x = x->p;
+            RightRotate(x);
+          }
+          x->p->is_black = true; 
+          x->p->p->is_black = false;
+          LeftRotate(x->p->p);
+        }
+      }
+    }
+    root->is_black = true; 				//colour the root black to make it a RBT
+    size++;
+    return true;
+  }
+  else {
+    return false;
+  }
 }
+
+
 
 // Removal of an item from the tree.
 // Must deallocate deleted node after RBDeleteFixUp returns
