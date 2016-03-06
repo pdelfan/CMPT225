@@ -158,7 +158,7 @@ void RBTreeTest()
 
   RedBlackTree<int> tree2(tree1);
 
-  tree1.RemoveAll();
+  //tree1.RemoveAll();
 
   RedBlackTree<int> tree3;
   tree3.Insert(5);
