@@ -23,7 +23,7 @@ double StockSystem::GetBalance() {
 // Add a new SKU to the system. Do not allow insertion of duplicate sku
 bool StockSystem::StockNewItem(StockItem item) {
 	if (records.Search(item) == false) {  	                        	//search for duplicates, if not found add the item
-		records.Insert(item); 
+		records.Insert(item);
 	}
 	else {
 		return false; 
@@ -61,7 +61,20 @@ bool StockSystem::EditStockItemPrice(int itemsku, double retailprice) {
 // Otherwise, return true and increase the item's on-hand stock by quantity,
 //   and reduce balance by quantity*unitprice.
 bool StockSystem::Restock(int itemsku, int quantity, double unitprice) {
-	return false;
+	StockItem* item_restock = records.Retrieve(StockItem(itemsku, "", 0)); //find the stock item using itemsku
+	int totalcost = quantity*unitprice;
+
+	if (item_restock == NULL ) { //not found
+		return false;
+	}
+	//cases
+	if (quantity < 0 || unitprice < 0 || totalcost > balance || item_restock->GetStock() >= 1000) { 
+		return false;
+	}
+
+	balance -= totalcost;
+	item_restock->SetStock(quantity+item_restock->GetStock()); //stock += quantity
+	return true;
 }
 
 // Sell an item to a customer, if quantity of stock is available and SKU exists.
@@ -69,5 +82,20 @@ bool StockSystem::Restock(int itemsku, int quantity, double unitprice) {
 // If partial stock (less than quantity) available, sell the available stock and return true.
 // If no stock, sku does not exist, or quantity is negative, return false.
 bool StockSystem::Sell(int itemsku, int quantity) {
+	StockItem* item_sell = records.Retrieve(StockItem(itemsku, "", 0));
+	if (item_sell == NULL || quantity < 0) {
+		return false;
+	}
+	if (item_sell->GetStock() > 0) {
+		if (item_sell->GetStock() >= quantity) {
+			balance += quantity*item_sell->GetPrice();
+			item_sell->SetStock(quantity-item_sell->GetStock()); //stock -= quantity
+
+		} else if (item_sell->GetStock() < quantity){
+			balance += item_sell->GetStock()*item_sell->GetPrice();
+			item_sell->SetStock(item_sell->GetStock()-item_sell->GetStock()); //stock -= stock
+		}
+		return true;
+	}
 	return false;
 }
