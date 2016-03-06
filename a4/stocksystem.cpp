@@ -38,9 +38,6 @@ bool StockSystem::EditStockItemDescription(int itemsku, string desc) {
 	if (item_edit == NULL) {												//not found
 		return false;
 	}
-	else {
-		return false; 
-	}
 	item_edit->SetDescription(desc); 										//found; set the describtion
 	
 	return true;
@@ -52,9 +49,6 @@ bool StockSystem::EditStockItemPrice(int itemsku, double retailprice) {
 	StockItem *item_price = records.Retrieve(StockItem(itemsku, "", 0));	//find the stock item
 	if (item_price == NULL) {							//not found
 		return false;
-	}
-	else {
-		return false; 
 	}
 	item_price->SetPrice(retailprice);		//found; set the price
 
