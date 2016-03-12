@@ -107,8 +107,6 @@ RedBlackTree<T>& RedBlackTree<T>::operator=(const RedBlackTree<T>& rbtree) {
 // Calls BSTInsert and then performs any necessary tree fixing.
 // If item already exists, do not insert and return false.
 // Otherwise, insert, increment size, and return true.
-/*Pouria: it's a combination of https://www.cs.auckland.ac.nz/software/AlgAnim/red_black.html and Geoffrey's algorithm,
-well, mostly from the first one. There's an example on that website that you can go through*/
 template <class T>
 bool RedBlackTree<T>::Insert(T item) { 
     if (Search(item) == false) { 			//checking for duplicates, carry on if not found 
