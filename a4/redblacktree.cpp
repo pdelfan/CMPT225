@@ -290,7 +290,8 @@ bool RedBlackTree<T>::Remove(T item) {
       if (y->is_black == true) {
           RBDeleteFixUp(nd, xparent, yIsLeft);
       }
-
+      
+      size--;
       return true;
   }
 }
