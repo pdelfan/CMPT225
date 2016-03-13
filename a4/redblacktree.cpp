@@ -65,7 +65,7 @@ void RedBlackTree<T>::RBDeleteFixUp(Node<T>* x, Node<T>* xparent, bool xisleftch
             }
 
             if (w->left->is_black && w->right->is_black) {
-                w->left->is_black = true;
+                w->is_black = false;
                 x = xparent;
                 xparent = x->p;
                 xisleftchild = (xparent != NULL && x == xparent->left);
@@ -89,7 +89,7 @@ void RedBlackTree<T>::RBDeleteFixUp(Node<T>* x, Node<T>* xparent, bool xisleftch
         }
         else {
             w = xparent->left;
-            if (w->is_black == false) {
+            if (!w->is_black) {
                 w->is_black = true;
                 xparent->is_black = false;
                 RightRotate(xparent);
