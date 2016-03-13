@@ -89,7 +89,7 @@ bool StockSystem::Sell(int itemsku, int quantity) {
 	if (item_sell->GetStock() > 0) {
 		if (item_sell->GetStock() >= quantity) {
 			balance += quantity*item_sell->GetPrice();
-			item_sell->SetStock(quantity-item_sell->GetStock()); //stock -= quantity
+			item_sell->SetStock(item_sell->GetStock()-quantity); //stock -= quantity
 
 		} else if (item_sell->GetStock() < quantity){
 			balance += item_sell->GetStock()*item_sell->GetPrice();
