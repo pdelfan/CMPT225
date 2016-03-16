@@ -28,8 +28,8 @@ Node<T>* RedBlackTree<T>::CopyTree(Node<T>* sourcenode, Node<T>* parentnode) {
         cNode->p = parentnode;
         cNode->is_black = sourcenode->is_black;
         //Recursively copy the left and right subtrees
-        cNode->left = CopyTree(sourcenode->left, cNode->p);
-        cNode->right = CopyTree(sourcenode->right, cNode->p);
+        cNode->left = CopyTree(sourcenode->left, cNode);
+        cNode->right = CopyTree(sourcenode->right, cNode);
 
         return cNode;
     } 
