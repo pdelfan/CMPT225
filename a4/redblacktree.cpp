@@ -145,15 +145,19 @@ RedBlackTree<T>::RedBlackTree() {
 // copy constructor, performs deep copy of parameter
 template <class T>
 RedBlackTree<T>::RedBlackTree(const RedBlackTree<T>& rbtree) {
-    size = rbtree.size;
-    root = CopyTree(rbtree.root, NULL);
+    if (rbtree.root == NULL) {
+        root = NULL;
+    } else {
+        size = rbtree.size;
+        root = CopyTree(rbtree.root, NULL);
+    }
 }
 
 // destructor
 // Must deallocate memory associated with all nodes in tree
 template <class T>
 RedBlackTree<T>::~RedBlackTree() {
-    RemoveAll(root);
+    RemoveAll();
 }
 
 // overloaded assignment operator
