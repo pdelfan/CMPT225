@@ -27,6 +27,7 @@ Node<T>* RedBlackTree<T>::CopyTree(Node<T>* sourcenode, Node<T>* parentnode) {
         Node<T>* cNode = new Node<T>(sourcenode->data);
         cNode->p = parentnode;
         cNode->is_black = sourcenode->is_black;
+
         //Recursively copy the left and right subtrees
         cNode->left = CopyTree(sourcenode->left, cNode);
         cNode->right = CopyTree(sourcenode->right, cNode);
@@ -49,7 +50,6 @@ void RedBlackTree<T>::RemoveAll(Node<T>* node) {
 // Tree fix, performed after removal of a black node
 // Note that the parameter x may be NULL
 /*
-Used this as reference: http://stackoverflow.com/questions/6723488/red-black-tree-deletion-algorithm
 */
 template <class T>
 void RedBlackTree<T>::RBDeleteFixUp(Node<T>* x, Node<T>* xparent, bool xisleftchild) {
@@ -145,12 +145,12 @@ RedBlackTree<T>::RedBlackTree() {
 // copy constructor, performs deep copy of parameter
 template <class T>
 RedBlackTree<T>::RedBlackTree(const RedBlackTree<T>& rbtree) {
-    if (rbtree.root == NULL) {
-        root = NULL;
-    } else {
-        size = rbtree.size;
-        root = CopyTree(rbtree.root, NULL);
-    }
+  if (rbtree.root == NULL) {
+    root = NULL;
+  } else {
+    size = rbtree.size;
+    root = CopyTree(rbtree.root, NULL);
+  }
 }
 
 // destructor
@@ -185,9 +185,11 @@ RedBlackTree<T>& RedBlackTree<T>::operator=(const RedBlackTree<T>& rbtree) {
 template <class T>
 bool RedBlackTree<T>::Insert(T item) { 
     if (Search(item) == false) { 			//checking for duplicates, carry on if not found 
-        Node<T> *x = BSTInsert(item); 			//insert the node like a BST
+        Node<T>* x = new Node<T>(item);			//Create a new node
+        x = BSTInsert(item);                //Set the node to x
+        x->p = NULL;
+        x->is_black = false; 				//colour the node to make it a RBT
         Node<T> *y;
-        x->is_black = false; 				//colour the node to make it a RBT 
         while (x->p != NULL and x->p->is_black == false) {
             if (x->p == x->p->p->left) {			//x's parent is on the left --> y is x's uncle
                 y = x->p->p->right;
