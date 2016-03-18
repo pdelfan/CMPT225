@@ -62,7 +62,7 @@ bool StockSystem::EditStockItemPrice(int itemsku, double retailprice) {
 //   and reduce balance by quantity*unitprice.
 bool StockSystem::Restock(int itemsku, int quantity, double unitprice) {
 	StockItem* item_restock = records.Retrieve(StockItem(itemsku, "", 0)); //find the stock item using itemsku
-	int totalcost = quantity*unitprice;
+	double totalcost = quantity*unitprice;
 
 	if (item_restock == NULL ) { //not found
 		return false;
