@@ -40,17 +40,16 @@ Node<T>* RedBlackTree<T>::CopyTree(Node<T>* sourcenode, Node<T>* parentnode) {
 // deallocates nodes in post-order
 template <class T>
 void RedBlackTree<T>::RemoveAll(Node<T>* node) {
-    if (node != nullptr) {
+    if (node != NULL) {
         RemoveAll(node->left);
         RemoveAll(node->right);
         delete node;
+        node = NULL;
     }
 }
 
 // Tree fix, performed after removal of a black node
 // Note that the parameter x may be NULL
-/*
-*/
 template <class T>
 void RedBlackTree<T>::RBDeleteFixUp(Node<T>* x, Node<T>* xparent, bool xisleftchild) {
     while (x != root && x->is_black) {
@@ -139,17 +138,17 @@ int RedBlackTree<T>::CalculateHeight(Node<T>* node) const {
 template <class T>
 RedBlackTree<T>::RedBlackTree() {
     size = 0;
-    root = nullptr;		
+    root = nullptr  ;		
 }
 
 // copy constructor, performs deep copy of parameter
 template <class T>
 RedBlackTree<T>::RedBlackTree(const RedBlackTree<T>& rbtree) {
-  if (rbtree.root == NULL) {
+  if (rbtree.GetRoot() == NULL) {
     root = NULL;
   } else {
-    size = rbtree.size;
-    root = CopyTree(rbtree.root, NULL);
+    size = rbtree.Size();
+    root = CopyTree(rbtree.GetRoot(), NULL);
   }
 }
 
@@ -169,10 +168,12 @@ RedBlackTree<T>& RedBlackTree<T>::operator=(const RedBlackTree<T>& rbtree) {
         if (root != NULL)
             RemoveAll(root);
         //Case 3
-        if (rbtree.root == NULL)
-            root = NULL;
-        else
-            CopyTree(rbtree.root, NULL);
+        if (rbtree.GetRoot() == NULL) {
+          root = NULL;
+        } else {
+          CopyTree(rbtree.GetRoot(), NULL);
+          size = rbtree.Size();
+        }
     }
     return *this;
 }
@@ -185,8 +186,8 @@ RedBlackTree<T>& RedBlackTree<T>::operator=(const RedBlackTree<T>& rbtree) {
 template <class T>
 bool RedBlackTree<T>::Insert(T item) { 
     if (Search(item) == false) { 			//checking for duplicates, carry on if not found 
-        Node<T>* x = new Node<T>(item);			//Create a new node
-        x = BSTInsert(item);                //Set the node to x
+        Node<T>* x = new Node<T>(item);		//insert the node like a BST
+        x = BSTInsert(item);
         x->p = NULL;
         x->is_black = false; 				//colour the node to make it a RBT
         Node<T> *y;
@@ -297,6 +298,8 @@ bool RedBlackTree<T>::Remove(T item) {
           RBDeleteFixUp(nd, xparent, yIsLeft);
       }
       
+      delete nd;
+      nd = NULL;
       size--;
       return true;
   }
