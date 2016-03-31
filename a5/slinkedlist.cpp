@@ -206,4 +206,22 @@ SLinkedList<T>& SLinkedList<T>::operator=(const SLinkedList<T>& ll) {
 	return *this;
 }
 
+//DELETE BEFORE SUBMITTING
+//Helper functions for printing
+template <class T>
+void SLinkedList<T>::printForward() {
+	if (IsEmpty()) {
+		cout << "List is empty" << endl;
+
+	} else {
+		Node<T>* head = front;
+		cout << "These are the elements contained in the linked list: ";
+		while (head != NULL) {
+			cout << head->data << " ";
+			head = head->next;
+		}
+		cout << endl;
+	}
+} 
+
 #endif
