@@ -130,7 +130,23 @@ T* SLinkedList<T>::Retrieve(T item) {
 // Returns a vector containing the list contents using push_back
 template <class T>
 vector<T> SLinkedList<T>::Dump() const {
-	vector<T> v;
+	vector<T> v; 
+
+	if (front != NULL && size > 0) {
+		Node<T>* temp = front;
+		v.push_back(temp->data); 
+
+		while (temp->next != NULL) {
+			temp = temp->next;
+			v.push_back(temp->data);
+		}
+	}
+
+	/*testing
+
+	for (int i=0; i < size; i++) {
+		cout << " " << v[i];
+	}*/
 	return v;
 }
 
