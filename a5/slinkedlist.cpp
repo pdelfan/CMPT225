@@ -135,13 +135,12 @@ vector<T> SLinkedList<T>::Dump() const {
 	if (front != NULL && size > 0) {
 		Node<T>* temp = front;
 		v.push_back(temp->data); 
-
 		while (temp->next != NULL) {
 			temp = temp->next;
 			v.push_back(temp->data);
 		}
 	}
-
+	
 	/*testing
 
 	for (int i=0; i < size; i++) {
