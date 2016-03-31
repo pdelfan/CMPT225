@@ -24,58 +24,19 @@ class HashTable
 
     // hash function, uses Horner's method
     // Assume input string consists only of lower-case a to z
-    int Hash(string input) const {
-        int hashvalue = 0;
-        for (int i = 0; i < input.length(); i++) {
-            int asc = input[i] - 96;
-            hashvalue = (hashvalue*32 + asc) % maxsize;
-        }
-        return hashvalue;
-    }
+    int Hash(string input) const;
 
     // helper function to find smallest prime number greater than supplied parameter
-    int SmallestPrime(int n) const {
-        //Check if n + 1 is a prime number. If not, increment by 1 until a prime is found.
-        int i = n + 1;
-        while (1) {
-            if (IsPrime(i)) {
-                return i;
-            } else {
-                i++;
-            }
-        }
-    }
+    int SmallestPrime(int n) const;
 
     // helper function to determine whether a number is prime
-    bool IsPrime(int n) const {
-        //Brute Force. Divide n by every number less than n and greater than 2
-        // and check if it evenly divides.
-        bool isPrime = true;
-        for (int i = 2; i < n; i++) {
-            if (n % i == 0) {
-                isPrime = false;
-                return isPrime;
-            }
-        }
-        return isPrime;
-    }
+    bool IsPrime(int n) const;
 
     // Resizes the hashtable into a larger array.
     // Return false if n is smaller than current array size or if n is negative.
     // Else, set array size to the smallest prime number larger than n
     //   and re-hash all contents into the new array, delete the old array and return true.
-    bool Resize(int n) {
-        if (n < maxsize || n < 0) {
-            return false;
-        } else {
-            maxsize = SmallestPrime(n);
-            //re-hash all contents into the new array
-
-
-
-            return true;
-        } 
-    }
+    bool Resize(int n);
 
     // write your own private member functions in the following file
     #include "hashtableprivate.h"
