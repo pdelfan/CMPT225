@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <string>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
@@ -97,6 +98,9 @@ class SLinkedList
     // list2 = list1 -> general case
     // list2 = list2 -> should do nothing
     SLinkedList& operator=(const SLinkedList& ll);
+
+    //DELETE BEFORE SUBMITTING
+    void printForward();
 };
 
 #include "slinkedlist.cpp"
