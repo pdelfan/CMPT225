@@ -15,17 +15,17 @@ using namespace std;
 
 // forward function declarations
 void PrintMenu(bool loginstatus, int ulevel);
-//void LLTest();
-//void HTTest();
+void LLTest();
+void HTTest();
 
 // program entry point
 
 int main()
 {
   cout << "Entering linked list test..." << endl;
-  //LLTest();
+  LLTest();
   cout << "Entering hash table test..." << endl;
-  //HTTest();
+  HTTest();
   cout << endl;
 
   int choice = 0;
@@ -253,3 +253,32 @@ void PrintMenu(bool loginstatus, int ulevel)
   }
 }
 
+void LLTest()
+{
+  SLinkedList<int> lla;
+  lla.Contains(5);
+  vector<int> v1 = lla.Dump();
+  lla.InsertBack(2);
+  lla.InsertFront(1);
+  lla.IsEmpty();
+  lla.Remove(3);
+  lla.Retrieve(1);
+  lla.Size();
+  SLinkedList<int> llb(lla);
+  SLinkedList<int> llc = lla;
+}
+
+void HTTest()
+{
+  HashTable ht1;
+  HashTable ht2(10);
+  ht1.Size();
+  ht1.MaxSize();
+  ht1.ListAt(0);
+  ht1.LoadFactor();
+  ht1.Insert(UserAccount("admin", ADMIN_));
+  ht1.Remove(UserAccount("bob", REGULAR_));
+  ht1.Retrieve(UserAccount("bob", REGULAR_));
+  ht1.Search(UserAccount("bob", ADMIN_));
+  HashTable ht3 = ht1;
+}

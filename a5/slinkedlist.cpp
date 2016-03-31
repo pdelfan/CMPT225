@@ -85,13 +85,14 @@ bool SLinkedList<T>::Contains(T item) const {
 // Returns a pointer to the in-place list item or NULL if item not found
 template <class T>
 T* SLinkedList<T>::Retrieve(T item) {
-
+	return NULL;
 }
 
 // Returns a vector containing the list contents using push_back
 template <class T>
 vector<T> SLinkedList<T>::Dump() const {
-
+	vector<T> v;
+	return v;
 }
 
 // OVERLOADED OPERATORS

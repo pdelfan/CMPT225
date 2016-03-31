@@ -17,28 +17,59 @@
 // default constructor
 // creates an array of size 101
 HashTable::HashTable() {
-	table = new SLinkedList<UserAccount> [101];
+	size = 0;
+	maxsize = 101;
+	table = new SLinkedList<UserAccount>[maxsize]; /*
+	for (int i = 0; i < maxsize; i++) {
+		table[i] = NULL;
+	} */
 }
 
 // parameterized constructor
 // creates an array of size = smallest prime number > 2n
-HashTable::HashTable(int n) {
-	
+HashTable::HashTable(int n) { 
+	size = 0;
+	maxsize = SmallestPrime(2*n);
+	table = new SLinkedList<UserAccount>[maxsize]; /*
+	for (int i = 0; i < maxsize: i++) {
+		table[i] = NULL;
+	} */
 }
 
 // copy constructor
 // Creates deep copy of sourceht
-HashTable::HashTable(const HashTable& sourceht) {
+HashTable::HashTable(const HashTable& sourceht) { 
+	size = sourceht.size;
+	maxsize = sourceht.maxsize;
+	table = new SLinkedList<UserAccount>[maxsize]; /*
 
+	*Copy the table.sourceht[i] to table[i]
+	for (int i = 0; i < maxsize; i++) {
+		table[i] = sourceht.table[i];
+	}
+	*Copy the seperate chaining */
 }
 
 // destructor
-HashTable::~HashTable() {
-
+HashTable::~HashTable() { /* Need to delete seperate chaining somehow.
+	for (int i = 0; i < maxsize; i++) { 
+		Node* temp = table[i];
+		while (temp != NULL) {
+			Node* next = temp->next;
+			delete temp;
+			temp = next;
+		}
+	}
+	size = 0;
+	delete[] table; */
 }
 
 // overloaded assignment operator
-HashTable& HashTable::operator=(const HashTable& sourceht) {
+HashTable& HashTable::operator=(const HashTable& sourceht) { /*
+	if (this != &sourceht) {
+		~HashTable();
+		HashTable(sourceht);
+	} */
 	return *this;
 }
 
@@ -69,7 +100,8 @@ bool HashTable::Search(UserAccount acct) const {
 // Returns a pointer to a UserAccount object inside the hash table (linked list)
 //   if a matching parameter is found, otherwise return NULL
 UserAccount* HashTable::Retrieve(UserAccount acct) {
-	return NULL;
+	UserAccount* someAccount;
+	return someAccount;
 }
 
 // Returns the number of items stored in the hash table
