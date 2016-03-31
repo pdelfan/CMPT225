@@ -11,17 +11,10 @@
 
 #include "slinkedlist.h"
 
-// default constructor
+// helper function for deep copy
+// Used by copy constructor and operator=
 template <class T>
-SLinkedList<T>::SLinkedList() {
-    front = NULL;
-    back = NULL;
-    size = 0;
-}
-
-// copy constructor, performs deep copy of list elements
-template <class T>
-SLinkedList<T>::SLinkedList(const SLinkedList& ll) {
+void SLinkedList<T>::CopyList(const SLinkedList& ll) {
 	Node<T>* current = ll.front;
 	if (current == NULL) {
 		front = NULL;
@@ -36,10 +29,31 @@ SLinkedList<T>::SLinkedList(const SLinkedList& ll) {
 	}
 }
 
+// helper function for deep delete
+// Used by destructor and copy/assignment
+template <class T>
+void SLinkedList<T>::DeleteList() {
+	RemoveAll();
+}
+
+// default constructor
+template <class T>
+SLinkedList<T>::SLinkedList() {
+    front = NULL;
+    back = NULL;
+    size = 0;
+}
+
+// copy constructor, performs deep copy of list elements
+template <class T>
+SLinkedList<T>::SLinkedList(const SLinkedList& ll) {
+	CopyList(ll);
+}
+
 // destructor
 template <class T>
 SLinkedList<T>::~SLinkedList() {
-	RemoveAll();
+	DeleteList();
 }
 
 // MUTATORS
@@ -121,6 +135,7 @@ void SLinkedList<T>::RemoveAll() {
 		current = next;
 	}
 	front = NULL;
+	back = NULL;
 }
 
 // ACCESSORS
@@ -184,8 +199,8 @@ vector<T> SLinkedList<T>::Dump() const {
 template <class T>
 SLinkedList<T>& SLinkedList<T>::operator=(const SLinkedList<T>& ll) {
 	if (this != &ll) {
-		~SLinkedList();
-		SLinkedList(ll);
+		DeleteList();
+		CopyList(ll);
 		size = ll.size;
 	}
 	return *this;
