@@ -81,7 +81,7 @@ void SLinkedList<T>::InsertBack(T item) {
 // Removes and returns true if found, otherwise returns false if parameter is not found or list is empty
 template <class T>
 bool SLinkedList<T>::Remove(T item) {
-	if(Contains(item) == false){	//node not found
+	if(Contains(item) == false) {	//node not found
 	return false;
 	}
 
@@ -89,20 +89,20 @@ bool SLinkedList<T>::Remove(T item) {
 	Node<T>*temp2; 					//for case 2
 	temp = front;
 
-	while(temp!=NULL){
-		if(temp->data == item){          		
-			if(temp == front){		// node is in front
+	while(temp!=NULL) {
+		if(temp->data == item) {          		
+			if(temp == front) {		// node is in front
 				front = temp->next;
 				delete temp;
 				size--;
 				return true;
-			}else{					//node is in [1] to [n-1]
+			}else {					//node is in [1] to [n-1]
 				temp2->next = temp->next;
 				delete temp;
 				size--;
 				return true;
 			}
-		}else{						//node not found at the current location, move forward
+		}else {						//node not found at the current location, move forward
 			temp2 = temp;
 			temp = temp->next;
 		}
