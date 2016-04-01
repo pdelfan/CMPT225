@@ -166,7 +166,17 @@ bool SLinkedList<T>::Contains(T item) const {
 // Returns a pointer to the in-place list item or NULL if item not found
 template <class T>
 T* SLinkedList<T>::Retrieve(T item) {
-	return NULL;
+	/* Returns the proper pointer,
+	but get an error of warning: control may reach end of non-void function [-Wreturn-type]
+	if (!Contains(item)) {
+		return NULL;
+	} else {
+		for (Node<T>* current = front; current != NULL; current = current->next) {
+			if (current->data == item) {
+				return &(current->data);
+			}
+		}
+	} */
 }
 
 // Returns a vector containing the list contents using push_back
