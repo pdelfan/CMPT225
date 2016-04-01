@@ -61,6 +61,7 @@ bool HashTable::Resize(int n) {
         return false;
     } else {
         maxsize = SmallestPrime(n);
+        size = n;
         //re-hash all contents into the new array
 
 
@@ -74,10 +75,7 @@ bool HashTable::Resize(int n) {
 HashTable::HashTable() {
 	size = 0;
 	maxsize = 101;
-	table = new SLinkedList<UserAccount>[maxsize]; /*
-	for (int i = 0; i < maxsize; i++) {
-		table[i] = NULL;
-	} */
+	table = new SLinkedList<UserAccount>[maxsize];
 }
 
 // parameterized constructor
@@ -85,10 +83,7 @@ HashTable::HashTable() {
 HashTable::HashTable(int n) { 
 	size = 0;
 	maxsize = SmallestPrime(2*n);
-	table = new SLinkedList<UserAccount>[maxsize]; /*
-	for (int i = 0; i < maxsize: i++) {
-		table[i] = NULL;
-	} */
+	table = new SLinkedList<UserAccount>[maxsize];
 }
 
 // copy constructor
@@ -96,35 +91,25 @@ HashTable::HashTable(int n) {
 HashTable::HashTable(const HashTable& sourceht) { 
 	size = sourceht.size;
 	maxsize = sourceht.maxsize;
-	table = new SLinkedList<UserAccount>[maxsize]; /*
-
-	*Copy the table.sourceht[i] to table[i]
+	table = new SLinkedList<UserAccount>[maxsize];
 	for (int i = 0; i < maxsize; i++) {
 		table[i] = sourceht.table[i];
 	}
-	*Copy the seperate chaining */
 }
 
 // destructor
-HashTable::~HashTable() { /* Need to delete seperate chaining somehow.
-	for (int i = 0; i < maxsize; i++) { 
-		Node* temp = table[i];
-		while (temp != NULL) {
-			Node* next = temp->next;
-			delete temp;
-			temp = next;
-		}
-	}
+HashTable::~HashTable() {
+	delete[] table;
 	size = 0;
-	delete[] table; */
 }
 
 // overloaded assignment operator
-HashTable& HashTable::operator=(const HashTable& sourceht) { /*
+HashTable& HashTable::operator=(const HashTable& sourceht) {
 	if (this != &sourceht) {
-		~HashTable();
+		delete[] table;
+		size = 0;
 		HashTable(sourceht);
-	} */
+	}
 	return *this;
 }
 
