@@ -9,8 +9,6 @@
 #include <string>
 #include <vector>
 
-#include "slinkedlist.h"
-
 // helper function for deep copy
 // Used by copy constructor and operator=
 template <class T>
@@ -19,9 +17,11 @@ void SLinkedList<T>::CopyList(const SLinkedList& ll) {
 	if (current == NULL) {
 		front = NULL;
 		back = NULL;
+		size = 0;
 	} else {
 		front = NULL;
 		back = NULL;
+		size = 0;
 		while (current != NULL) {
 			InsertBack(current->data);
 			current = current->next;
@@ -136,6 +136,7 @@ void SLinkedList<T>::RemoveAll() {
 	}
 	front = NULL;
 	back = NULL;
+	size = 0;
 }
 
 // ACCESSORS
@@ -166,17 +167,12 @@ bool SLinkedList<T>::Contains(T item) const {
 // Returns a pointer to the in-place list item or NULL if item not found
 template <class T>
 T* SLinkedList<T>::Retrieve(T item) {
-	/* Returns the proper pointer,
-	but get an error of warning: control may reach end of non-void function [-Wreturn-type]
-	if (!Contains(item)) {
-		return NULL;
-	} else {
-		for (Node<T>* current = front; current != NULL; current = current->next) {
-			if (current->data == item) {
-				return &(current->data);
-			}
+	for (Node<T>* current = front; current != NULL; current = current->next) {
+		if (current->data == item) {
+			return &(current->data);
 		}
-	} */
+	}
+	return NULL;
 }
 
 // Returns a vector containing the list contents using push_back
@@ -192,12 +188,6 @@ vector<T> SLinkedList<T>::Dump() const {
 			v.push_back(temp->data);
 		}
 	}
-	
-	/*testing
-
-	for (int i=0; i < size; i++) {
-		cout << v[i] << " ";
-	}*/
 	return v;
 }
 
@@ -227,11 +217,11 @@ void SLinkedList<T>::printForward() {
 		Node<T>* head = front;
 		cout << "These are the elements contained in the linked list: ";
 		while (head != NULL) {
-			cout << head->data << " ";
+			cout << head->data << " has an address of: " << &(head->data) << " " << endl;
 			head = head->next;
 		}
 		cout << endl;
 	}
-} 
+}
 
 #endif
