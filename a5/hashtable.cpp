@@ -59,12 +59,16 @@ bool HashTable::Resize(int n) {
     if (n < maxsize || n < 0) {
         return false;
     } else {
+    	int old_size = maxsize;
+    	SLinkedList<UserAccount>* old_table = table;
         maxsize = SmallestPrime(n);
+        table = new SLinkedList<UserAccount>[maxsize];
         size = n;
         //re-hash all contents into the new array
-
-
-
+        for (int i = 0; i < old_size; i++) {
+        	table[i] = old_table[i];
+        }
+        delete[] old_table;
         return true;
     } 
 }
