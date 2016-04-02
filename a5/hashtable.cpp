@@ -120,12 +120,44 @@ HashTable& HashTable::operator=(const HashTable& sourceht) {
 //   table of smallest prime number size at least double the present table size
 //   and then insert the item.
 bool HashTable::Insert(UserAccount acct) {
-	int index = Hash(acct.GetUsername());
+	    /*
+        old version
+        int index = Hash(acct.GetUsername());
         table[index].InsertBack(acct);
         cout << "\ninserted";
         return true;
-        
-        //doesn't handle the other cases
+        */
+
+    if (Search(acct) == true) {       //user already exists
+        return false;
+    }
+
+    else {                          //user not found, insert
+        size++; 
+        int arrayindex = Hash(acct.GetUsername());
+        if (table[arrayindex].IsEmpty()) {          //index is empty, create new linked list
+            SLinkedList<UserAccount> new_account;  
+            new_account.InsertBack(acct);
+            table[arrayindex] = new_account; 
+            return true; 
+        }else { 
+            table[arrayindex].InsertBack(acct);     //slot is full, use separate chaining, insert at the back
+            return true; 
+        }
+
+        /* load factor is above 2/3
+
+        else {  
+            Use Resize()...
+
+            SLinkedList<UserAccount> new_account;  
+            new_account.InsertBack(acct);
+            table[arrayindex] = new_account; 
+            return true;
+        }*/
+    }
+    
+    return false;
 }
 
 // Removal
