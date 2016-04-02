@@ -6,7 +6,7 @@
 
 #include "hashtable.h"
 #include "hashtableprivate.h"
-
+#include <iostream>
 #include <cstdlib>
 #include <math.h> // needed for Hash function
 #include <string>
@@ -120,7 +120,12 @@ HashTable& HashTable::operator=(const HashTable& sourceht) {
 //   table of smallest prime number size at least double the present table size
 //   and then insert the item.
 bool HashTable::Insert(UserAccount acct) {
-	return false;
+	int index = Hash(acct.GetUsername());
+        table[index].InsertBack(acct);
+        cout << "\ninserted";
+        return true;
+        
+        //doesn't handle the other cases
 }
 
 // Removal
@@ -133,7 +138,16 @@ bool HashTable::Remove(UserAccount acct) {
 // Search
 // Returns true if item exists, false otherwise
 bool HashTable::Search(UserAccount acct) const {
-	return false;
+    int index = Hash(acct.GetUsername());
+    bool found = table[index].Contains(acct);
+    if (found == true){
+        cout << "\nuser found";
+        return true;
+    }
+        cout << "\nnot found";
+        return false;
+        
+        //doesn't handle the other cases
 }
 
 // Retrieval
