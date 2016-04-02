@@ -134,25 +134,25 @@ bool HashTable::Insert(UserAccount acct) {
 
     else {                          //user not found, insert
         size++; 
-        int arrayindex = Hash(acct.GetUsername());
-        if (table[arrayindex].IsEmpty()) {          //index is empty, create new linked list
+        int index = Hash(acct.GetUsername());
+        if (table[index].IsEmpty()) {          //index is empty, create new linked list
             SLinkedList<UserAccount> new_account;  
             new_account.InsertBack(acct);
-            table[arrayindex] = new_account; 
+            table[index] = new_account; 
             return true; 
         }else { 
-            table[arrayindex].InsertBack(acct);     //slot is full, use separate chaining, insert at the back
+            table[index].InsertBack(acct);     //slot is full, use separate chaining, insert at the back
             return true; 
         }
 
         /* load factor is above 2/3
 
         else {  
-            Use Resize()...
+            Use resize...
 
             SLinkedList<UserAccount> new_account;  
             new_account.InsertBack(acct);
-            table[arrayindex] = new_account; 
+            table[index] = new_account; 
             return true;
         }*/
     }
@@ -186,8 +186,10 @@ bool HashTable::Search(UserAccount acct) const {
 // Returns a pointer to a UserAccount object inside the hash table (linked list)
 //   if a matching parameter is found, otherwise return NULL
 UserAccount* HashTable::Retrieve(UserAccount acct) {
-	UserAccount* someAccount;
-	return someAccount;
+    int index = Hash(acct.GetUsername());
+    SLinkedList<UserAccount> account = table[index];
+    UserAccount *user = account.Retrieve(acct);
+    return user;
 }
 
 // Returns the number of items stored in the hash table
