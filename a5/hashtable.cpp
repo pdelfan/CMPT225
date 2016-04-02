@@ -110,8 +110,8 @@ HashTable::~HashTable() {
 HashTable& HashTable::operator=(const HashTable& sourceht) {
 	if (this != &sourceht) {
 		delete[] table;
-		size = 0;
 		HashTable(sourceht);
+		size = sourceht.Size();
 	}
 	return *this;
 }
