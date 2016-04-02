@@ -6,7 +6,6 @@
 
 #include "hashtable.h"
 #include "hashtableprivate.h"
-#include <iostream>
 #include <cstdlib>
 #include <math.h> // needed for Hash function
 #include <string>
@@ -173,13 +172,9 @@ bool HashTable::Search(UserAccount acct) const {
     int index = Hash(acct.GetUsername());
     bool found = table[index].Contains(acct);
     if (found == true){
-        cout << "\nuser found";
         return true;
     }
-        cout << "\nnot found";
-        return false;
-        
-        //doesn't handle the other cases
+        return false;	//not found
 }
 
 // Retrieval
