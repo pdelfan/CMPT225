@@ -204,5 +204,5 @@ int HashTable::MaxSize() const {
 // Returns the load factor as size / maxsize.
 // Note that due to separate chaining, load factor can be > 1.
 double HashTable::LoadFactor() const {
-	return (size/maxsize);
+	return (size/(double)maxsize);
 }
