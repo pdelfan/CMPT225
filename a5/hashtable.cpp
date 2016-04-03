@@ -152,7 +152,15 @@ bool HashTable::Insert(UserAccount acct) {
 // If item exists, removes and returns true
 //   otherwise returns false
 bool HashTable::Remove(UserAccount acct) {
-	return false;
+	//Not sure if these are all the cases
+	if (Search(acct) == false) {
+		return false;
+	} else {
+		int index = Hash(acct.GetUsername());
+		table[index].Remove(acct);
+		size--;
+		return true;
+	}
 }
 
 // Search
