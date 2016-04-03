@@ -63,7 +63,6 @@ bool HashTable::Resize(int n) {
     	SLinkedList<UserAccount>* old_table = table;
         maxsize = SmallestPrime(n);
         table = new SLinkedList<UserAccount>[maxsize];
-        size = n;
         //re-hash all contents into the new array
         for (int i = 0; i < old_size; i++) {
         	table[i] = old_table[i];
@@ -110,6 +109,7 @@ HashTable::~HashTable() {
 HashTable& HashTable::operator=(const HashTable& sourceht) {
 	if (this != &sourceht) {
 		delete[] table;
+		//size = 0;
 		HashTable(sourceht);
 		size = sourceht.Size();
 	}
@@ -123,44 +123,29 @@ HashTable& HashTable::operator=(const HashTable& sourceht) {
 //   table of smallest prime number size at least double the present table size
 //   and then insert the item.
 bool HashTable::Insert(UserAccount acct) {
-	    /*
-        old version
-        int index = Hash(acct.GetUsername());
-        table[index].InsertBack(acct);
-        cout << "\ninserted";
-        return true;
-        */
-
     if (Search(acct) == true) {       //user already exists
         return false;
-    }
-
-    else {                          //user not found, insert
-        size++; 
-        int index = Hash(acct.GetUsername());
-        if (table[index].IsEmpty()) {          //index is empty, create new linked list
+    } else {
+        int index = Hash(acct.GetUsername()); //user not found, insert
+        if (table[index].IsEmpty()) {          //case 1: index is empty, create new linked list
             SLinkedList<UserAccount> new_account;  
             new_account.InsertBack(acct);
             table[index] = new_account; 
-            return true; 
         }else { 
-            table[index].InsertBack(acct);     //slot is full, use separate chaining, insert at the back
-            return true; 
+        	//slot is full, use separate chaining, insert at the back
+        	//case 2: 
+        	if (LoadFactor() >= 2/3.00) { //int/double to compare against double
+        		Resize(maxsize);
+        		index = Hash(acct.GetUsername()); //hash according to the new maxsize
+        		table[index].InsertBack(acct);
+        	} else {
+        		//case 3:
+        		table[index].InsertBack(acct);
+        	}
         }
-
-        /* load factor is above 2/3
-
-        else {  
-            Use resize...
-
-            SLinkedList<UserAccount> new_account;  
-            new_account.InsertBack(acct);
-            table[index] = new_account; 
-            return true;
-        }*/
+        size++; 
+        return true; //return true for all insert cases
     }
-    
-    return false;
 }
 
 // Removal
