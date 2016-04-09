@@ -15,7 +15,7 @@
 
 // hash function, uses Horner's method
 // Assume input string consists only of lower-case a to z
-int HashTable::Hash(string input) const{
+int HashTable::Hash(string input) const {
     int hashvalue = 0;
     for (int i = 0; i < input.length(); i++) {
         int asc = input[i] - 96;
@@ -23,7 +23,7 @@ int HashTable::Hash(string input) const{
     }
     return hashvalue;
 }
-    
+
 // helper function to find smallest prime number greater than supplied parameter
 int HashTable::SmallestPrime(int n) const {
     //Check if n + 1 is a prime number. If not, increment by 1 until a prime is found.
@@ -36,7 +36,7 @@ int HashTable::SmallestPrime(int n) const {
         }
     }
 }
-    
+
 // helper function to determine whether a number is prime
 bool HashTable::IsPrime(int n) const {
     //Brute Force. Divide n by every number less than n and greater than 2
@@ -50,13 +50,13 @@ bool HashTable::IsPrime(int n) const {
     }
     return isPrime;
 }
-    
-    // Resizes the hashtable into a larger array.
-    // Return false if n is smaller than current array size or if n is negative.
-    // Else, set array size to the smallest prime number larger than n
-    //   and re-hash all contents into the new array, delete the old array and return true.
-bool HashTable:: Resize(int n){
-      if (n < maxsize || n < 0) {
+
+// Resizes the hashtable into a larger array.
+// Return false if n is smaller than current array size or if n is negative.
+// Else, set array size to the smallest prime number larger than n
+//   and re-hash all contents into the new array, delete the old array and return true.
+bool HashTable::Resize(int n) {
+    if (n < maxsize || n < 0) {
         return false;
     } else {
         int old_size = maxsize;
@@ -75,8 +75,7 @@ bool HashTable:: Resize(int n){
         return true;
     } 
 }
-    
-  
+
 // default constructor
 // creates an array of size 101
 HashTable::HashTable() {
@@ -84,34 +83,34 @@ HashTable::HashTable() {
     maxsize = 101;
     table = new SLinkedList<UserAccount>[maxsize];
 }
-    
+
 // parameterized constructor
 // creates an array of size = smallest prime number > 2n
-HashTable:: HashTable(int n){
+HashTable::HashTable(int n) { 
     size = 0;
     maxsize = SmallestPrime(2*n);
     table = new SLinkedList<UserAccount>[maxsize];
 }
-    
-    // copy constructor
-    // Creates deep copy of sourceht
-HashTable:: HashTable(const HashTable& sourceht){
-size = sourceht.size;
+
+// copy constructor
+// Creates deep copy of sourceht
+HashTable::HashTable(const HashTable& sourceht) { 
+    size = sourceht.size;
     maxsize = sourceht.maxsize;
     table = new SLinkedList<UserAccount>[maxsize];
     for (int i = 0; i < maxsize; i++) {
         table[i] = sourceht.table[i];
     }
 }
-    
-    // destructor
-HashTable::~HashTable(){
+
+// destructor
+HashTable::~HashTable() {
     delete[] table;
     size = 0;
 }
-    
-    // overloaded assignment operator
-HashTable& HashTable::operator=(const HashTable& sourceht){
+
+// overloaded assignment operator
+HashTable& HashTable::operator=(const HashTable& sourceht) {
     if (this != &sourceht) {
         delete[] table;
         size = sourceht.Size();
@@ -123,15 +122,15 @@ HashTable& HashTable::operator=(const HashTable& sourceht){
     }
     return *this;
 }
-    
-    // Insertion
-    // If item does not already exist, inserts at back of hashed list and returns true
-    //   otherwise returns false
-    // If load factor (before insertion) is above 2/3, expand into a new
-    //   table of smallest prime number size at least double the present table size
-    //   and then insert the item.
-bool HashTable::Insert(UserAccount acct){
-       if (Search(acct) == true) {       //user already exists
+
+// Insertion
+// If item does not already exist, inserts at back of hashed list and returns true
+//   otherwise returns false
+// If load factor (before insertion) is above 2/3, expand into a new
+//   table of smallest prime number size at least double the present table size
+//   and then insert the item.
+bool HashTable::Insert(UserAccount acct) {
+    if (Search(acct) == true) {       //user already exists
         return false;
     } else {
         int index = Hash(acct.GetUsername()); //user not found, insert
@@ -149,13 +148,14 @@ bool HashTable::Insert(UserAccount acct){
         size++; 
         return true; //return true for all insert cases
     }
+ 
 }
-    
-    // Removal
-    // If item exists, removes and returns true
-    //   otherwise returns false
-bool HashTable::Remove(UserAccount acct){
- if (Search(acct) == false) {
+
+// Removal
+// If item exists, removes and returns true
+//   otherwise returns false
+bool HashTable::Remove(UserAccount acct) {
+    if (Search(acct) == false) {
         return false;
     } else {
         int index = Hash(acct.GetUsername());
@@ -165,44 +165,39 @@ bool HashTable::Remove(UserAccount acct){
     }
 }
 
-    // Search
-    // Returns true if item exists, false otherwise
-bool HashTable::Search(UserAccount acct) const{
-        int index = Hash(acct.GetUsername());
+// Search
+// Returns true if item exists, false otherwise
+bool HashTable::Search(UserAccount acct) const {
+    int index = Hash(acct.GetUsername());
     bool found = table[index].Contains(acct);
     if (found == true){
         return true;
     }
         return false;   //not found
 }
-    
-    // Retrieval
-    // Returns a pointer to a UserAccount object inside the hash table (linked list)
-    //   if a matching parameter is found, otherwise return NULL
-UserAccount* HashTable::Retrieve(UserAccount acct){
+
+// Retrieval
+// Returns a pointer to a UserAccount object inside the hash table (linked list)
+//   if a matching parameter is found, otherwise return NULL
+UserAccount* HashTable::Retrieve(UserAccount acct) {
     int index = Hash(acct.GetUsername());
     SLinkedList<UserAccount> account = table[index];
     UserAccount *user = account.Retrieve(acct);
     return user;
 }
-    
-    // Returns the number of items stored in the hash table
-int HashTable::Size() const{
+
+// Returns the number of items stored in the hash table
+int HashTable::Size() const {
     return size;
 }
-    
-    // Returns the size of the underlying array
-int HashTable::MaxSize() const{
+
+// Returns the size of the underlying array
+int HashTable::MaxSize() const {
     return maxsize;
 }
-    
-    // Returns the load factor as size / maxsize.
-    // Note that due to separate chaining, load factor can be > 1.
-double HashTable::LoadFactor() const{
-    return (double(size)/double(maxsize));
+
+// Returns the load factor as size / maxsize.
+// Note that due to separate chaining, load factor can be > 1.
+double HashTable::LoadFactor() const {
+    return (size/(double)maxsize);
 }
-    
-    // Returns a pointer to the linked list at index i
-    // This will be used for grading.
-    // Typically hash tables will not provide access to individual chains.
-    //SLinkedList<UserAccount>* ListAt(int i)
